@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关于UE4的一些随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unreal随笔">
+<meta property="og:url" content="http://example.com/2021/08/19/UnrealStudy/Unreal%E9%9A%8F%E7%AC%94/index.html">
+<meta property="og:site_name" content="XiMo">
+<meta property="og:description" content="关于UE4的一些随笔">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-13T16:00:00.000Z">
+<meta property="article:author" content="VisionXie">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Unreal">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/08/19/UnrealStudy/Unreal%E9%9A%8F%E7%AC%94/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Unreal随笔 | XiMo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XiMo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">醉后不知天在水，满船清梦压星河。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>All<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/UnrealStudy/Unreal%E9%9A%8F%E7%AC%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="VisionXie">
+      <meta itemprop="description" content="生活在树上，始终热爱大地，升入天空。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiMo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Unreal随笔
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-20T00:00:00+08:00">2021-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-14 00:00:00" itemprop="dateModified" datetime="2021-11-14T00:00:00+08:00">2021-11-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UnrealEngine/" itemprop="url" rel="index"><span itemprop="name">UnrealEngine</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2021/08/19/UnrealStudy/Unreal%E9%9A%8F%E7%AC%94/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/08/19/UnrealStudy/Unreal随笔/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关于UE4的一些随笔</p>
+<span id="more"></span>
+
+<h3 id="Actor的EndPlay事件在哪些时候会调用？"><a href="#Actor的EndPlay事件在哪些时候会调用？" class="headerlink" title="Actor的EndPlay事件在哪些时候会调用？"></a>Actor的EndPlay事件在哪些时候会调用？</h3><p>EndPlay - 在数个地方调用，保证 Actor 的生命走向终点。在游戏过程中，如包含流关卡的<br>Actor 被卸载，Destroy 将发射此项和关卡过渡。调用 EndPlay 的全部情形：<br>   （1）对 Destroy 显式调用<br>   （2）Play in Editor 终结<br>   （3）关卡过渡（无缝行程或加载地图） 包含 Actor 的流关卡被卸载<br>   （4）Actor 的生命期已过<br>   （5）应用程序关闭（全部 Actor 被销毁）</p>
+<h3 id="BlueprintImplementableEvent和BlueprintNativeEvent之间有什么区别？"><a href="#BlueprintImplementableEvent和BlueprintNativeEvent之间有什么区别？" class="headerlink" title="BlueprintImplementableEvent和BlueprintNativeEvent之间有什么区别？"></a>BlueprintImplementableEvent和BlueprintNativeEvent之间有什么区别？</h3><p>BlueprintImplementableEvent和BluuprintNativeEvent两者都是函数标记，用于修饰<br>函数的。</p>
+<p>BlueprintImplementableEvent：在C++可以声明函数（不能定义，蓝图重写），<br> 在C++里调用该函数，蓝图重写实现该函数</p>
+<p>BlueprintNativeEvent：在C++可以声明和定义函数，在C++里调用该函数，蓝图重写<br> 实现该函数（蓝图可以重写或不重写C++父类函数）<br>使用方法:<br>UFUNCTION(BlueprintImplementableEvent) void TestA();<br>UFUNCTION(BlueprintNativeEvent) void TestB();</p>
+<h3 id="BlurprintPure在什么时候使用？"><a href="#BlurprintPure在什么时候使用？" class="headerlink" title="BlurprintPure在什么时候使用？"></a>BlurprintPure在什么时候使用？</h3><p>BlueprintPure的特点是在C++和蓝图中都可以调用，但是其修饰的函数必须有函数返回值或<br>函数参数输出，否则会编译失败。被声明的函数不会以任何方式拥有对象，并且可以在蓝图<br>或级别蓝图图标中执行。<br>因此，BlueprintPurs修饰的函数，主要用于（1）数学中的“+、-、*、/”操作  （数值处理），<br>（2）变量获取节点（获取变量中的部分数据）</p>
+<h3 id="UE4的蓝图中对于Foreach等循环采用的是类似并行的方式，试实现一个串行的方法"><a href="#UE4的蓝图中对于Foreach等循环采用的是类似并行的方式，试实现一个串行的方法" class="headerlink" title="UE4的蓝图中对于Foreach等循环采用的是类似并行的方式，试实现一个串行的方法"></a>UE4的蓝图中对于Foreach等循环采用的是类似并行的方式，试实现一个串行的方法</h3><p>首先需要了解并行和串行的区别。<br>并行通讯：同一时刻，可以一次性执行多步。<br>串行通讯：同一时刻，只能一步一步的执行。<br>for(int i=0;i&lt;10;i++);//所以我自己写个循环，不开多线程应该就可以了吧。毕竟没有<br>找到标准答案，只能自己猜测了。求大佬，教教我。</p>
+<h3 id="如何解决子弹穿墙问题？"><a href="#如何解决子弹穿墙问题？" class="headerlink" title="如何解决子弹穿墙问题？"></a>如何解决子弹穿墙问题？</h3><p>如果采用的是射线检测的话，LineTracebyChannel函数只会返回首个命中对象。<br>但为了防止真出现子弹穿墙问题，<br>我们可以让LineTracebyChannel只要击中一个物体就会停止射线检测。</p>
+<p>如果采用的是为子弹单独制作成一个物体的话，<br>在射击时，只要将墙体和子弹的碰撞属性设为Block,便会阻止子弹继续前进。</p>
+<h3 id="UE4对UStruct的内存会自动管理吗？"><a href="#UE4对UStruct的内存会自动管理吗？" class="headerlink" title="UE4对UStruct的内存会自动管理吗？"></a>UE4对UStruct的内存会自动管理吗？</h3><p>不会，<br>只有使用UPROPERTY宏标记的USTRUCT才能被计入垃圾回收。</p>
+<h3 id="在客户端是否可以获取到AIController？"><a href="#在客户端是否可以获取到AIController？" class="headerlink" title="在客户端是否可以获取到AIController？"></a>在客户端是否可以获取到AIController？</h3><p>不可以，在DS（dedicated server）模型下，AIController只存在于服务端，其主要是通过在服务端对Pawn进行操控，<br>然后再同步到客户端。</p>
+<h3 id="客户端上面能够执行RPC的对象有哪些？"><a href="#客户端上面能够执行RPC的对象有哪些？" class="headerlink" title="客户端上面能够执行RPC的对象有哪些？"></a>客户端上面能够执行RPC的对象有哪些？</h3><p>RPC（远程过程调用），是在本地调用但能在其他机器（不同于执行调用的机器）上远程执行<br>的函数。<br>在客户端上能够执行RPG的对象需要满足：<br>（1）该Actor必须被复制<br>（2）如果RPC是从客户端调用并在服务器上执行，客户端就必须拥有调用RPC的Actor。<br>（3）如果是多播RPC是个例外：<br>当从客户端调用时，只是在本地运行而非服务器上执行。<br><a target="_blank" rel="noopener" href="https://docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/Actors/RPCs/">https://docs.unrealengine.com/4.26/zh-CN/InteractiveExperiences/Networking/Actors/RPCs/</a></p>
+<h3 id="如果在C-中需要使用windows的头文件，如何操作？"><a href="#如果在C-中需要使用windows的头文件，如何操作？" class="headerlink" title="如果在C++中需要使用windows的头文件，如何操作？"></a>如果在C++中需要使用windows的头文件，如何操作？</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> “AllowWindowsPlatformTypes.h”</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> “HideWindowsPlatformTypes.h”</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="在头文件中经常出现的-generated-h是什么？"><a href="#在头文件中经常出现的-generated-h是什么？" class="headerlink" title="在头文件中经常出现的*.generated.h是什么？"></a>在头文件中经常出现的*.generated.h是什么？</h3><p>当一个头文件中 include “xxx.generated.h“，意味着这个头文件加入了反射系统。那些UPROPERTY, UFUNCTION 之类的宏，也标记着这些方法属性等等加入了 UE4 的反射系统，<br>加入了反射系统，UE4 才能帮你做 GC（垃圾回收），你才能实现蓝图、C++ 通信等等很多功能。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Bob__yuan/article/details/106200971">https://blog.csdn.net/Bob__yuan/article/details/106200971</a></p>
+<h3 id="UE4-入门宏"><a href="#UE4-入门宏" class="headerlink" title="UE4 入门宏"></a>UE4 入门宏</h3><p>UE4中的宏Macro，和函数比较相似，都是对一些功能算法进行了封装，都有一个输入点和输出点，调用方法也类似。<br>宏与函数的区别在于：<br>（1）宏是直接展开，即直接将宏的代码直接复制替换到所有使用当前宏的地方，<br>这点类似于c++中的宏，而函数则是需要编译。<br>（2）宏运行时无实体，函数运行时有实体。<br>（3）宏有多个入口Exec多个出口Exec，函数只有一个入口Exec一个出口Exec。<br>（4）宏可以使用Delay,函数不可以使用Delay。<br>（5）宏不可以复制，函数可以复制。<br>（6）宏的参数可以使用“Exec”类型，函数不可以<br>宏的特点：<br>（1）类的成员函数可以被子类继承，但宏不会被继承，子类无法使用父类的宏<br>（2）可以自定义宏库，供所有蓝图使用<br>（3）宏特别适合于制作控制流，如引擎自带的FilpFlop。<br>（4）宏中定义局部变量，只能使用基本数据类型，不能使用类类型。<br>宏 ：执行快，功能更强，但占据空间多，安全性差</p>
+<p>函数：执行较慢，占空间少，安全性高</p>
+<p>个人总结，优先用函数，少用宏</p>
+<h3 id="对一个Actor调用AIMoveTo失败了，其可能原因是什么？"><a href="#对一个Actor调用AIMoveTo失败了，其可能原因是什么？" class="headerlink" title="对一个Actor调用AIMoveTo失败了，其可能原因是什么？"></a>对一个Actor调用AIMoveTo失败了，其可能原因是什么？</h3><p>（1）未放入NavMesh和NavRecast.<br>（2）Nav导航组件设置太大，也可能会导致失效<br>（3）目标点超出Nav导航范围。</p>
+<h3 id="试说出宏、函数、事件的部分区别和联系"><a href="#试说出宏、函数、事件的部分区别和联系" class="headerlink" title="试说出宏、函数、事件的部分区别和联系"></a>试说出宏、函数、事件的部分区别和联系</h3><p>函数与事件的区别：<br>1、函数有返回值，事件无返回值<br>2、函数调用会等待函数执行结果，事件调用只是触发但不会等待。<br>3、函数执行在同一个线程，事件执行在不同线程。<br>4、函数可以用局部变量，事件没有局部变量。<br>5、因为函数执行顺序有保证，所以优先使用函数<br>6、没有返回值的函数，在被子类Overide时，会变成事件。<br>宏与函数的区别在于：<br>（1）宏是直接展开，即直接将宏的代码直接复制替换到所有使用当前宏的地方，<br>这点类似于c++中的宏，而函数则是需要编译。<br>（2）宏运行时无实体，函数运行时有实体。<br>（3）宏有多个入口Exec多个出口Exec，函数只有一个入口Exec一个出口Exec。<br>（4）宏可以使用Delay,函数不可以使用Delay。<br>（5）宏不可以复制，函数可以复制。<br>（6）宏的参数可以使用“Exec”类型，函数不可以</p>
+<h3 id="试使用C-实现一个对蓝图中任意Actor排序的框架"><a href="#试使用C-实现一个对蓝图中任意Actor排序的框架" class="headerlink" title="试使用C++实现一个对蓝图中任意Actor排序的框架"></a>试使用C++实现一个对蓝图中任意Actor排序的框架</h3><p>（1）创建蓝图宏库，鼠标右键-&gt;Blueprints-&gt;Blueprint Macro Library -&gt;<br>All Classes-&gt;Object，以UObject作为蓝图宏库的基类。<br>（2）My Blueprint窗口，Add New创建二个宏Select Sort、Bubble Sort；<br>（3）实现代码逻辑<br>Description：<br>选择排序(详情请查阅选择排序方法)<br>bGreater=( Array[min] &gt;Array[i] ) ? true : false;<br>将Array[min]与Array[i]成员的大小比较结果连接上bGreater(pin)<br>内部循环根据bGreater(bool)值判断是否交换Array[min]与Array[i]成员位置<br>排序结束，返回有序数组</p>
+<h3 id="Blueprintable和BlueprintType的意义"><a href="#Blueprintable和BlueprintType的意义" class="headerlink" title="Blueprintable和BlueprintType的意义"></a>Blueprintable和BlueprintType的意义</h3><p>Blueprintable:将使用该宏标志的类公开为创建蓝图的可接受基类（类似于：那些base类）。<br>其默认为NotBlueprintable,即不可以创建蓝图子类。</p>
+<p>BlueprintType:将使用该宏标志的类公开为可用于蓝图中变量的类型（类似于：int）。<br>与之对应的有NotBlueprintType，即不可以在蓝图中创建该类型的变量。</p>
+<h3 id="客户端上面对一个Actor中的RPC事件调用失败，可能原因是什么？"><a href="#客户端上面对一个Actor中的RPC事件调用失败，可能原因是什么？" class="headerlink" title="客户端上面对一个Actor中的RPC事件调用失败，可能原因是什么？"></a>客户端上面对一个Actor中的RPC事件调用失败，可能原因是什么？</h3><p>（1）该Actor不可被复制<br>（2）其他的客户端上，未拥有可以调用RPC的Actor。<br>（3）在Pawn派生类的蓝图收到Possessed事件时，Connection-&gt;ViesTarget还未被赋值。</p>
+<h3 id="UE4中的RPC事件有哪些？"><a href="#UE4中的RPC事件有哪些？" class="headerlink" title="UE4中的RPC事件有哪些？"></a>UE4中的RPC事件有哪些？</h3><p>RPC主要包括Multicast（广播）、Run On Server（在服务端执行）和Run On Owning Client<br>（在客户端执行）三种类型。其中广播类型在服务器上调用执行，然后自动转发给客户端；<br>在服务端执行的函数有客户端调用，然后仅在服务器执行。在客户端执行的函数由服务器<br>调用，然后仅在自己的客户端上执行。</p>
+<h3 id="如何设置Actor的同步间隔？"><a href="#如何设置Actor的同步间隔？" class="headerlink" title="如何设置Actor的同步间隔？"></a>如何设置Actor的同步间隔？</h3><p>更改Actor中的：NetUpdateFrequency 网络更新频率属性。</p>
+<h3 id="若需要实现一个多播事件，如何操作？"><a href="#若需要实现一个多播事件，如何操作？" class="headerlink" title="若需要实现一个多播事件，如何操作？"></a>若需要实现一个多播事件，如何操作？</h3><p>不是很理解这个问题问的是网络的多播，还是多播委托。<br>网络的多播：（1）先使用”Switch Has Authority”判断是否在服务器端。然后在事件的<br>Detials中将Replacates设置为Multicast。<br>（2）先创建一个只在服务端运行的事件，然后由该事件去执行播放方法。<br>多播委托：<br>（1）构建动态代理<br>（2）在类内部声明动态代理对象<br>（3）在蓝图中绑定<br>（4）在CPP中执行多播委托。</p>
+<h3 id="连接服务器的命令是什么，如何传递参数？"><a href="#连接服务器的命令是什么，如何传递参数？" class="headerlink" title="连接服务器的命令是什么，如何传递参数？"></a>连接服务器的命令是什么，如何传递参数？</h3><p>连接服务器的命令是Socket-&gt;Connect（<em>addr）；<br>其中的</em>addr是InternetAddr指针，用于传递IP和Port。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39781267/article/details/81745853">https://blog.csdn.net/weixin_39781267/article/details/81745853</a></p>
+<h3 id="为什么需要TWeakPtr？"><a href="#为什么需要TWeakPtr？" class="headerlink" title="为什么需要TWeakPtr？"></a>为什么需要TWeakPtr？</h3><p>TWeakPtr不会参与应用技术，当TWeakPtr指向的对象不存在共享指针指向时，TWeakPtr将<br>自动失效，所以该指针的时候需要有效性判断。用于非UObject类，想要引用它又不想因为引<br>用它而影响引用计数时。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangxiaofan666/article/details/99733735">https://blog.csdn.net/zhangxiaofan666/article/details/99733735</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_38111866/article/details/107712692">https://blog.csdn.net/github_38111866/article/details/107712692</a></p>
+<h3 id="UE4的模块系统"><a href="#UE4的模块系统" class="headerlink" title="UE4的模块系统"></a>UE4的模块系统</h3><p>首先：UE4中模块分为5部分：<br>Developer主要是跨平台工具，Merge和一些底层的工具。<br>Editor主要是编辑器相关的代码<br>Programs主要是独立于引擎，但大多数又依赖引擎的工具，UBT就在这里<br>ThirdParty第三方库或者插件<br>RunTime是主要的Gameplay等等和游戏相关的代码了。<br>UE4模块系统详解<br>UE4中的模块（module）介绍</p>
+<h3 id="简单介绍一下对象系统（UObject类）和类型系统（UClass类）"><a href="#简单介绍一下对象系统（UObject类）和类型系统（UClass类）" class="headerlink" title="简单介绍一下对象系统（UObject类）和类型系统（UClass类）"></a>简单介绍一下对象系统（UObject类）和类型系统（UClass类）</h3><p>UObject类为对象系统的基类。该类的主要作用是存放对象的名字、标记信息<br>（ObjectFlags）、类型信息（ClassPrivate）、Outer对象和在对象管理数组中的索引。<br>UClass类主要用于描述C++中的类信息。在UE4在UClass实例不仅仅用于描述<br>C++(Native)类，也用来描述Blueprint生成的类。<br>UE4对象系统_UObject&amp;UClass</p>
+<h3 id="Core模块包含了哪些基础类"><a href="#Core模块包含了哪些基础类" class="headerlink" title="Core模块包含了哪些基础类"></a>Core模块包含了哪些基础类</h3><p>Core模块下有很多文件夹：<br>Containers 包含各种C++容器类：Array、List、Map、Queue、Set等等<br>Delegates 包含各种代理声明的宏：DECLARE_DELEGATE、DECLARE_MULTICAST_DELEGATE、DECLARE_EVENT等等<br>Logging 包含日志功能类和宏：UE_LOG、ELogVerbosity等等<br>Math 包含各种数学函数和结构：Box、Color、Matrix、Quat、Range、Rotator、<br>Vector、UnrealMath等等<br>【UE4源代码观察】观察Core模块</p>
+<h3 id="RHI模块"><a href="#RHI模块" class="headerlink" title="RHI模块"></a>RHI模块</h3><p>RHI即RenderHardwareInterface, 即渲染硬件接口, 是UE为实现跨平台而实现的一套API.<br>每个RHI接口都为OpenGL, Vulkan, DX11等做了不同的实现. 在引擎初始化时使用的绘图<br>接口就已经确定, 引擎就可以确定RHI所使用接口的版本.<br>【UE4源代码观察】观察 RHI、D3D11RHI、RenderCore 这三个模块的依赖关系</p>
+<h3 id="Engine模块"><a href="#Engine模块" class="headerlink" title="Engine模块"></a>Engine模块</h3><p>Engine模块主要用于定义actor和组件，同时实现了游戏的基本框架。</p>
+<h3 id="UMG-模块"><a href="#UMG-模块" class="headerlink" title="UMG 模块"></a>UMG 模块</h3><p>UMG模块是虚幻运动图形的简称。<br>主要用到以下几种文件：<br> 1、Blueprint（ User Inteface-Blueprint） 也就是常说的UMG，是我们常用的UI工程文件<br> 2、Font（字体资源拖入Content Browser自动生成）字体文件<br> 3、Texture (PNG资源拖进来可以自动生成) 图片资源文件<br> 4、Material 材质文件，可用于UI材质或者mesh材质<br> 5、Actor（Blueprint Class-Actor）可以摆放到场景中的文件类型，用于制作3DUI</p>
+<h3 id="UE4中的类型系统"><a href="#UE4中的类型系统" class="headerlink" title="UE4中的类型系统"></a>UE4中的类型系统</h3><p>UE4的宏可以分为四种：UCLASS、USTRUCT、UFUNCTION、UPROPERTY。<br>其中：</p>
+<ul>
+<li>UCLASS用于修饰类</li>
+<li>USTRUCT用于修饰结构体</li>
+<li>UFUNCTION用于修饰函数</li>
+<li>UPROPERTY用于修饰变量</li>
+</ul>
+<p>29、如果要在游戏的开始和结束执行某些操作，可以在UE4哪儿处理？<br>如果你是指的一个关卡的开始和结束位置执行某些操作的话，可以创建一个Actor专门用于执行<br>这些事件。开始的操作放在BeginPlay中，结束的操作是在EndPlay中。BeginPlay会在关卡开<br>始时调用，EndPlay会在关卡切换的时候调用。注意该Actor不能提前调用Actor的EndPlay。<br>如果是还要开始一些的话，就是LevelActor的Construct()函数。<br>如果是还要晚一些的话，就是LevelActor的BeginPlay()函数。<br>再开始一些的话，就是GameInstance中的Init()函数。</p>
+<h3 id="UE4中，各种字符编码如何转换？"><a href="#UE4中，各种字符编码如何转换？" class="headerlink" title="UE4中，各种字符编码如何转换？"></a>UE4中，各种字符编码如何转换？</h3><p>可以通过以下的五个宏来完成字符编码转换。<br>    TCHAR_TO_ANSI(str)<br>    TCHAR_TO_OEM(str)<br>    ANSI_TO_TCHAR(str)<br>    TCHAR_TO_UTF8(str)//TCHAR转UTF8<br>    UTF8_TO_TCHAR(str)</p>
+<h3 id="C-源文件中的注释在蓝图中显示为乱码，为什么？"><a href="#C-源文件中的注释在蓝图中显示为乱码，为什么？" class="headerlink" title="C++源文件中的注释在蓝图中显示为乱码，为什么？"></a>C++源文件中的注释在蓝图中显示为乱码，为什么？</h3><p>需要将C++源文件的文件编码格式改为UTF-8格式。<br>修改方法，Vs-文件-高级保存选项-utf-8，<br>在VS2017中，需要自定义来显示这个选项:</p>
+<ul>
+<li>1 工具→自定义；</li>
+<li>2 点击 命令 标签；</li>
+<li>3 在上方单选区选中 菜单栏，下拉列表选 文件；</li>
+<li>4 点击 添加命令</li>
+<li>5 在类别中，找到文件，在右侧找到高级保存选项，确定</li>
+</ul>
+<h3 id="插件中的LoadingPhase是什么？"><a href="#插件中的LoadingPhase是什么？" class="headerlink" title="插件中的LoadingPhase是什么？"></a>插件中的LoadingPhase是什么？</h3><p>LoadingPhase主要用于控制插件在引擎启动的何时被加载。<br>有三个选项如下：<br>Default为正常阶段加载该模块。<br>PreDefault为正常阶段前来加载模块。<br>PostConfigInit为在引擎开始加载核心的子系统前加载该模块。</p>
+<h3 id="如何切换不同的引擎版本？"><a href="#如何切换不同的引擎版本？" class="headerlink" title="如何切换不同的引擎版本？"></a>如何切换不同的引擎版本？</h3><ul>
+<li>1、直接在Epic商城里面找到虚幻引擎选项，进入后，点击启动旁边的那个下拉符号，即可切换版本。</li>
+<li>2、先找到项目文件夹下的.uproject文件，然后鼠标右键-&gt;Switch Unreal Engine version，<br>切换好版本后，直接打开即可。</li>
+</ul>
+<h3 id="对于一个团队项目，如何处理DDC？"><a href="#对于一个团队项目，如何处理DDC？" class="headerlink" title="对于一个团队项目，如何处理DDC？"></a>对于一个团队项目，如何处理DDC？</h3><p>DDC为派生数据缓存。<br>如果是同一地点的团队或者是小团队，可以设置共享DDC。此为所有团队成员和构建计算机均可<br>读取/写入的网络驱动器。<br>如果是大型项目，并希望分发预构建DDC数据，则应该生成DDC pak。</p>
+<h3 id="UFUNCTION，UPROPERTY等宏的作用是什么？"><a href="#UFUNCTION，UPROPERTY等宏的作用是什么？" class="headerlink" title="UFUNCTION，UPROPERTY等宏的作用是什么？"></a>UFUNCTION，UPROPERTY等宏的作用是什么？</h3><ul>
+<li>1、UFUNCTION宏用于将C++函数设置为UE4反射系统可识别的C++函数。其函数说明符可以更改</li>
+<li>2、UE4解释和使用函数的方式。</li>
+<li>3、UPROPERTY宏则是可以通过定于属性元数据和变量说明符，来对属性实现一些UE的特定操作。如显示到细节面板。<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/149392857">https://zhuanlan.zhihu.com/p/149392857</a></li>
+</ul>
+<h3 id="如何给AI增加playerstate？"><a href="#如何给AI增加playerstate？" class="headerlink" title="如何给AI增加playerstate？"></a>如何给AI增加playerstate？</h3><p>默认情况下，AI并没有playerstate，如果需要，可以在构造函数中增加<br>bWantsPlayerState = true;</p>
+<h3 id="ProjectileComponent是否同步？若未同步，如何操作？"><a href="#ProjectileComponent是否同步？若未同步，如何操作？" class="headerlink" title="ProjectileComponent是否同步？若未同步，如何操作？"></a>ProjectileComponent是否同步？若未同步，如何操作？</h3><p>并不是同步的。需要通过RPC进行同步。<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/343847343">https://zhuanlan.zhihu.com/p/343847343</a></p>
+<h3 id="若要更改某个Actor中的组件为其派生的组件，如何操作？"><a href="#若要更改某个Actor中的组件为其派生的组件，如何操作？" class="headerlink" title="若要更改某个Actor中的组件为其派生的组件，如何操作？"></a>若要更改某个Actor中的组件为其派生的组件，如何操作？</h3><p>不知道我是否理解错误，这个“其派生的组件”中的“其”是指的Actor中的组件。<br>在一开始将该父类组件申明为指针，当要更改时，直接指向其派生的组件对象即可。</p>
+<h3 id="UE4的游戏框架包含哪些内容？"><a href="#UE4的游戏框架包含哪些内容？" class="headerlink" title="UE4的游戏框架包含哪些内容？"></a>UE4的游戏框架包含哪些内容？</h3><p>（1）使用玩家输入或者AI逻辑控制Pawns<br>Controller是一个负责指导Pawn的Actor。它们通常有两种版本，AIController和<br>PlayerController。控制器可以“拥有”一个Pawn来控制它。<br>PlayerController是Pawn与玩家控制他之间的接口。其代表了玩家的意志。<br>AIController是一个可以控制Pawn的模拟意志。</p>
+<p>（2）代表世界的玩家、朋友、敌人<br>Pawn是一个actor。Pawn可以被Controller持有，他们可以接收输入，可以做很多游戏逻辑。<br>Character是一个人形风格的Pawn，继承自Pawn。他默认自带一个胶囊体碰撞器和角色运动组件。他可以做到基本的人形移动，他可以平滑的复制移动并且有一些动画相关的功能。</p>
+<p>（3）向玩家展现信息<br>HUD是一个抬头显示器。可以显示健康、弹药等，每个PlayerController通常有一个。<br>Camera相当于玩家的眼球并且管理他的行为。每个PlayerController通常也有其中一个。</p>
+<p>（4）设置与追踪游戏的规则<br>游戏模式（GameMode）游戏的概念分为两类。GameMode与GameState是游戏的定义，<br>包括像游戏规则的事情，胜利的条件。他只存在于服务器上。他通常没有太多的数据变化，<br>也没有客户端需要了解的瞬态数据。<br>游戏状态（GameState）包括像关联球员名单得分，那里的作品是一盘棋，或者游戏中的<br>任务完成列表。GameState存在于所有服务器与客户端上，可自由复制使所有计算机保持<br>最新状态。<br>玩家状态（PlayerState）是游戏参与者的状态，PlayerState包含玩家姓名，得分，<br>类似MOBA的匹配等级。所有玩家的PlayerState存在于所有机器上，可以自由复制保持同步。</p>
+<h3 id="当前UE4在移动平台上面的问题有哪些？"><a href="#当前UE4在移动平台上面的问题有哪些？" class="headerlink" title="当前UE4在移动平台上面的问题有哪些？"></a>当前UE4在移动平台上面的问题有哪些？</h3><h3 id="UE4服务器的默认监听端口是哪一个？采用的是UDP还是TCP协议？"><a href="#UE4服务器的默认监听端口是哪一个？采用的是UDP还是TCP协议？" class="headerlink" title="UE4服务器的默认监听端口是哪一个？采用的是UDP还是TCP协议？"></a>UE4服务器的默认监听端口是哪一个？采用的是UDP还是TCP协议？</h3><h3 id="Tick中的帧时间是否可靠？若不可靠，如何操作？"><a href="#Tick中的帧时间是否可靠？若不可靠，如何操作？" class="headerlink" title="Tick中的帧时间是否可靠？若不可靠，如何操作？"></a>Tick中的帧时间是否可靠？若不可靠，如何操作？</h3><h3 id="UE4的打包方法有哪些？"><a href="#UE4的打包方法有哪些？" class="headerlink" title="UE4的打包方法有哪些？"></a>UE4的打包方法有哪些？</h3><ul>
+<li><strong>编辑器打包</strong><br>File -&gt; Package Project -&gt; 目标平台<br>编译配置<br>DebugGame<br>Development<br>Shipping<br>默认生成路径 [ProjectName]\WindowsNoEditor,可自定义路径<br>更多设置 ProjectSettings -&gt; Package<br>日志 Running AutomationTool 部分</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Running AutomationTool</span><br><span class="line">UATHelper: <span class="built_in">Packaging</span> (<span class="built_in">Windows</span> (<span class="number">64</span>-bit)): Parsing command line:</span><br><span class="line"> -ScriptsForProject=<span class="string">&quot;C:/Users/Alice/Documents/Unreal Projects/tips/tips.uproject&quot;</span></span><br><span class="line"> BuildCookRun -nocompileeditor -installed -nop4</span><br><span class="line"> -project=<span class="string">&quot;C:/Users/Alice/Documents/Unreal Projects/tips/tips.uproject&quot;</span></span><br><span class="line"> -cook -stage -archive</span><br><span class="line"> -archivedirectory=<span class="string">&quot;C:/Users/Alice/Documents/Unreal Projects/tips&quot;</span></span><br><span class="line"> -package</span><br><span class="line"> -ue4exe=C:\SoftwareInstallation\EpicGames\UE_4<span class="number">.26</span>\Engine\Binaries\Win64\UE4Editor-Cmd.exe</span><br><span class="line"> -compressed</span><br><span class="line"> -ddc=InstalledDerivedDataBackendGraph</span><br><span class="line"> -pak</span><br><span class="line"> -prereqs</span><br><span class="line"> -nodebuginfo</span><br><span class="line"> -targetplatform=Win64</span><br><span class="line"> -build</span><br><span class="line"> -target=tips</span><br><span class="line"> -clientconfig=Development</span><br><span class="line"> -utf8output</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30471065/article/details/95887209">https://blog.csdn.net/weixin_30471065/article/details/95887209</a></p>
+<h3 id="如何制作差异包或者补丁？"><a href="#如何制作差异包或者补丁？" class="headerlink" title="如何制作差异包或者补丁？"></a>如何制作差异包或者补丁？</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30471065/article/details/95887209">https://blog.csdn.net/weixin_30471065/article/details/95887209</a></p>
+<h3 id="试说出Selector、Sequence、Parallel的运作流程"><a href="#试说出Selector、Sequence、Parallel的运作流程" class="headerlink" title="试说出Selector、Sequence、Parallel的运作流程"></a>试说出Selector、Sequence、Parallel的运作流程</h3><p>组合节点是用来组装各节点的逻辑。</p>
+<p>在行为树中，组合节点分为三类：sequence、selector、simpleparallel这三类。</p>
+<ul>
+<li><p>sequence表示：按照顺序 执行该节点下的所有节点，并且当其中有一个节点返回fail时，停止执行后续所有行为并且 sequence节点返回 fail。</p>
+</li>
+<li><p>selector表示：按照顺序执行该节点下的所有节点，并且当其中有一个节点返回success时，停止执行后续所有行为并且selector节点返回success。</p>
+</li>
+<li><p>simpleparallel表示：平行执行任务，左边有个紫色的快，从那个块中拉出的其他节点会被视作主要任务，从右边灰色块中拉出的任务被视为平行任务，当主要任务结束时，主要任务返回success/fail 则simpleparallel返回success/fail，与平行任务无关。finsh mode表示结束模式， immediate表示 主要任务结束 则平行任务强行终止，delay表示 主要任务结束 等平行任务结束后 再终止。</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_39287935/article/details/108007394">https://blog.csdn.net/sinat_39287935/article/details/108007394</a></p>
+<h3 id="UE4中的AI感知组件有哪些？"><a href="#UE4中的AI感知组件有哪些？" class="headerlink" title="UE4中的AI感知组件有哪些？"></a>UE4中的AI感知组件有哪些？</h3><p>AIPerception<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/510629683">https://zhuanlan.zhihu.com/p/510629683</a></p>
+<h3 id="在UE4的C-中调用父类的函数，如何操作？"><a href="#在UE4的C-中调用父类的函数，如何操作？" class="headerlink" title="在UE4的C++中调用父类的函数，如何操作？"></a>在UE4的C++中调用父类的函数，如何操作？</h3><p>在override的xxx函数中调用 Super::xxx();</p>
+<h3 id="UE4内置的伤害接口是什么，有哪些类型？"><a href="#UE4内置的伤害接口是什么，有哪些类型？" class="headerlink" title="UE4内置的伤害接口是什么，有哪些类型？"></a>UE4内置的伤害接口是什么，有哪些类型？</h3><h3 id="UE4中的联网会话节点有哪些？"><a href="#UE4中的联网会话节点有哪些？" class="headerlink" title="UE4中的联网会话节点有哪些？"></a>UE4中的联网会话节点有哪些？</h3><h3 id="UE4中的字符串有哪些？"><a href="#UE4中的字符串有哪些？" class="headerlink" title="UE4中的字符串有哪些？"></a>UE4中的字符串有哪些？</h3><p>FName<br>FString<br>FText<br>官网给出的转换如下：</p>
+<ul>
+<li><p><strong>FName：FString</strong><br>TestHUDString = TestHUDName.ToString();</p>
+</li>
+<li><p><strong>FName：FText</strong><br>TestHUDText = FText::FromName(TestHUDName);FName -&gt; FText is valid in some cases, but be aware that the FNames’s content will not benefit from the FText’s “auto localization”.</p>
+</li>
+<li><p><strong>FString：FName</strong><br>TestHUDName = FName(*TestHUDString);FString -&gt; FName is dangerous as the conversion is lossy as FName’s are case insensitive.</p>
+</li>
+<li><p><strong>FString：FText</strong><br>TestHUDText = FText::FromString(TestHUDString);FString -&gt; FText is valid in some cases, but be aware that the FString’s content will not benefit from the FText’s “auto localization”.</p>
+</li>
+<li><p><strong>FText：FString</strong><br>TestHUDString = TestHUDText.ToString()；FText -&gt; FString is dangerous as it is a potentially lossy conversion for some languages.</p>
+</li>
+<li><p><strong>FText：FName</strong><br>There is no direct conversion from FText to FName. Instead, convert to FString and then to FName.<br>FText -&gt; FString -&gt; FName is dangerous as the conversion is lossy as FName’s are case insensitive.</p>
+</li>
+<li><p><strong>FString：int32</strong><br>int32 TestInt = FCString::Atoi(*MyFString);</p>
+</li>
+<li><p><strong>FString：float</strong><br>float TestFloat = FCString::Atof(*MyFString);</p>
+</li>
+<li><p><strong>int32：FString</strong><br>FString TestString = FString::FromInt(MyInt);</p>
+</li>
+<li><p><strong>float：FString</strong><br>FString TestString = FString::SanitizeFloat(MyFloat);</p>
+</li>
+</ul>
+<h3 id="获取和释放角色如何操作？"><a href="#获取和释放角色如何操作？" class="headerlink" title="获取和释放角色如何操作？"></a>获取和释放角色如何操作？</h3><h3 id="设置地图的游戏模式，有哪些方法？"><a href="#设置地图的游戏模式，有哪些方法？" class="headerlink" title="设置地图的游戏模式，有哪些方法？"></a>设置地图的游戏模式，有哪些方法？</h3><h3 id="玩家操作事件放在PlayerController和Pawn中，该如何选择？"><a href="#玩家操作事件放在PlayerController和Pawn中，该如何选择？" class="headerlink" title="玩家操作事件放在PlayerController和Pawn中，该如何选择？"></a>玩家操作事件放在PlayerController和Pawn中，该如何选择？</h3><h3 id="切换关卡的命令是什么？"><a href="#切换关卡的命令是什么？" class="headerlink" title="切换关卡的命令是什么？"></a>切换关卡的命令是什么？</h3><p>一般地图比较小，且关卡各自独立的时候，<br>使用openLevel，通过输入一个LevelName来切换关卡。</p>
+<p>当在开放世界，即地图特别大的时候，我们会将多个关卡拼接为一个大世界地图， 然后采用<br>无缝切换地图的方式，来加载当前的地图。<br>此时有三个用来驱动转移的主要函数：<br>UEngine::Browse<br>UWorld::ServerTravel<br>APlayerController::ClientTravel。</p>
+<h3 id="UE4中是否可以支持回放？如何操作？"><a href="#UE4中是否可以支持回放？如何操作？" class="headerlink" title="UE4中是否可以支持回放？如何操作？"></a>UE4中是否可以支持回放？如何操作？</h3><h3 id="UE4的蓝图类型有哪些？"><a href="#UE4的蓝图类型有哪些？" class="headerlink" title="UE4的蓝图类型有哪些？"></a>UE4的蓝图类型有哪些？</h3><h3 id="添加一个USTRUCT-MyStruct，是否可以？"><a href="#添加一个USTRUCT-MyStruct，是否可以？" class="headerlink" title="添加一个USTRUCT MyStruct，是否可以？"></a>添加一个USTRUCT MyStruct，是否可以？</h3><h3 id="若要C-中的属性暴露给蓝图，如何操作？"><a href="#若要C-中的属性暴露给蓝图，如何操作？" class="headerlink" title="若要C++中的属性暴露给蓝图，如何操作？"></a>若要C++中的属性暴露给蓝图，如何操作？</h3><h3 id="在C-中为对象设置默认值有哪些方法？"><a href="#在C-中为对象设置默认值有哪些方法？" class="headerlink" title="在C++中为对象设置默认值有哪些方法？"></a>在C++中为对象设置默认值有哪些方法？</h3><h3 id="C-中Reliable的意义是什么，该如何实现对应的操作？"><a href="#C-中Reliable的意义是什么，该如何实现对应的操作？" class="headerlink" title="C++中Reliable的意义是什么，该如何实现对应的操作？"></a>C++中Reliable的意义是什么，该如何实现对应的操作？</h3><h3 id="如果项目中需要专用服务器，如何操作？"><a href="#如果项目中需要专用服务器，如何操作？" class="headerlink" title="如果项目中需要专用服务器，如何操作？"></a>如果项目中需要专用服务器，如何操作？</h3><h3 id="UE4中的Delegates有哪些？"><a href="#UE4中的Delegates有哪些？" class="headerlink" title="UE4中的Delegates有哪些？"></a>UE4中的Delegates有哪些？</h3><h3 id="如何分析性能瓶颈在哪儿？"><a href="#如何分析性能瓶颈在哪儿？" class="headerlink" title="如何分析性能瓶颈在哪儿？"></a>如何分析性能瓶颈在哪儿？</h3><h3 id="UE4的碰撞类型有哪些？"><a href="#UE4的碰撞类型有哪些？" class="headerlink" title="UE4的碰撞类型有哪些？"></a>UE4的碰撞类型有哪些？</h3><h3 id="UE4的服务器是否适应于MMO？若不适应，有什么解决方案？"><a href="#UE4的服务器是否适应于MMO？若不适应，有什么解决方案？" class="headerlink" title="UE4的服务器是否适应于MMO？若不适应，有什么解决方案？"></a>UE4的服务器是否适应于MMO？若不适应，有什么解决方案？</h3><h3 id="动画蓝图是否支持同步？若不支持，有什么解决方案？"><a href="#动画蓝图是否支持同步？若不支持，有什么解决方案？" class="headerlink" title="动画蓝图是否支持同步？若不支持，有什么解决方案？"></a>动画蓝图是否支持同步？若不支持，有什么解决方案？</h3><h3 id="材质参数、特效参数、声音参数如何使用？"><a href="#材质参数、特效参数、声音参数如何使用？" class="headerlink" title="材质参数、特效参数、声音参数如何使用？"></a>材质参数、特效参数、声音参数如何使用？</h3><h3 id="若要对打包之后的版本进行跟踪和调试，如何操作？"><a href="#若要对打包之后的版本进行跟踪和调试，如何操作？" class="headerlink" title="若要对打包之后的版本进行跟踪和调试，如何操作？"></a>若要对打包之后的版本进行跟踪和调试，如何操作？</h3><h3 id="C-中如何对组件或者Actor设置同步？"><a href="#C-中如何对组件或者Actor设置同步？" class="headerlink" title="C++中如何对组件或者Actor设置同步？"></a>C++中如何对组件或者Actor设置同步？</h3><h3 id="四元数相对于欧拉角的优点"><a href="#四元数相对于欧拉角的优点" class="headerlink" title="四元数相对于欧拉角的优点"></a>四元数相对于欧拉角的优点</h3><h3 id="UE4中需要对一个原本不支持寻路的Actor实现寻路功能，如何实现？"><a href="#UE4中需要对一个原本不支持寻路的Actor实现寻路功能，如何实现？" class="headerlink" title="UE4中需要对一个原本不支持寻路的Actor实现寻路功能，如何实现？"></a>UE4中需要对一个原本不支持寻路的Actor实现寻路功能，如何实现？</h3><h3 id="UI中的锚是用来干什么的？"><a href="#UI中的锚是用来干什么的？" class="headerlink" title="UI中的锚是用来干什么的？"></a>UI中的锚是用来干什么的？</h3><h3 id="如何基于UE4的网络接口，实现一个网络层，如Steam？"><a href="#如何基于UE4的网络接口，实现一个网络层，如Steam？" class="headerlink" title="如何基于UE4的网络接口，实现一个网络层，如Steam？"></a>如何基于UE4的网络接口，实现一个网络层，如Steam？</h3><h3 id="对于打包之后的游戏资源，有什么加密方案？"><a href="#对于打包之后的游戏资源，有什么加密方案？" class="headerlink" title="对于打包之后的游戏资源，有什么加密方案？"></a>对于打包之后的游戏资源，有什么加密方案？</h3><h3 id="在Actor中增加了输入事件，但是输入事件却无法触发，其原因可能有哪些？"><a href="#在Actor中增加了输入事件，但是输入事件却无法触发，其原因可能有哪些？" class="headerlink" title="在Actor中增加了输入事件，但是输入事件却无法触发，其原因可能有哪些？"></a>在Actor中增加了输入事件，但是输入事件却无法触发，其原因可能有哪些？</h3><h3 id="SpawnActor的位置不对，为什么？"><a href="#SpawnActor的位置不对，为什么？" class="headerlink" title="SpawnActor的位置不对，为什么？"></a>SpawnActor的位置不对，为什么？</h3><h3 id="在BeginPlay之后调用了某个RPC操作，客户端却没有执行到，可能原因是什么？"><a href="#在BeginPlay之后调用了某个RPC操作，客户端却没有执行到，可能原因是什么？" class="headerlink" title="在BeginPlay之后调用了某个RPC操作，客户端却没有执行到，可能原因是什么？"></a>在BeginPlay之后调用了某个RPC操作，客户端却没有执行到，可能原因是什么？</h3><p>1、客户端还没初始化完成，调用RPC的Actor还没被同步到客户端</p>
+<p>2、使用了放入队列的不可靠RPC操作，即在属性同步的时候调用RPC，这种情况会在先进行属性修改再调用RPC的时候出现客户端不执行的情况。</p>
+<p>（立即发送：如果是可靠的 RPC，会立即调用函数 SendBunch。可能立即发送出去，可能放入缓存 SendBuffer 中。</p>
+<p>放入队列：如果是不可靠的 RPC，会暂时放入 RPC 缓冲区中，当调用函数 ReplicateProperties 去复制属性的时候，如果 RPC 缓冲区中有数据，会加入到 Bunch 结尾。<br>不可靠的 RPC 函数是随着属性的复制一起复制过去的，先解析属性，再调用函数。）</p>
+<h3 id="在客户端没有连接到服务器之前，有什么同服务器进行通信的方案吗？"><a href="#在客户端没有连接到服务器之前，有什么同服务器进行通信的方案吗？" class="headerlink" title="在客户端没有连接到服务器之前，有什么同服务器进行通信的方案吗？"></a>在客户端没有连接到服务器之前，有什么同服务器进行通信的方案吗？</h3><h3 id="如何在Actor中增加command命令？"><a href="#如何在Actor中增加command命令？" class="headerlink" title="如何在Actor中增加command命令？"></a>如何在Actor中增加command命令？</h3><h3 id="命令行中ce和ke有什么作用？"><a href="#命令行中ce和ke有什么作用？" class="headerlink" title="命令行中ce和ke有什么作用？"></a>命令行中ce和ke有什么作用？</h3><ol>
+<li>关卡蓝图</li>
+</ol>
+<p>命令：ce +方法名 + 参数</p>
+<p>说明：执行当前运行关卡蓝图中的方法。方法名不区分大小写，参数个数、格式根据蓝图自定义事件输入设计决定。</p>
+<p>例如：ce test1 100</p>
+<ol start="2">
+<li>任意蓝图</li>
+</ol>
+<p>命令：ke + */蓝图类名 + 方法名 + 参数</p>
+<p>说明：蓝图类名在蓝图名后加 _C，执行指定蓝图的该方法，或者 * 执行所有蓝图的指定方法</p>
+<p>例如：ke BP_PrintString_C test1 100</p>
+<h3 id="UE4中的智能指针有哪些？"><a href="#UE4中的智能指针有哪些？" class="headerlink" title="UE4中的智能指针有哪些？"></a>UE4中的智能指针有哪些？</h3><h3 id="对根组件设置Scale会有问题吗？"><a href="#对根组件设置Scale会有问题吗？" class="headerlink" title="对根组件设置Scale会有问题吗？"></a>对根组件设置Scale会有问题吗？</h3><h3 id="如何在UE4中使用静态库或者动态库？"><a href="#如何在UE4中使用静态库或者动态库？" class="headerlink" title="如何在UE4中使用静态库或者动态库？"></a>如何在UE4中使用静态库或者动态库？</h3><h3 id="试分析GameMode的运行流程，如从InitGame至Logout。"><a href="#试分析GameMode的运行流程，如从InitGame至Logout。" class="headerlink" title="试分析GameMode的运行流程，如从InitGame至Logout。"></a>试分析GameMode的运行流程，如从InitGame至Logout。</h3><h3 id="UE4的自动化测试如何搞？"><a href="#UE4的自动化测试如何搞？" class="headerlink" title="UE4的自动化测试如何搞？"></a>UE4的自动化测试如何搞？</h3><h3 id="多个摄像机之间如何切换？"><a href="#多个摄像机之间如何切换？" class="headerlink" title="多个摄像机之间如何切换？"></a>多个摄像机之间如何切换？</h3><h3 id="更新UI的方式有哪些？"><a href="#更新UI的方式有哪些？" class="headerlink" title="更新UI的方式有哪些？"></a>更新UI的方式有哪些？</h3><h3 id="如何区分并调节不同的音效？"><a href="#如何区分并调节不同的音效？" class="headerlink" title="如何区分并调节不同的音效？"></a>如何区分并调节不同的音效？</h3><h3 id="如何销毁AIController？"><a href="#如何销毁AIController？" class="headerlink" title="如何销毁AIController？"></a>如何销毁AIController？</h3><h3 id="在C-和蓝图中如何打印调试信息？"><a href="#在C-和蓝图中如何打印调试信息？" class="headerlink" title="在C++和蓝图中如何打印调试信息？"></a>在C++和蓝图中如何打印调试信息？</h3><h3 id="轴输入事件在值为0的时候会触发吗？"><a href="#轴输入事件在值为0的时候会触发吗？" class="headerlink" title="轴输入事件在值为0的时候会触发吗？"></a>轴输入事件在值为0的时候会触发吗？</h3><h3 id="3DWidget如何使用？"><a href="#3DWidget如何使用？" class="headerlink" title="3DWidget如何使用？"></a>3DWidget如何使用？</h3><h3 id="游戏中的AI技术有哪些？"><a href="#游戏中的AI技术有哪些？" class="headerlink" title="游戏中的AI技术有哪些？"></a>游戏中的AI技术有哪些？</h3><h3 id="导航网格和寻路组件各有什么作用？"><a href="#导航网格和寻路组件各有什么作用？" class="headerlink" title="导航网格和寻路组件各有什么作用？"></a>导航网格和寻路组件各有什么作用？</h3><h3 id="对于编译整个引擎耗费的大量时间，有什么解决方案？"><a href="#对于编译整个引擎耗费的大量时间，有什么解决方案？" class="headerlink" title="对于编译整个引擎耗费的大量时间，有什么解决方案？"></a>对于编译整个引擎耗费的大量时间，有什么解决方案？</h3><h3 id="如何联机构建光照？"><a href="#如何联机构建光照？" class="headerlink" title="如何联机构建光照？"></a>如何联机构建光照？</h3><h3 id="Montage是什么？"><a href="#Montage是什么？" class="headerlink" title="Montage是什么？"></a>Montage是什么？</h3><h3 id="执行动画时，将动画和声音、特效匹配的较好的方案是什么？"><a href="#执行动画时，将动画和声音、特效匹配的较好的方案是什么？" class="headerlink" title="执行动画时，将动画和声音、特效匹配的较好的方案是什么？"></a>执行动画时，将动画和声音、特效匹配的较好的方案是什么？</h3><h3 id="如何获取动画的执行事件？"><a href="#如何获取动画的执行事件？" class="headerlink" title="如何获取动画的执行事件？"></a>如何获取动画的执行事件？</h3><h3 id="Service的执行时机是什么时候？"><a href="#Service的执行时机是什么时候？" class="headerlink" title="Service的执行时机是什么时候？"></a>Service的执行时机是什么时候？</h3><h3 id="Observer-Aborts的用途是什么？"><a href="#Observer-Aborts的用途是什么？" class="headerlink" title="Observer Aborts的用途是什么？"></a>Observer Aborts的用途是什么？</h3><h3 id="如何更改UE4默认的同步带宽？"><a href="#如何更改UE4默认的同步带宽？" class="headerlink" title="如何更改UE4默认的同步带宽？"></a>如何更改UE4默认的同步带宽？</h3><h3 id="UE4中的数据存取方法有哪些？"><a href="#UE4中的数据存取方法有哪些？" class="headerlink" title="UE4中的数据存取方法有哪些？"></a>UE4中的数据存取方法有哪些？</h3><h3 id="怎么理解C-多态的“父类指针或引用指向子类对象”？"><a href="#怎么理解C-多态的“父类指针或引用指向子类对象”？" class="headerlink" title="怎么理解C++多态的“父类指针或引用指向子类对象”？"></a>怎么理解C++多态的“父类指针或引用指向子类对象”？</h3><p>动态多态<br>动态多态的实现是通过子类重写父类的虚函数实现的。</p>
+<p>动态多态需要满足的条件：<br>有继承关系<br>子类重写父类中的虚函数<br>动态多态的使用方法：<br>父类指针或引用指向子类对象<br>假设我们现在有如下的类，其中Animal为基类，Cat和Dog都是其派生类。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;动物在说话&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> :</span><span class="keyword">public</span> Animal&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;小猫在说话&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> :</span><span class="keyword">public</span> Animal&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;小狗在说话&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>1.父类指针指向子类对象<br>调用时，可以定义父类的指针，然后指向子类的对象，指向哪个对象，便执行其对象的虚函数实现。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Dog B;</span><br><span class="line">    Animal *A=&amp;B;</span><br><span class="line">    A-&gt;<span class="built_in">speak</span>();</span><br><span class="line">    </span><br><span class="line">    A=<span class="keyword">new</span> Cat;</span><br><span class="line">    A-&gt;<span class="built_in">speak</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.父类引用指向子类对象<br>这种实现，我们需要额外定义一个“实现函数”，其参数是基类的引用（否则不能实现多态）。这样在调用时就实现了父类引用指向子类对象。</p>
+<p>void DoSpeak(Animal &amp; X){ //<br>    X.speak();<br>}<br>int main() {<br>    Cat A;<br>    DoSpeak(A);<br>    Dog B;<br>    DoSpeak(B);<br>    Animal C;<br>    DoSpeak(C);<br>    return 0;<br>}<br>为什么父类指针可以指向子类？<br>可以通俗的理解，子类可能含有一些父类没有的成员变量或者方法函数，但是子类肯定继承了父类所有的成员变量和方法函数。<br>所以用父类指针指向子类时，没有问题，因为父类有的，子类都有，不会出现非法访问问题。但是如果用子类指针指向父类的话，一旦访问子类特有的方法函数或者成员变量，就会出现非法。</p>
+<p>虽然父类指针可以指向子类，但是其访问范围还是仅仅局限于父类本身有的数据，那些子类的数据，父类指针是无法访问的。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/Unreal/" rel="tag"># Unreal</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/23/C++Study/CppStudy1/" rel="prev" title="C++随笔1">
+      <i class="fa fa-chevron-left"></i> C++随笔1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/05/UnrealStudy/UE4-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="next" title="UE4 性能优化相关">
+      UE4 性能优化相关 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Actor%E7%9A%84EndPlay%E4%BA%8B%E4%BB%B6%E5%9C%A8%E5%93%AA%E4%BA%9B%E6%97%B6%E5%80%99%E4%BC%9A%E8%B0%83%E7%94%A8%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">Actor的EndPlay事件在哪些时候会调用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BlueprintImplementableEvent%E5%92%8CBlueprintNativeEvent%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">BlueprintImplementableEvent和BlueprintNativeEvent之间有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BlurprintPure%E5%9C%A8%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">BlurprintPure在什么时候使用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E7%9A%84%E8%93%9D%E5%9B%BE%E4%B8%AD%E5%AF%B9%E4%BA%8EForeach%E7%AD%89%E5%BE%AA%E7%8E%AF%E9%87%87%E7%94%A8%E7%9A%84%E6%98%AF%E7%B1%BB%E4%BC%BC%E5%B9%B6%E8%A1%8C%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%8C%E8%AF%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E4%B8%B2%E8%A1%8C%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">UE4的蓝图中对于Foreach等循环采用的是类似并行的方式，试实现一个串行的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%AD%90%E5%BC%B9%E7%A9%BF%E5%A2%99%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">如何解决子弹穿墙问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E5%AF%B9UStruct%E7%9A%84%E5%86%85%E5%AD%98%E4%BC%9A%E8%87%AA%E5%8A%A8%E7%AE%A1%E7%90%86%E5%90%97%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">UE4对UStruct的内存会自动管理吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E8%8E%B7%E5%8F%96%E5%88%B0AIController%EF%BC%9F"><span class="nav-number">7.</span> <span class="nav-text">在客户端是否可以获取到AIController？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8A%E9%9D%A2%E8%83%BD%E5%A4%9F%E6%89%A7%E8%A1%8CRPC%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">客户端上面能够执行RPC的对象有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%9C%A8C-%E4%B8%AD%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8windows%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">如果在C++中需要使用windows的头文件，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%AD%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0%E7%9A%84-generated-h%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">10.</span> <span class="nav-text">在头文件中经常出现的*.generated.h是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4-%E5%85%A5%E9%97%A8%E5%AE%8F"><span class="nav-number">11.</span> <span class="nav-text">UE4 入门宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%B8%80%E4%B8%AAActor%E8%B0%83%E7%94%A8AIMoveTo%E5%A4%B1%E8%B4%A5%E4%BA%86%EF%BC%8C%E5%85%B6%E5%8F%AF%E8%83%BD%E5%8E%9F%E5%9B%A0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">对一个Actor调用AIMoveTo失败了，其可能原因是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%95%E8%AF%B4%E5%87%BA%E5%AE%8F%E3%80%81%E5%87%BD%E6%95%B0%E3%80%81%E4%BA%8B%E4%BB%B6%E7%9A%84%E9%83%A8%E5%88%86%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">13.</span> <span class="nav-text">试说出宏、函数、事件的部分区别和联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%95%E4%BD%BF%E7%94%A8C-%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%93%9D%E5%9B%BE%E4%B8%AD%E4%BB%BB%E6%84%8FActor%E6%8E%92%E5%BA%8F%E7%9A%84%E6%A1%86%E6%9E%B6"><span class="nav-number">14.</span> <span class="nav-text">试使用C++实现一个对蓝图中任意Actor排序的框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blueprintable%E5%92%8CBlueprintType%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-number">15.</span> <span class="nav-text">Blueprintable和BlueprintType的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8A%E9%9D%A2%E5%AF%B9%E4%B8%80%E4%B8%AAActor%E4%B8%AD%E7%9A%84RPC%E4%BA%8B%E4%BB%B6%E8%B0%83%E7%94%A8%E5%A4%B1%E8%B4%A5%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%8E%9F%E5%9B%A0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">16.</span> <span class="nav-text">客户端上面对一个Actor中的RPC事件调用失败，可能原因是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E7%9A%84RPC%E4%BA%8B%E4%BB%B6%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">17.</span> <span class="nav-text">UE4中的RPC事件有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEActor%E7%9A%84%E5%90%8C%E6%AD%A5%E9%97%B4%E9%9A%94%EF%BC%9F"><span class="nav-number">18.</span> <span class="nav-text">如何设置Actor的同步间隔？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5%E9%9C%80%E8%A6%81%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%A4%9A%E6%92%AD%E4%BA%8B%E4%BB%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">19.</span> <span class="nav-text">若需要实现一个多播事件，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0%EF%BC%9F"><span class="nav-number">20.</span> <span class="nav-text">连接服务器的命令是什么，如何传递参数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81TWeakPtr%EF%BC%9F"><span class="nav-number">21.</span> <span class="nav-text">为什么需要TWeakPtr？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E7%9A%84%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F"><span class="nav-number">22.</span> <span class="nav-text">UE4的模块系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%AF%B9%E8%B1%A1%E7%B3%BB%E7%BB%9F%EF%BC%88UObject%E7%B1%BB%EF%BC%89%E5%92%8C%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%EF%BC%88UClass%E7%B1%BB%EF%BC%89"><span class="nav-number">23.</span> <span class="nav-text">简单介绍一下对象系统（UObject类）和类型系统（UClass类）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Core%E6%A8%A1%E5%9D%97%E5%8C%85%E5%90%AB%E4%BA%86%E5%93%AA%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%B1%BB"><span class="nav-number">24.</span> <span class="nav-text">Core模块包含了哪些基础类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RHI%E6%A8%A1%E5%9D%97"><span class="nav-number">25.</span> <span class="nav-text">RHI模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Engine%E6%A8%A1%E5%9D%97"><span class="nav-number">26.</span> <span class="nav-text">Engine模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UMG-%E6%A8%A1%E5%9D%97"><span class="nav-number">27.</span> <span class="nav-text">UMG 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F"><span class="nav-number">28.</span> <span class="nav-text">UE4中的类型系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%EF%BC%8C%E5%90%84%E7%A7%8D%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E5%A6%82%E4%BD%95%E8%BD%AC%E6%8D%A2%EF%BC%9F"><span class="nav-number">29.</span> <span class="nav-text">UE4中，各种字符编码如何转换？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E6%BA%90%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E6%B3%A8%E9%87%8A%E5%9C%A8%E8%93%9D%E5%9B%BE%E4%B8%AD%E6%98%BE%E7%A4%BA%E4%B8%BA%E4%B9%B1%E7%A0%81%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">30.</span> <span class="nav-text">C++源文件中的注释在蓝图中显示为乱码，为什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E4%B8%AD%E7%9A%84LoadingPhase%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">31.</span> <span class="nav-text">插件中的LoadingPhase是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E4%B8%8D%E5%90%8C%E7%9A%84%E5%BC%95%E6%93%8E%E7%89%88%E6%9C%AC%EF%BC%9F"><span class="nav-number">32.</span> <span class="nav-text">如何切换不同的引擎版本？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%B8%AA%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86DDC%EF%BC%9F"><span class="nav-number">33.</span> <span class="nav-text">对于一个团队项目，如何处理DDC？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UFUNCTION%EF%BC%8CUPROPERTY%E7%AD%89%E5%AE%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">34.</span> <span class="nav-text">UFUNCTION，UPROPERTY等宏的作用是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BB%99AI%E5%A2%9E%E5%8A%A0playerstate%EF%BC%9F"><span class="nav-number">35.</span> <span class="nav-text">如何给AI增加playerstate？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ProjectileComponent%E6%98%AF%E5%90%A6%E5%90%8C%E6%AD%A5%EF%BC%9F%E8%8B%A5%E6%9C%AA%E5%90%8C%E6%AD%A5%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">36.</span> <span class="nav-text">ProjectileComponent是否同步？若未同步，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5%E8%A6%81%E6%9B%B4%E6%94%B9%E6%9F%90%E4%B8%AAActor%E4%B8%AD%E7%9A%84%E7%BB%84%E4%BB%B6%E4%B8%BA%E5%85%B6%E6%B4%BE%E7%94%9F%E7%9A%84%E7%BB%84%E4%BB%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">37.</span> <span class="nav-text">若要更改某个Actor中的组件为其派生的组件，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E7%9A%84%E6%B8%B8%E6%88%8F%E6%A1%86%E6%9E%B6%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E5%86%85%E5%AE%B9%EF%BC%9F"><span class="nav-number">38.</span> <span class="nav-text">UE4的游戏框架包含哪些内容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E5%89%8DUE4%E5%9C%A8%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E9%9D%A2%E7%9A%84%E9%97%AE%E9%A2%98%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">39.</span> <span class="nav-text">当前UE4在移动平台上面的问题有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%BB%98%E8%AE%A4%E7%9B%91%E5%90%AC%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%93%AA%E4%B8%80%E4%B8%AA%EF%BC%9F%E9%87%87%E7%94%A8%E7%9A%84%E6%98%AFUDP%E8%BF%98%E6%98%AFTCP%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="nav-number">40.</span> <span class="nav-text">UE4服务器的默认监听端口是哪一个？采用的是UDP还是TCP协议？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tick%E4%B8%AD%E7%9A%84%E5%B8%A7%E6%97%B6%E9%97%B4%E6%98%AF%E5%90%A6%E5%8F%AF%E9%9D%A0%EF%BC%9F%E8%8B%A5%E4%B8%8D%E5%8F%AF%E9%9D%A0%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">41.</span> <span class="nav-text">Tick中的帧时间是否可靠？若不可靠，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E7%9A%84%E6%89%93%E5%8C%85%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">42.</span> <span class="nav-text">UE4的打包方法有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%B6%E4%BD%9C%E5%B7%AE%E5%BC%82%E5%8C%85%E6%88%96%E8%80%85%E8%A1%A5%E4%B8%81%EF%BC%9F"><span class="nav-number">43.</span> <span class="nav-text">如何制作差异包或者补丁？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%95%E8%AF%B4%E5%87%BASelector%E3%80%81Sequence%E3%80%81Parallel%E7%9A%84%E8%BF%90%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">44.</span> <span class="nav-text">试说出Selector、Sequence、Parallel的运作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E7%9A%84AI%E6%84%9F%E7%9F%A5%E7%BB%84%E4%BB%B6%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">45.</span> <span class="nav-text">UE4中的AI感知组件有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8UE4%E7%9A%84C-%E4%B8%AD%E8%B0%83%E7%94%A8%E7%88%B6%E7%B1%BB%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">46.</span> <span class="nav-text">在UE4的C++中调用父类的函数，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E5%86%85%E7%BD%AE%E7%9A%84%E4%BC%A4%E5%AE%B3%E6%8E%A5%E5%8F%A3%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B%EF%BC%9F"><span class="nav-number">47.</span> <span class="nav-text">UE4内置的伤害接口是什么，有哪些类型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E7%9A%84%E8%81%94%E7%BD%91%E4%BC%9A%E8%AF%9D%E8%8A%82%E7%82%B9%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">48.</span> <span class="nav-text">UE4中的联网会话节点有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">49.</span> <span class="nav-text">UE4中的字符串有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%92%8C%E9%87%8A%E6%94%BE%E8%A7%92%E8%89%B2%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">50.</span> <span class="nav-text">获取和释放角色如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%9C%B0%E5%9B%BE%E7%9A%84%E6%B8%B8%E6%88%8F%E6%A8%A1%E5%BC%8F%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-number">51.</span> <span class="nav-text">设置地图的游戏模式，有哪些方法？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%A9%E5%AE%B6%E6%93%8D%E4%BD%9C%E4%BA%8B%E4%BB%B6%E6%94%BE%E5%9C%A8PlayerController%E5%92%8CPawn%E4%B8%AD%EF%BC%8C%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-number">52.</span> <span class="nav-text">玩家操作事件放在PlayerController和Pawn中，该如何选择？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E5%85%B3%E5%8D%A1%E7%9A%84%E5%91%BD%E4%BB%A4%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">53.</span> <span class="nav-text">切换关卡的命令是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%94%AF%E6%8C%81%E5%9B%9E%E6%94%BE%EF%BC%9F%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">54.</span> <span class="nav-text">UE4中是否可以支持回放？如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E7%9A%84%E8%93%9D%E5%9B%BE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">55.</span> <span class="nav-text">UE4的蓝图类型有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AAUSTRUCT-MyStruct%EF%BC%8C%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%EF%BC%9F"><span class="nav-number">56.</span> <span class="nav-text">添加一个USTRUCT MyStruct，是否可以？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5%E8%A6%81C-%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7%E6%9A%B4%E9%9C%B2%E7%BB%99%E8%93%9D%E5%9B%BE%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">57.</span> <span class="nav-text">若要C++中的属性暴露给蓝图，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8C-%E4%B8%AD%E4%B8%BA%E5%AF%B9%E8%B1%A1%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-number">58.</span> <span class="nav-text">在C++中为对象设置默认值有哪些方法？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E4%B8%ADReliable%E7%9A%84%E6%84%8F%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E8%AF%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%AF%B9%E5%BA%94%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">59.</span> <span class="nav-text">C++中Reliable的意义是什么，该如何实现对应的操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%9C%80%E8%A6%81%E4%B8%93%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">60.</span> <span class="nav-text">如果项目中需要专用服务器，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E7%9A%84Delegates%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">61.</span> <span class="nav-text">UE4中的Delegates有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%86%E6%9E%90%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88%E5%9C%A8%E5%93%AA%E5%84%BF%EF%BC%9F"><span class="nav-number">62.</span> <span class="nav-text">如何分析性能瓶颈在哪儿？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E7%9A%84%E7%A2%B0%E6%92%9E%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">63.</span> <span class="nav-text">UE4的碰撞类型有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%AF%E5%90%A6%E9%80%82%E5%BA%94%E4%BA%8EMMO%EF%BC%9F%E8%8B%A5%E4%B8%8D%E9%80%82%E5%BA%94%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9F"><span class="nav-number">64.</span> <span class="nav-text">UE4的服务器是否适应于MMO？若不适应，有什么解决方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB%E8%93%9D%E5%9B%BE%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E5%90%8C%E6%AD%A5%EF%BC%9F%E8%8B%A5%E4%B8%8D%E6%94%AF%E6%8C%81%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9F"><span class="nav-number">65.</span> <span class="nav-text">动画蓝图是否支持同步？若不支持，有什么解决方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%90%E8%B4%A8%E5%8F%82%E6%95%B0%E3%80%81%E7%89%B9%E6%95%88%E5%8F%82%E6%95%B0%E3%80%81%E5%A3%B0%E9%9F%B3%E5%8F%82%E6%95%B0%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">66.</span> <span class="nav-text">材质参数、特效参数、声音参数如何使用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5%E8%A6%81%E5%AF%B9%E6%89%93%E5%8C%85%E4%B9%8B%E5%90%8E%E7%9A%84%E7%89%88%E6%9C%AC%E8%BF%9B%E8%A1%8C%E8%B7%9F%E8%B8%AA%E5%92%8C%E8%B0%83%E8%AF%95%EF%BC%8C%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="nav-number">67.</span> <span class="nav-text">若要对打包之后的版本进行跟踪和调试，如何操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%AF%B9%E7%BB%84%E4%BB%B6%E6%88%96%E8%80%85Actor%E8%AE%BE%E7%BD%AE%E5%90%8C%E6%AD%A5%EF%BC%9F"><span class="nav-number">68.</span> <span class="nav-text">C++中如何对组件或者Actor设置同步？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%85%83%E6%95%B0%E7%9B%B8%E5%AF%B9%E4%BA%8E%E6%AC%A7%E6%8B%89%E8%A7%92%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">69.</span> <span class="nav-text">四元数相对于欧拉角的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E9%9C%80%E8%A6%81%E5%AF%B9%E4%B8%80%E4%B8%AA%E5%8E%9F%E6%9C%AC%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BB%E8%B7%AF%E7%9A%84Actor%E5%AE%9E%E7%8E%B0%E5%AF%BB%E8%B7%AF%E5%8A%9F%E8%83%BD%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="nav-number">70.</span> <span class="nav-text">UE4中需要对一个原本不支持寻路的Actor实现寻路功能，如何实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI%E4%B8%AD%E7%9A%84%E9%94%9A%E6%98%AF%E7%94%A8%E6%9D%A5%E5%B9%B2%E4%BB%80%E4%B9%88%E7%9A%84%EF%BC%9F"><span class="nav-number">71.</span> <span class="nav-text">UI中的锚是用来干什么的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8EUE4%E7%9A%84%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%8C%E5%A6%82Steam%EF%BC%9F"><span class="nav-number">72.</span> <span class="nav-text">如何基于UE4的网络接口，实现一个网络层，如Steam？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E6%89%93%E5%8C%85%E4%B9%8B%E5%90%8E%E7%9A%84%E6%B8%B8%E6%88%8F%E8%B5%84%E6%BA%90%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88%EF%BC%9F"><span class="nav-number">73.</span> <span class="nav-text">对于打包之后的游戏资源，有什么加密方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Actor%E4%B8%AD%E5%A2%9E%E5%8A%A0%E4%BA%86%E8%BE%93%E5%85%A5%E4%BA%8B%E4%BB%B6%EF%BC%8C%E4%BD%86%E6%98%AF%E8%BE%93%E5%85%A5%E4%BA%8B%E4%BB%B6%E5%8D%B4%E6%97%A0%E6%B3%95%E8%A7%A6%E5%8F%91%EF%BC%8C%E5%85%B6%E5%8E%9F%E5%9B%A0%E5%8F%AF%E8%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">74.</span> <span class="nav-text">在Actor中增加了输入事件，但是输入事件却无法触发，其原因可能有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpawnActor%E7%9A%84%E4%BD%8D%E7%BD%AE%E4%B8%8D%E5%AF%B9%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">75.</span> <span class="nav-text">SpawnActor的位置不对，为什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8BeginPlay%E4%B9%8B%E5%90%8E%E8%B0%83%E7%94%A8%E4%BA%86%E6%9F%90%E4%B8%AARPC%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8D%B4%E6%B2%A1%E6%9C%89%E6%89%A7%E8%A1%8C%E5%88%B0%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%8E%9F%E5%9B%A0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">76.</span> <span class="nav-text">在BeginPlay之后调用了某个RPC操作，客户端却没有执行到，可能原因是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B2%A1%E6%9C%89%E8%BF%9E%E6%8E%A5%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E5%89%8D%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E5%90%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E6%A1%88%E5%90%97%EF%BC%9F"><span class="nav-number">77.</span> <span class="nav-text">在客户端没有连接到服务器之前，有什么同服务器进行通信的方案吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8Actor%E4%B8%AD%E5%A2%9E%E5%8A%A0command%E5%91%BD%E4%BB%A4%EF%BC%9F"><span class="nav-number">78.</span> <span class="nav-text">如何在Actor中增加command命令？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%ADce%E5%92%8Cke%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">79.</span> <span class="nav-text">命令行中ce和ke有什么作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E7%9A%84%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">80.</span> <span class="nav-text">UE4中的智能指针有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%A0%B9%E7%BB%84%E4%BB%B6%E8%AE%BE%E7%BD%AEScale%E4%BC%9A%E6%9C%89%E9%97%AE%E9%A2%98%E5%90%97%EF%BC%9F"><span class="nav-number">81.</span> <span class="nav-text">对根组件设置Scale会有问题吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8UE4%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%BA%93%E6%88%96%E8%80%85%E5%8A%A8%E6%80%81%E5%BA%93%EF%BC%9F"><span class="nav-number">82.</span> <span class="nav-text">如何在UE4中使用静态库或者动态库？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%95%E5%88%86%E6%9E%90GameMode%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B%EF%BC%8C%E5%A6%82%E4%BB%8EInitGame%E8%87%B3Logout%E3%80%82"><span class="nav-number">83.</span> <span class="nav-text">试分析GameMode的运行流程，如从InitGame至Logout。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E6%90%9E%EF%BC%9F"><span class="nav-number">84.</span> <span class="nav-text">UE4的自动化测试如何搞？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E6%91%84%E5%83%8F%E6%9C%BA%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%EF%BC%9F"><span class="nav-number">85.</span> <span class="nav-text">多个摄像机之间如何切换？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0UI%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">86.</span> <span class="nav-text">更新UI的方式有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%86%E5%B9%B6%E8%B0%83%E8%8A%82%E4%B8%8D%E5%90%8C%E7%9A%84%E9%9F%B3%E6%95%88%EF%BC%9F"><span class="nav-number">87.</span> <span class="nav-text">如何区分并调节不同的音效？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%94%80%E6%AF%81AIController%EF%BC%9F"><span class="nav-number">88.</span> <span class="nav-text">如何销毁AIController？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8C-%E5%92%8C%E8%93%9D%E5%9B%BE%E4%B8%AD%E5%A6%82%E4%BD%95%E6%89%93%E5%8D%B0%E8%B0%83%E8%AF%95%E4%BF%A1%E6%81%AF%EF%BC%9F"><span class="nav-number">89.</span> <span class="nav-text">在C++和蓝图中如何打印调试信息？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%B4%E8%BE%93%E5%85%A5%E4%BA%8B%E4%BB%B6%E5%9C%A8%E5%80%BC%E4%B8%BA0%E7%9A%84%E6%97%B6%E5%80%99%E4%BC%9A%E8%A7%A6%E5%8F%91%E5%90%97%EF%BC%9F"><span class="nav-number">90.</span> <span class="nav-text">轴输入事件在值为0的时候会触发吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3DWidget%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">91.</span> <span class="nav-text">3DWidget如何使用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84AI%E6%8A%80%E6%9C%AF%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">92.</span> <span class="nav-text">游戏中的AI技术有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E7%BD%91%E6%A0%BC%E5%92%8C%E5%AF%BB%E8%B7%AF%E7%BB%84%E4%BB%B6%E5%90%84%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">93.</span> <span class="nav-text">导航网格和寻路组件各有什么作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E7%BC%96%E8%AF%91%E6%95%B4%E4%B8%AA%E5%BC%95%E6%93%8E%E8%80%97%E8%B4%B9%E7%9A%84%E5%A4%A7%E9%87%8F%E6%97%B6%E9%97%B4%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9F"><span class="nav-number">94.</span> <span class="nav-text">对于编译整个引擎耗费的大量时间，有什么解决方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%81%94%E6%9C%BA%E6%9E%84%E5%BB%BA%E5%85%89%E7%85%A7%EF%BC%9F"><span class="nav-number">95.</span> <span class="nav-text">如何联机构建光照？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Montage%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">96.</span> <span class="nav-text">Montage是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%8A%A8%E7%94%BB%E6%97%B6%EF%BC%8C%E5%B0%86%E5%8A%A8%E7%94%BB%E5%92%8C%E5%A3%B0%E9%9F%B3%E3%80%81%E7%89%B9%E6%95%88%E5%8C%B9%E9%85%8D%E7%9A%84%E8%BE%83%E5%A5%BD%E7%9A%84%E6%96%B9%E6%A1%88%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">97.</span> <span class="nav-text">执行动画时，将动画和声音、特效匹配的较好的方案是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%8A%A8%E7%94%BB%E7%9A%84%E6%89%A7%E8%A1%8C%E4%BA%8B%E4%BB%B6%EF%BC%9F"><span class="nav-number">98.</span> <span class="nav-text">如何获取动画的执行事件？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Service%E7%9A%84%E6%89%A7%E8%A1%8C%E6%97%B6%E6%9C%BA%E6%98%AF%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%EF%BC%9F"><span class="nav-number">99.</span> <span class="nav-text">Service的执行时机是什么时候？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observer-Aborts%E7%9A%84%E7%94%A8%E9%80%94%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">100.</span> <span class="nav-text">Observer Aborts的用途是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9B%B4%E6%94%B9UE4%E9%BB%98%E8%AE%A4%E7%9A%84%E5%90%8C%E6%AD%A5%E5%B8%A6%E5%AE%BD%EF%BC%9F"><span class="nav-number">101.</span> <span class="nav-text">如何更改UE4默认的同步带宽？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UE4%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%8F%96%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">102.</span> <span class="nav-text">UE4中的数据存取方法有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3C-%E5%A4%9A%E6%80%81%E7%9A%84%E2%80%9C%E7%88%B6%E7%B1%BB%E6%8C%87%E9%92%88%E6%88%96%E5%BC%95%E7%94%A8%E6%8C%87%E5%90%91%E5%AD%90%E7%B1%BB%E5%AF%B9%E8%B1%A1%E2%80%9D%EF%BC%9F"><span class="nav-number">103.</span> <span class="nav-text">怎么理解C++多态的“父类指针或引用指向子类对象”？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">VisionXie</p>
+  <div class="site-description" itemprop="description">生活在树上，始终热爱大地，升入天空。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">VisionXie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyvS0HjaG';
+    var conf = '26c6eae6e21dfb5a6535a5e53425e9ec';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>
