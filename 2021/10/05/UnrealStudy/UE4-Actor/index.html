@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关于UE4 Actor相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UE4 Actor相关">
+<meta property="og:url" content="http://example.com/2021/10/05/UnrealStudy/UE4-Actor/index.html">
+<meta property="og:site_name" content="XiMo">
+<meta property="og:description" content="关于UE4 Actor相关">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-08T16:00:00.000Z">
+<meta property="article:author" content="VisionXie">
+<meta property="article:tag" content="Unreal">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/10/05/UnrealStudy/UE4-Actor/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>UE4 Actor相关 | XiMo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XiMo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">醉后不知天在水，满船清梦压星河。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>All<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/05/UnrealStudy/UE4-Actor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="VisionXie">
+      <meta itemprop="description" content="生活在树上，始终热爱大地，升入天空。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiMo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UE4 Actor相关
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-06T00:00:00+08:00">2021-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-09 00:00:00" itemprop="dateModified" datetime="2021-10-09T00:00:00+08:00">2021-10-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UnrealEngine/" itemprop="url" rel="index"><span itemprop="name">UnrealEngine</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2021/10/05/UnrealStudy/UE4-Actor/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/10/05/UnrealStudy/UE4-Actor/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关于UE4 Actor相关</p>
+<span id="more"></span>
+
+<p>Actor没有Transform属性。UE把Transform封装进了SceneComponent,当作RootComponent，再需要用到的时候内部都是转发到RootComponent，比如GetActorLocation、SetActorLocation。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*~</span></span><br><span class="line"><span class="comment"> * Returns location of the RootComponent </span></span><br><span class="line"><span class="comment"> * this is a template for no other reason than to delay compilation until USceneComponent is defined</span></span><br><span class="line"><span class="comment"> */</span> </span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> FORCEINLINE FVector <span class="title">GetActorLocation</span><span class="params">(<span class="keyword">const</span> T* RootComponent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (RootComponent != <span class="literal">nullptr</span>) ? RootComponent-&gt;<span class="built_in">GetComponentLocation</span>() : <span class="built_in">FVector</span>(<span class="number">0.f</span>,<span class="number">0.f</span>,<span class="number">0.f</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">AActor::SetActorLocation</span><span class="params">(<span class="keyword">const</span> FVector&amp; NewLocation, <span class="keyword">bool</span> bSweep, FHitResult* OutSweepHitResult, ETeleportType Teleport)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (RootComponent)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> FVector Delta = NewLocation - <span class="built_in">GetActorLocation</span>();</span><br><span class="line">        <span class="keyword">return</span> RootComponent-&gt;<span class="built_in">MoveComponent</span>(Delta, <span class="built_in">GetActorQuat</span>(), bSweep, OutSweepHitResult, MOVECOMP_NoFlags, Teleport);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (OutSweepHitResult)</span><br><span class="line">    &#123;</span><br><span class="line">        *OutSweepHitResult = <span class="built_in">FHitResult</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1、如果要在游戏的开始和结束执行某些操作，可以在UE4哪儿处理？</p>
+<p>如果你是指的一个关卡的开始和结束位置执行某些操作的话，可以创建一个Actor专门用于执行<br>这些事件。开始的操作放在BeginPlay中，结束的操作是在EndPlay中。BeginPlay会在关卡开<br>始时调用，EndPlay会在关卡切换的时候调用。注意该Actor不能提前调用Actor的EndPlay。<br>如果是还要开始一些的话，就是LevelActor的Construct()函数。<br>如果是还要晚一些的话，就是LevelActor的BeginPlay()函数。<br>再开始一些的话，就是GameInstance中的Init()函数。</p>
+<p>Actor生命周期<br>UE4 游戏模块初始化顺序</p>
+<p>2、UE4中，各种字符编码如何转换？</p>
+<p>可以通过以下的五个宏来完成字符编码转换。<br>    TCHAR_TO_ANSI(str)<br>    TCHAR_TO_OEM(str)<br>    ANSI_TO_TCHAR(str)<br>    TCHAR_TO_UTF8(str)//TCHAR转UTF8<br>    UTF8_TO_TCHAR(str) </p>
+<p>字符编码</p>
+<p>3、C++源文件中的注释在蓝图中显示为乱码，为什么？</p>
+<p>需要将C++源文件的文件编码格式改为UTF-8格式。</p>
+<p>【UE4】C++蓝图节点中文注释乱码解决</p>
+<p>4、插件中的LoadingPhase是什么？<br>LoadingPhase主要用于控制插件在引擎启动的何时被加载。<br>有三个选项如下：<br>Default为正常阶段加载该模块。<br>PreDefault为正常阶段前来加载模块。<br>PostConfigInit为在引擎开始加载核心的子系统前加载该模块。</p>
+<p>插件<br>UE4 插件配置文件参数意义</p>
+<p>5、如何切换不同的引擎版本？</p>
+<p>1、直接在Epic商城里面找到虚幻引擎选项，进入后，点击启动旁边的那个下拉符号，即可切换版本。<br>2、先找到项目文件夹下的.uproject文件，然后鼠标右键-&gt;Switch Unreal Engine version，<br>切换好版本后，直接打开即可。</p>
+<p>打开不同UE4版本的工程</p>
+<p>6、对于一个团队项目，如何处理DDC？</p>
+<p>DDC为派生数据缓存。<br>如果是同一地点的团队或者是小团队，可以设置共享DDC。此为所有团队成员和构建计算机均可<br>读取/写入的网络驱动器。<br>如果是大型项目，并希望分发预构建DDC数据，则应该生成DDC pak。</p>
+<p>派生数据缓存</p>
+<p>7、UFUNCTION，UPROPERTY等宏的作用是什么？</p>
+<p>1、UFUNCTION宏用于将C++函数设置为UE4反射系统可识别的C++函数。其函数说明符可以更改<br>2、UE4解释和使用函数的方式。<br>3、UPROPERTY宏则是可以通过定于属性元数据和变量说明符，来对属性实现一些UE的特定操作。如显示到细节面板。</p>
+<p>UFUNCTION/UPROPERTY/UCLASS</p>
+<p>8、如何给AI增加playerstate？</p>
+<p>默认情况下，AI并没有playerstate，如果需要，可以在构造函数中增加<br>bWantsPlayerState = true;</p>
+<p>为AI增加playerstate</p>
+<p>9、ProjectileComponent是否同步？若未同步，如何操作？</p>
+<p>并不是同步的。需要通过RPC进行同步。<br>【UE4】网游开发中的RPC和OnRep（一）</p>
+<p>10、若要更改某个Actor中的组件为其派生的组件，如何操作？</p>
+<p>1不知道我是否理解错误，这个“其派生的组件”中的“其”是指的Actor中的组件。<br>2在一开始将该父类组件申明为指针，当要更改时，直接指向其派生的组件对象即可。<br>怎么理解C++多态的“父类指针或引用指向子类对象”？</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Unreal/" rel="tag"># Unreal</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/05/UnrealStudy/UE4-Delegate/" rel="prev" title="UE4 Delegate">
+      <i class="fa fa-chevron-left"></i> UE4 Delegate
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/31/UnrealStudy/UE4-%E6%89%93%E5%8C%85%E7%9B%B8%E5%85%B3/" rel="next" title="UE4 打包相关">
+      UE4 打包相关 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">VisionXie</p>
+  <div class="site-description" itemprop="description">生活在树上，始终热爱大地，升入天空。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">VisionXie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyvS0HjaG';
+    var conf = '26c6eae6e21dfb5a6535a5e53425e9ec';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>

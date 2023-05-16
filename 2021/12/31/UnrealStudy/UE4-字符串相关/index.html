@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="FText、FString、FName、TEXT的概念及使用注意 富文本的实现…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UE4 字符串类型">
+<meta property="og:url" content="http://example.com/2021/12/31/UnrealStudy/UE4-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="XiMo">
+<meta property="og:description" content="FText、FString、FName、TEXT的概念及使用注意 富文本的实现…">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-31T16:00:00.000Z">
+<meta property="article:author" content="VisionXie">
+<meta property="article:tag" content="Unreal">
+<meta property="article:tag" content="字符串">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/12/31/UnrealStudy/UE4-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>UE4 字符串类型 | XiMo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XiMo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">醉后不知天在水，满船清梦压星河。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>All<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/31/UnrealStudy/UE4-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="VisionXie">
+      <meta itemprop="description" content="生活在树上，始终热爱大地，升入天空。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiMo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UE4 字符串类型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2022-01-01T00:00:00+08:00">2022-01-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UnrealEngine/" itemprop="url" rel="index"><span itemprop="name">UnrealEngine</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2021/12/31/UnrealStudy/UE4-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/12/31/UnrealStudy/UE4-字符串相关/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>FText、FString、FName、TEXT的概念及使用注意</li>
+<li>富文本的实现… <span id="more"></span>
+<h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><h3 id="1、FString"><a href="#1、FString" class="headerlink" title="1、FString"></a>1、FString</h3>FString类似C++ STL中的string，提供字符串插入，拼接，删改，比较，迭代遍历等常见字符串功能。<br>默认是宽字符”TEXT()”, 不允许使用多字符”char*”</li>
+</ul>
+<p>TIPS:<br>设置字符串变量文字时应使用 TEXT() 宏。如未指定 TEXT() 宏，将使用 ANSI 对文字进行编码，会导致支持字符高度受限。传入 FString 的 ANSI 文字需要完成到 TCHAR 的转换（本地万国码编码），以便更高效地使用 TEXT()。</p>
+<p>FString是唯一允许操作修改字符串的字符串类（比如在字符串结尾再加个字符）。而FName和FText不可操作修改<br>由于FString是可被修改的，当字符串进行搜索、对比等操作时，消耗比其他字符串类型更大<br>FString可以和数值类型相互转换，比如int，float，bool等。FVector，FRotator等也能转为FString。<br>//FString to std::string<br>std::string cstr(TCHAR_TO_UTF8(*UE4Str));<br>//std::string to FString<br>FString ue4Str = FString(cstr.c_str()));</p>
+<h4 id="FString格式化"><a href="#FString格式化" class="headerlink" title="FString格式化"></a>FString格式化</h4><ul>
+<li>Printf 格式化<br>int32 i = 1;<br>FString Text1 = FString::Printf(TEXT(“Text%d”), i);//Text1</li>
+<li>Format TArray 格式化<br>TArray<FStringFormatArg> FormatArray;<br>FormatArray.Add(FStringFormatArg(1));<br>FormatArray.Add(FStringFormatArg(2));<br>FString Text1 = FString::Format(TEXT(“Text{0}{1}{0}”), FormatArray);//Text121</li>
+<li>Format TMap 格式化<br>TMap&lt;FString, FStringFormatArg&gt; FormatMap;<br>FormatMap.Add(TEXT(“key1”), FStringFormatArg(1));<br>FormatMap.Add(TEXT(“key2”), FStringFormatArg(2));<br>FString Text1 = FString::Format(TEXT(“Text{key1}{key2}{key1}”), FormatMap);//Text121</li>
+</ul>
+<h3 id="2、FName"><a href="#2、FName" class="headerlink" title="2、FName"></a>2、FName</h3><p>FName最大特点是具备静态存储特性。相同的字符串只存一次。原理是唯一字符串和一个索引number组合起来存在表中，该特性使得FName查找和访问速度较快。例如比较2个FName是否相等，直接比较它们的索引是否相等，无需进行逐个字符的比较。</p>
+<p>FName 不区分大小写，也不可变。<br>UE4编辑器中的各种操作命名也用的FName，比如给组件命名等。</p>
+<h3 id="3、FText"><a href="#3、FText" class="headerlink" title="3、FText"></a>3、FText</h3><h4 id="FText的概念"><a href="#FText的概念" class="headerlink" title="FText的概念"></a>FText的概念</h4><ul>
+<li>玩家可见文本，用户界面（HUD\Slate）上的文本框用FText来显示，同时FText是UE4中文本本地化的主要组件。</li>
+<li>FText中包含了与本地化数据相关联的字符串，FText = 字符串 + 本地化关联字符串。所以在ToString()转换成FString会丢失数据。</li>
+<li>Ftext 同时具有 AsCultureInvariant 函数（或 INVTEXT 宏），可创建非本地化的（即”语言不变”）文本。这在进行如将玩家名从外部API转换为可在用户界面显示的文本等操作时，十分有用。</li>
+<li>可使用 FText::GetEmpty() 或仅使用 FText(),创建空白 FText。</li>
+<li>由于要支持未来的多语言版本，服务器不允许直接使用FText。<h4 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h4>FText 数据比简单字符串复杂，因此其不支持重载运算符比较。相反，其提供多个函数，以执行识别其中细微数据的比较。可用下列比较函数：</li>
+<li>EqualTo()此函数使用 ETextComparisonLevel值决定要使用的比较规则。其返回 布尔，表明在此类比较规则下，调用 FText 是否与其他函数匹配。</li>
+<li>EqualToCaseIgnored()此函数为包装，用于以 ETextComparisonLevel 的 Second 值调用 EqualTo。返回值直接来自 EqualTo。</li>
+<li>CompareTo()此函数使用 ETextComparisonLevel值决定要使用的比较规则。与多数字符串或内存比较函数相同，其会返回 int32，其中零表示相等，而负值或正值分别表示调用 FText 的序位低于或高于 FText 参数。</li>
+<li>CompareToCaseIgnored()此函数为包装，用于以 ETextComparisonLevel 的 Second 值调用 CompareTo。返回值直接来自 CompareTo。</li>
+</ul>
+<h4 id="文本格式化功能"><a href="#文本格式化功能" class="headerlink" title="文本格式化功能"></a>文本格式化功能</h4><ul>
+<li><p>FText::Format一般文本格式化。<br>要么接受基于索引的参数（使用”FFormatOrderedArguments”或可变参数），要么接受基于名称的参数（使用”FFormatNamedArguments”）。<br>FText::Format(LOCTEXT(“ExampleFText”,” 当前剩余生命值{0}.”), CurrentHealth);</p>
+</li>
+<li><p>FText::FormatOrdered基于可变索引的格式化。<br>接受可用于构造”FFormatArgumentValue”的任何参数。</p>
+</li>
+<li><p>FText::FormatNamed基于可变名称的格式化。<br>接受连续名称（任何可用于构造”FString”的名称），然后对参数赋值（任何可用于构造”FFormatArgumentValue”的值）。</p>
+</li>
+</ul>
+<h4 id="文本生成"><a href="#文本生成" class="headerlink" title="文本生成"></a>文本生成</h4><ul>
+<li>FText::AsDate：将FDateTime值转换为用户友好的日期表示形式。</li>
+<li>FText::AsNumber：将UE4支持的任何数值类型转换为用户友好的文本表示形式（”1234.5”变为”1,234.5”)。</li>
+<li>FText::AsPercent：将浮点数或双精度浮点数转换为百分比文本表示形式（”0.2”变为20%）。</li>
+<li>FText::AsMemory：将值（以字节为单位）转换为用户友好的内存表示形式（”1234”变成”1.2 KiB”）。</li>
+<li>FText::AsCurrencyBase：将采用基本表示形式的货币值转换为用户友好的货币表示形式（”USD””123450”转换为”$1,234.50”）。</li>
+<li>FText::ToLower：以符合unicode标准的方式将FText实例转换为其小写形式。</li>
+<li>FText::ToUpper：以符合unicode标准的方式将FText实例转换为其大写形式。<h3 id="4、TEXT"><a href="#4、TEXT" class="headerlink" title="4、TEXT"></a>4、TEXT</h3></li>
+</ul>
+<p>为何FString str = TEXT(“Hello”);</p>
+<p>如果未使用TEXT()宏，将使用ANSI对文字进行编码，会导致支持字符高度受限(简单来说，会乱码)。传入FString的ANSI文字需要完成到TChar的转换</p>
+<h2 id="互相转换"><a href="#互相转换" class="headerlink" title="互相转换"></a>互相转换</h2><ul>
+<li>FString转FName：TestHUDName = FName(*TestHUDString);</li>
+<li>FString转FText：TestHUDText = FText::FromString(TestHUDString);</li>
+<li>FName转FString：TestHUDString = TestHUDName.ToString();</li>
+<li>FName转FText：TestHUDText = FText::FromName(TestHUDName);</li>
+<li>FText转FName：不存在直接转的的方式，可以先转FString，再转FName，注意，FName不区分大小写，所以会丢失信息。</li>
+<li>FText转FString：TestHUDString = TestHUDText.ToString();</li>
+</ul>
+<h2 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h2><ul>
+<li><p>FText用于字符串表现，显示给玩家看。例如，提示给玩家的信息：<br>FText::Format(LOCTEXT(“ExampleFText”,” 当前剩余生命值{0}.”), CurrentHealth);<br>服务器不允许写这种逻辑。</p>
+</li>
+<li><p>FName不区分大小写，也不操作修改字符串的，查找性能较好。例如，配置组件名字<br>UPROPERTY(EditDefaultsOnly)<br>FName TargetComponent;</p>
+</li>
+<li><p>FString需要区分大小写的，或需要对字符串操作的使用。例如：拼接路径<br>FString strPath = FPaths::ProjectDir() + TEXT(“aa.exe”);<br>Tips：信息含量为FText &gt; FString &gt; FName<br>高信息转低信息类型时存在信息损耗。</p>
+</li>
+</ul>
+<h2 id="富文本的实现"><a href="#富文本的实现" class="headerlink" title="富文本的实现"></a>富文本的实现</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Unreal/" rel="tag"># Unreal</a>
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag"># 字符串</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/20/UnrealStudy/UE4-DataTable/" rel="prev" title="UE4 DataTable">
+      <i class="fa fa-chevron-left"></i> UE4 DataTable
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81FString"><span class="nav-number">1.1.</span> <span class="nav-text">1、FString</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FString%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">1.1.1.</span> <span class="nav-text">FString格式化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81FName"><span class="nav-number">1.2.</span> <span class="nav-text">2、FName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81FText"><span class="nav-number">1.3.</span> <span class="nav-text">3、FText</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FText%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.1.</span> <span class="nav-text">FText的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83"><span class="nav-number">1.3.2.</span> <span class="nav-text">字符串比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.3.</span> <span class="nav-text">文本格式化功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E7%94%9F%E6%88%90"><span class="nav-number">1.3.4.</span> <span class="nav-text">文本生成</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81TEXT"><span class="nav-number">1.4.</span> <span class="nav-text">4、TEXT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">互相转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9"><span class="nav-number">3.</span> <span class="nav-text">如何选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%8C%E6%96%87%E6%9C%AC%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">富文本的实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">VisionXie</p>
+  <div class="site-description" itemprop="description">生活在树上，始终热爱大地，升入天空。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">VisionXie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyvS0HjaG';
+    var conf = '26c6eae6e21dfb5a6535a5e53425e9ec';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>

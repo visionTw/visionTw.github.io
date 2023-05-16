@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一些程序设计相关的随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些杂七杂八的数据结构、设计知识随笔">
+<meta property="og:url" content="http://example.com/2018/10/02/OtherStudy/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="XiMo">
+<meta property="og:description" content="一些程序设计相关的随笔">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-01T16:00:00.000Z">
+<meta property="article:author" content="VisionXie">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="面试题">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2018/10/02/OtherStudy/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一些杂七杂八的数据结构、设计知识随笔 | XiMo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XiMo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">醉后不知天在水，满船清梦压星河。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>All<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/10/02/OtherStudy/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="VisionXie">
+      <meta itemprop="description" content="生活在树上，始终热爱大地，升入天空。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiMo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一些杂七杂八的数据结构、设计知识随笔
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-03T00:00:00+08:00">2018-10-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-02 00:00:00" itemprop="dateModified" datetime="2020-12-02T00:00:00+08:00">2020-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index"><span itemprop="name">Other</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2018/10/02/OtherStudy/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/10/02/OtherStudy/设计模式数据结构与算法/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>一些程序设计相关的随笔</p>
+<span id="more"></span>
+<h1 id="设计模式数据结构与算法"><a href="#设计模式数据结构与算法" class="headerlink" title="设计模式数据结构与算法"></a>设计模式数据结构与算法</h1><h2 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h2><h3 id="17-数列-1-1-2-3-5-8-13…第-n-位数是多少-用-C-递归算法实现"><a href="#17-数列-1-1-2-3-5-8-13…第-n-位数是多少-用-C-递归算法实现" class="headerlink" title="17.数列 1,1,2,3,5,8,13…第 n 位数是多少?用 C#递归算法实现"></a>17.数列 1,1,2,3,5,8,13…第 n 位数是多少?用 C#递归算法实现</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public int CountNumber(int num) &#123;</span><br><span class="line">      if (num == 1 || num == 2) &#123;</span><br><span class="line">          return 1;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">          return CountNumber(num -1) + CountNumber(num-2);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="32-你拥有A块钱，一瓶水B块钱，每瓶水可以得到一个瓶盖，每C个瓶盖可以换一瓶水请写出函数求解上面题目，上面题目ABC为参数"><a href="#32-你拥有A块钱，一瓶水B块钱，每瓶水可以得到一个瓶盖，每C个瓶盖可以换一瓶水请写出函数求解上面题目，上面题目ABC为参数" class="headerlink" title="32.你拥有A块钱，一瓶水B块钱，每瓶水可以得到一个瓶盖，每C个瓶盖可以换一瓶水请写出函数求解上面题目，上面题目ABC为参数"></a>32.你拥有A块钱，一瓶水B块钱，每瓶水可以得到一个瓶盖，每C个瓶盖可以换一瓶水请写出函数求解上面题目，上面题目ABC为参数</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static int Buy(int a,int b,int c) &#123;</span><br><span class="line">    return a/b + ForCap(c,a/b);</span><br><span class="line">&#125;</span><br><span class="line">public static int ForCap(int c,int d) &#123;</span><br><span class="line">if (d&lt;c) &#123;</span><br><span class="line">    return 0;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    return d/c + ForCap(c,d/c + d%c);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="33-有一排开关，第一个人把所有的开关打开，第二个人按2的倍数的开关，第三个人按3的倍数的开关，以此类推，现在又n个开关，k个人，写函数求最后等两者的开关，输入参数n和k"><a href="#33-有一排开关，第一个人把所有的开关打开，第二个人按2的倍数的开关，第三个人按3的倍数的开关，以此类推，现在又n个开关，k个人，写函数求最后等两者的开关，输入参数n和k" class="headerlink" title="33.有一排开关，第一个人把所有的开关打开，第二个人按2的倍数的开关，第三个人按3的倍数的开关，以此类推，现在又n个开关，k个人，写函数求最后等两者的开关，输入参数n和k"></a>33.有一排开关，第一个人把所有的开关打开，第二个人按2的倍数的开关，第三个人按3的倍数的开关，以此类推，现在又n个开关，k个人，写函数求最后等两者的开关，输入参数n和k</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args) &#123;</span><br><span class="line">       int n = int.Parse(Console.ReadLine());</span><br><span class="line">       int k = int.Parse(Console.ReadLine());</span><br><span class="line">       Function(100,100);</span><br><span class="line">  &#125;</span><br><span class="line">  static void Function(int n, int k) &#123;</span><br><span class="line">       int i, j = 0;</span><br><span class="line">       bool[] a = new bool[1000]; //初始false：关灯，true:开灯</span><br><span class="line">       for (i = 1; i &lt;= k; i++)      //k个人</span><br><span class="line">           for (j = 1; j &lt;= n; j++)  //n个灯</span><br><span class="line">               if (j % i == 0)</span><br><span class="line">                   a[j] = !a[j]; //取反,false变true,原来开变关，关变开</span><br><span class="line">           for (i = 1; i &lt;= n; i++) //最后输出a[i]的值就可以了</span><br><span class="line">               if (a[i]) //灯亮着</span><br><span class="line">                   Console.WriteLine(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="34-数制转换，将任意整数转换成8进制形式"><a href="#34-数制转换，将任意整数转换成8进制形式" class="headerlink" title="34.数制转换，将任意整数转换成8进制形式"></a>34.数制转换，将任意整数转换成8进制形式</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args) &#123;</span><br><span class="line">      int n;</span><br><span class="line">      n =int.Parse(Console.ReadLine());</span><br><span class="line">      Console.WriteLine(&quot;输入的10进制为：&#123;0&#125;&quot;,n);</span><br><span class="line">      Console.Write(&quot;转换为8进制数为: &quot;);</span><br><span class="line">      d2o(n);</span><br><span class="line">&#125;</span><br><span class="line">static void d2o(int n) &#123;</span><br><span class="line">     if (n &gt; 7) &#123;</span><br><span class="line">          d2o(n / 8);</span><br><span class="line">     &#125;</span><br><span class="line">     Console.Write(n%8);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="35-找出200以内的素数"><a href="#35-找出200以内的素数" class="headerlink" title="35.找出200以内的素数"></a>35.找出200以内的素数</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args) &#123;</span><br><span class="line">    int count = 0;</span><br><span class="line">    for (int i = 1; i &lt; 200; i++) &#123;  //外层循环：要判断的数</span><br><span class="line">        for (int j = 2; j &lt;=i; j++)&#123;</span><br><span class="line">            if (i % j == 0&amp;&amp; i!=j) &#123;</span><br><span class="line">                 break;</span><br><span class="line">             &#125;</span><br><span class="line">             if (j == i ) &#123;  //结束的条件:最后一个数还没有被整除</span><br><span class="line">                  count++;</span><br><span class="line">                  Console.WriteLine(i);</span><br><span class="line">             &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="36-打印杨辉三角形"><a href="#36-打印杨辉三角形" class="headerlink" title="36.打印杨辉三角形"></a>36.打印杨辉三角形</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public static void YHSJ()&#123;</span><br><span class="line">    int [][]a= new int[7][] ;</span><br><span class="line">    a[0] = new int[1];  //a[0][0]=1;</span><br><span class="line">    a[1] = new int[2] ;</span><br><span class="line">    for (int i = 0; i &lt; 7; i++) &#123;</span><br><span class="line">        a[i] = new int[i+1] ;  </span><br><span class="line">        a[i][0] =1;</span><br><span class="line">        a[i][i]=1;</span><br><span class="line">        if(i&gt;1) &#123;  //求出中间的数据</span><br><span class="line">    for(int j=1;j&lt;i; j++)&#123;</span><br><span class="line">                a[i][j]= a[i-1][j-1]+a[i-1][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     for (int i=0; i&lt;a.Length; i++) &#123;</span><br><span class="line">         for (int k = 0; k &lt; a.Length-1-i; k++) &#123;</span><br><span class="line">             Console.Write(&quot;&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">         for(int j=0;j&lt;a[i].Length; j++ ) &#123;</span><br><span class="line">             Console.Write(a[i][j] + &quot;&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">         Console.WriteLine();</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="37-中国有句俗话“三天打鱼两天晒网”，某人从2000年1月1日起开始“三天打鱼两天晒网”，问这个人在今后的某天中“打鱼”还是”晒网”"><a href="#37-中国有句俗话“三天打鱼两天晒网”，某人从2000年1月1日起开始“三天打鱼两天晒网”，问这个人在今后的某天中“打鱼”还是”晒网”" class="headerlink" title="37.中国有句俗话“三天打鱼两天晒网”，某人从2000年1月1日起开始“三天打鱼两天晒网”，问这个人在今后的某天中“打鱼”还是”晒网”"></a>37.中国有句俗话“三天打鱼两天晒网”，某人从2000年1月1日起开始“三天打鱼两天晒网”，问这个人在今后的某天中“打鱼”还是”晒网”</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static void Compute()&#123;</span><br><span class="line">   Console.WriteLine ((DateTime.Now - DateTime.Parse(&quot;2000-01-01&quot;)).Days%5&lt;3?&quot;打鱼&quot;:&quot;晒网&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="38-假设当前市场价一只鸡10元，一只鸭12元5角。请写一个函数ShowPrice，输入参数分别为鸡和鸭的个数（非负整型），功能为显示出总价钱，精确到分。例如调用ShowPrice（5-10）后输出175-00。请注意程序的可读性和易于维护性"><a href="#38-假设当前市场价一只鸡10元，一只鸭12元5角。请写一个函数ShowPrice，输入参数分别为鸡和鸭的个数（非负整型），功能为显示出总价钱，精确到分。例如调用ShowPrice（5-10）后输出175-00。请注意程序的可读性和易于维护性" class="headerlink" title="38.假设当前市场价一只鸡10元，一只鸭12元5角。请写一个函数ShowPrice，输入参数分别为鸡和鸭的个数（非负整型），功能为显示出总价钱，精确到分。例如调用ShowPrice（5,10）后输出175.00。请注意程序的可读性和易于维护性"></a>38.假设当前市场价一只鸡10元，一只鸭12元5角。请写一个函数ShowPrice，输入参数分别为鸡和鸭的个数（非负整型），功能为显示出总价钱，精确到分。例如调用ShowPrice（5,10）后输出175.00。请注意程序的可读性和易于维护性</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">static void ShowPrice(int num_chicken, int num_duck)  &#123;</span><br><span class="line">      float totalPrice = 0.00f;</span><br><span class="line">      float price_chicken = 10f;</span><br><span class="line">      float price_duck = 12.5f;</span><br><span class="line">      totalPrice = num_chicken * price_chicken + num_duck * price_duck;</span><br><span class="line">      Console.WriteLine(&quot;总价钱为：&#123;0:0.00&#125;&quot;, totalPrice);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="39-请写一个函数，用于返回n-（阶乘）结果末尾连续0的个数，如GetZeroCount（5）返回1-因为5！-120，末尾连续1个0"><a href="#39-请写一个函数，用于返回n-（阶乘）结果末尾连续0的个数，如GetZeroCount（5）返回1-因为5！-120，末尾连续1个0" class="headerlink" title="39.请写一个函数，用于返回n!（阶乘）结果末尾连续0的个数，如GetZeroCount（5）返回1,因为5！ = 120，末尾连续1个0"></a>39.请写一个函数，用于返回n!（阶乘）结果末尾连续0的个数，如GetZeroCount（5）返回1,因为5！ = 120，末尾连续1个0</h3> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args) &#123;</span><br><span class="line">    int fac = Factorial(5);</span><br><span class="line">    Console.WriteLine(CountZero(fac));</span><br><span class="line">&#125;</span><br><span class="line">public static int Factorial(int n) &#123;</span><br><span class="line">    if (n == 1) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return n * jiecheng(n - 1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//求连续的0的个数</span><br><span class="line">public static int CountZero(int num) &#123;</span><br><span class="line">    int result = 0; // 最后的结果</span><br><span class="line">    String numStr = num.ToString();</span><br><span class="line">    for (int i = numStr.Length - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        if (numStr[i] == &#x27;0&#x27;) &#123;</span><br><span class="line">           result ++;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="写一个计时器工具，从整点开始计时，格式为：00-00-00"><a href="#写一个计时器工具，从整点开始计时，格式为：00-00-00" class="headerlink" title="写一个计时器工具，从整点开始计时，格式为：00:00:00"></a>写一个计时器工具，从整点开始计时，格式为：00:00:00</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private float timer = 0f;</span><br><span class="line">private int h = 0;</span><br><span class="line">private int m = 0;</span><br><span class="line">private int s = 0;</span><br><span class="line">private string timeStr = string.Empty;</span><br><span class="line">void Update () &#123;</span><br><span class="line">timer += Time.deltaTime;</span><br><span class="line">    if (timer &gt;= 1f) &#123;s++;  timer = 0;&#125;</span><br><span class="line">    if (s &gt;= 60) &#123;m++;s = 0;&#125; </span><br><span class="line">if (m &gt;= 60) &#123;h++;m = 0;&#125;</span><br><span class="line">    if (h &gt;= 99) &#123;h = 0;&#125;</span><br><span class="line">&#125;</span><br><span class="line">void OnGUI()&#123;</span><br><span class="line">timeStr = string.Format (&quot;&#123;0:D2&#125;:&#123;1:D2&#125;:&#123;2:D2&#125;&quot;, h, m, s);</span><br><span class="line">    GUI.Label (new Rect (10, 10, 100, 200), timeStr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="已知3个人说真话，一个人说假话，现在根据以上信息找出做了好事的人-并编程实现"><a href="#已知3个人说真话，一个人说假话，现在根据以上信息找出做了好事的人-并编程实现" class="headerlink" title="已知3个人说真话，一个人说假话，现在根据以上信息找出做了好事的人(并编程实现)"></a>已知3个人说真话，一个人说假话，现在根据以上信息找出做了好事的人(并编程实现)</h3><p>1.假设A讲假话,其馀三人讲真话,则B和C出现矛盾,所以假设不成立,A讲真话.<br>2.假设B讲假话,其馀三人讲真话,则C和D的<br>说法出现矛盾,所以假设不成立,B讲真话.<br>3.假设C讲假话,其馀三人讲真话,则A、B、D的证供都成立,所以假设成立,C讲假话.<br>4.假设D讲假话,其馀三人讲真话,则B和C出现矛盾,所以假设不成立,D讲真话.<br>推出,C是做好事的人.<br>提示：<br>第一步：被测者从1—4<br>第二步：将被测者代入表达式<br>第三步：判断3个表达式为真吗?是的则打印结果程序结束。不是,判断是否全测完，不是转第一步，是打印未找到，程序结束。完成下面的程序。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="built_in">main</span>()&#123;</span><br><span class="line"><span class="keyword">int</span> k = <span class="number">0</span>,sum = <span class="number">0</span>,g = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> man = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line"><span class="keyword">for</span>(k = <span class="number">1</span>; k &lt;= <span class="number">4</span> &amp;&amp; g==<span class="number">10</span>;k++) &#123;  </span><br><span class="line">man=<span class="number">64</span>+k; </span><br><span class="line">        sum=(man != <span class="string">&#x27;A&#x27;</span>) + (man == <span class="string">&#x27;C&#x27;</span>) + (men == <span class="string">&#x27;D&#x27;</span>) + (men != <span class="string">&#x27;D&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span>(sum==<span class="number">3</span>) &#123;</span><br><span class="line"><span class="built_in">clrscr</span>();  </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;\nman=%c\n&quot;</span>, <span class="number">64</span> + k);    </span><br><span class="line">            g = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">if</span>(g != <span class="number">1</span>)</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;can&#x27;t found! &quot;</span>);     <span class="built_in">getch</span>();    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="排序算法（详细）"><a href="#排序算法（详细）" class="headerlink" title="排序算法（详细）"></a>排序算法（详细）</h3><p>快排实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">static int[] quicksort(int[] arry,int lindex,int rindex)</span><br><span class="line"> &#123;</span><br><span class="line">   if(lindex&lt; rindex)//要设定好退出递归的条件，也就是当只排列两个数的数组后，排列完了退出</span><br><span class="line">  &#123;</span><br><span class="line">   int pivot = arry[lindex];</span><br><span class="line">   int i = lindex;</span><br><span class="line">   int j = rindex;</span><br><span class="line">    while(i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        i = lindex;</span><br><span class="line">        j = rindex;</span><br><span class="line">         while (pivot &gt;arry[i])//碰到相等的情况，也要退出循环</span><br><span class="line">         &#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">         while(pivot &lt; arry[j])</span><br><span class="line">           &#123;</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">      swap(arry, i, j); </span><br><span class="line">      arry = quicksort(arry, i + 1, rindex);</span><br><span class="line">    arry   =quicksort(arry, lindex, i);</span><br><span class="line">    &#125;</span><br><span class="line">    return arry;</span><br><span class="line">    &#125;</span><br><span class="line">int[] swap(int[] arr,int index1 ,int index2)</span><br><span class="line">&#123;</span><br><span class="line">    int tmp;</span><br><span class="line">    tmp = arr[index1];</span><br><span class="line">    arr[index1] = arr[index2];</span><br><span class="line">    arr[index2] = tmp;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1、请使用冒泡排序，对一维数组进行降序排列"><a href="#1、请使用冒泡排序，对一维数组进行降序排列" class="headerlink" title="1、请使用冒泡排序，对一维数组进行降序排列"></a>1、请使用冒泡排序，对一维数组进行降序排列</h3><p>冒泡排序：它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换。<br>冒泡排序算法的运作如下：<br>比较相邻元素。如果第一个比第二个大，就交换它们。<br>对每一对相邻元素做同样的工作，从开始第一队到结尾的最后一对。在这一点，最后的元素会使最大的数。<br>针对所有的元素重复以上的步骤，除了最后一个。<br>持续每次对越来越少的元素重复上面的步骤，知道没有任何一对数字需要比较。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">//写法1</span><br><span class="line">public void Bubble1(int[] a)</span><br><span class="line">&#123;</span><br><span class="line">    bool b;</span><br><span class="line">    int tmp;</span><br><span class="line">    for (int i = 0; i &lt; a.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        b = false;</span><br><span class="line">        for (int j = i + 1; j &lt; a.Length; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (a[j] &gt; a[i])</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = a[j];</span><br><span class="line">                a[j] = a[i];</span><br><span class="line">                a[i] = tmp;</span><br><span class="line">                b = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (!b) break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//写法2</span><br><span class="line">void Bubble2(int[] a)</span><br><span class="line">&#123;</span><br><span class="line">    bool b = false;</span><br><span class="line">    int tmp;</span><br><span class="line">    for (int i = 0; i &lt; a.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        b = false;</span><br><span class="line">        for (int j = 0; j &lt; a.Length - i; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (a[j] &lt; a[j + 1])</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = a[j];</span><br><span class="line">                a[j] = a[j + 1];</span><br><span class="line">                a[j + 1] = tmp;</span><br><span class="line">                b = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (!b) break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//写法3</span><br><span class="line">void Bubble3(int[] a)</span><br><span class="line">&#123;</span><br><span class="line">    bool b = true;</span><br><span class="line">    int j = 0;</span><br><span class="line">    int temp;</span><br><span class="line">    do</span><br><span class="line">    &#123;</span><br><span class="line">        b = false;</span><br><span class="line">        for (int i; i &lt; a.Length - j; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (a[i] &lt; a[i + 1])</span><br><span class="line">            &#123;</span><br><span class="line">                temp = a[i];</span><br><span class="line">                a[i] = a[i + 1];</span><br><span class="line">                a[i + 1] = temp;</span><br><span class="line">                b = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    while (b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="有一个很大的Int32数组，在提供一次加载进进程的条件下，如何进行排序"><a href="#有一个很大的Int32数组，在提供一次加载进进程的条件下，如何进行排序" class="headerlink" title="有一个很大的Int32数组，在提供一次加载进进程的条件下，如何进行排序"></a>有一个很大的Int32数组，在提供一次加载进进程的条件下，如何进行排序</h3><h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><h3 id="1、说出你所了解的数据结构，并说明它们的特点"><a href="#1、说出你所了解的数据结构，并说明它们的特点" class="headerlink" title="1、说出你所了解的数据结构，并说明它们的特点"></a>1、说出你所了解的数据结构，并说明它们的特点</h3><p>数组：长度固定，存储空间连续，读取速度快，插入，删除速度慢<br>链表：长度不定，存储空间可能不连续，读取速度慢，插入，删除速度快<br>栈：后进先出<br>队列：先进先出<br>字典：键/值对集合，无序，一一对应，查找速度快<br>树：可形成无限级层次，父子节点。</p>
+<h3 id="1、请描述你所了解的设计模式，并说明在你的项目中哪里使用过？"><a href="#1、请描述你所了解的设计模式，并说明在你的项目中哪里使用过？" class="headerlink" title="1、请描述你所了解的设计模式，并说明在你的项目中哪里使用过？"></a>1、请描述你所了解的设计模式，并说明在你的项目中哪里使用过？</h3><p>单例: 对象池，游戏管理器<br>抽象工厂，<br>状态：有限状态机，</p>
+<p>桥接：有限状态机</p>
+<p>策略：AI自动行为操控中每种操控算法的独例</p>
+<h3 id="1、请说出4中面向对象的设计原则，并分别简述它们的含义"><a href="#1、请说出4中面向对象的设计原则，并分别简述它们的含义" class="headerlink" title="1、请说出4中面向对象的设计原则，并分别简述它们的含义"></a>1、请说出4中面向对象的设计原则，并分别简述它们的含义</h3><p>1）单一职责原则：一个类，最好只做一件事，只有一个引起它的变化。<br>2）开放-封闭原则：对于扩展是开放的，对于更改是封闭的。<br>3）里氏替换原则：子类必须能够替换其基类。<br>4）依赖倒置原则：设计应该依赖于抽象而不是具体实现。<br>5）接口隔离原则：使用多个小的专门的接口而不要使用一个大的总接口。</p>
+<h3 id="214-用过哪些设计模式？谈谈自己比较熟悉的设计模式"><a href="#214-用过哪些设计模式？谈谈自己比较熟悉的设计模式" class="headerlink" title="214.用过哪些设计模式？谈谈自己比较熟悉的设计模式"></a>214.用过哪些设计模式？谈谈自己比较熟悉的设计模式</h3><p>1、工厂模式2、代理模式3、策略模式4、观察者模式6、单例模式</p>
+<h4 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h4><p>简单工厂模式解决的问题是如何去实例化一个合适的对象。<br>简单工厂模式的核心思想就是：有一个专门的类来负责创建实例的过程。凡是出现了大量的产品需要创建，并且具有共同的接口时，可以通过工厂方法模式进行创建。比如说写技能是一系列类，那么就可以使用工厂模式创建。<br>代理模式：一个是真正的你要访问的对象(目标类)，一个是代理对象,真正对象与代理对象实现同一个接口,先访问代理类再访问真正要访问的对象。</p>
+<h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><p>就是多一个代理类出来，替原对象进行一些操作，比如我们在租房子的时候回去找中介，为什么呢？因为你对该地区房屋的信息掌握的不够全面，希望找一个更熟悉的人去帮你做，此处的代理就是这个意思。再如我们有的时候打官司，我们需要请律师，因为律师在法律方面有专长，可以替我们进行操作，表达我们的想法。<br>代理模式的应用场景：<br>如果已有的方法在使用的时候需要对原有的方法进行改进，此时有两种办法：<br>1、修改原有的方法来适应。这样违反了“对扩展开放，对修改关闭”的原则。<br>2、就是采用一个代理类调用原有的方法，且对产生的结果进行控制。这种方法就是代理模式。<br>使用代理模式，可以将功能划分的更加清晰，有助于后期维护！</p>
+<h4 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h4><p>定义一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。策略模式的决定权在用户，系统本身提供不同算法的实现，新增或者删除算法，对各种算法做封装。因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法即可。</p>
+<h4 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h4><p>很好理解，类似于邮件订阅和RSS订阅，当我们浏览一些博客或wiki时，经常会看到RSS图标，就这的意思是，当你订阅了该文章，如果后续有更新，会及时通知你。其实，简单来讲就一句话：当一个对象变化时，其它依赖该对象的对象都会收到通知，并且随着变化！对象之间是一种一对多的关系。</p>
+<h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><p>单例对象（Singleton）是一种常用的设计模式。在C#应用中，单例对象能保证在一个CLR中，该对象只有一个实例存在。这样的模式有几个好处：<br>1、某些类创建比较频繁，对于一些大型的对象，这是一笔很大的系统开销。<br>2、省去了new操作符，降低了系统内存的使用频率，减轻GC压力。<br>3、有些类如交易所的核心交易引擎，控制着交易流程，如果该类可以创建多个的话，系统完全乱了。（比如一个军队出现了多个司令员同时指挥，肯定会乱成一团），所以只有使用单例模式，才能保证核心交易服务器独立控制整个流程。</p>
+<h3 id="216-设计一个状态机类型，状态值为int类型，要求"><a href="#216-设计一个状态机类型，状态值为int类型，要求" class="headerlink" title="216.设计一个状态机类型，状态值为int类型，要求"></a>216.设计一个状态机类型，状态值为int类型，要求</h3><p>拥有接口，获取当前状态，切换状态<br>外部可以监听状态切换事件，参数为切换前状态和切换后状态（使用delete和event）//定义一个状态</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> abstract <span class="class"><span class="keyword">class</span> <span class="title">IAction</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> StateName;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IAction</span><span class="params">(<span class="keyword">int</span> stateName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.StateName = stateName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetState</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> StateName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> abstract <span class="keyword">bool</span> <span class="title">CanGetIn</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> abstract <span class="keyword">void</span> <span class="title">GetIn</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> abstract <span class="keyword">void</span> <span class="title">GetOut</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> abstract <span class="keyword">void</span> <span class="title">Update</span><span class="params">(<span class="keyword">float</span> dt)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义一个状态切换事件</span></span><br><span class="line"><span class="keyword">public</span> abstract <span class="class"><span class="keyword">class</span> <span class="title">IEvent</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> code; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IEvent</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetCode</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> code;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//当前状态事件检测</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> abstract <span class="keyword">bool</span> <span class="title">Check</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AvatarStateMachine</span>&#123;</span></span><br><span class="line">    <span class="comment">//初始化状态机</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InitStateMachine</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="comment">//注册一个状态</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddAction</span><span class="params">(<span class="keyword">int</span> action)</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">//注册一个状态切换事件</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddEventTransition</span><span class="params">(<span class="keyword">int</span> fromAction, <span class="keyword">int</span> toAction,    IEventbyEvent)</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">//更新当前状态，检测能否进入下一个状态</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">UpdateStateMachine</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="comment">//强行切换状态</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SwitchTo</span><span class="params">(<span class="keyword">int</span> toState)</span> </span>&#123;&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>217.如何处理unity中界面资源，界面逻辑以及功能模块三者之间耦合关系<br>这就是在Unity使用MVC时通常将功能模块尽量脱离脱离MonoBehavior，同一个模块内M只用来操作数据并发送更新消息，V只用来接受消息并控制界面显示跳转，使用C来处理界面与数据的频繁操作。</p>
+<p>218.观察者模式的深入理解？<br>观察者模式：一对多的关系，当被观察这发生改变时会通知所有观察者。让双方都依赖于抽象，使得各自变化不会影响另一方。</p>
+<p>219.MVC模式<br>用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。</p>
+<p>206.对List的理解<br>有序的对象列表，属于数据结构的一种：顺序结构<br>泛型集合类，引入System.Collections.Generic命名空间，<br>常用操作有，Count属性查看长度，Add()添加，Remove()去除，AddRange()添加集合，Clear()清空集合。</p>
+<p>207.数组和List的核心区别<br>数组在C#中最早出现的。在内存中是连续存储的，所以它的索引速度非常快，而且赋值与修改元素也很简单。<br>数组存在一些不足的地方。在数组的两个数据间插入数据是很麻烦的，而且在声明数组的时候必须指定数组的长度，数组的长度过长，会造成内存浪费，过段会造成数据溢出的错误。如果在声明数组时我们不清楚数组的长度，就会变得很麻烦。<br>List&lt;T&gt;是集合，集合元素的数量可以动态变化。增加、插入、删除元素很方便。</p>
+<p>208.数据结构的看法<br>具有一定关系的数据元素集合，好的数据结构有利于简化算法的编写</p>
+<p>209.深度优化会么<br>会一点，比如在代码消耗上经常使用StopWatch类去优化算法，通常用IDisposable去显式的释放资源。</p>
+<p>210.实现二分要什么条件<br>有序结构</p>
+<p>212.二叉树的所有遍历方式的原理及优缺点<br>前序遍历，先访问根节点在访问左节点在访问右节点。<br>中序遍历，先访问左节点在访问根节点在访问右节点。<br>后序遍历，先访问左节点在访问右节点在访问根节点。<br>前中后代表的是访问根节点的时序。<br>这一点上没有什么本质上的优缺点，要看实际需求决定采用何种遍历方式<br>采用递归方式和非递归方式。前者优点是直观，编写起来简单，缺点是但其开销也比较大。非递归形式开销小，但编写复杂。</p>
+<p>213.数据结构中数组和链表各有什么特点，什么场合下应该使用数组，什么场合下应该使用链表<br>二者都属于一种数据结构<br>从逻辑结构来看</p>
+<ol>
+<li>数组必须事先定义固定的长度（元素个数），不能适应数据动态地增减的情况。当数据增加时，可能超出原先定义的元素个数；当数据减少时，造成内存浪费；数组可以根据下标直接存取。</li>
+<li>链表动态地进行存储分配，可以适应数据动态地增减的情况，且可以方便地插入、删除数据项。（数组中插入、删除数据项时，需要移动其它数据项，非常繁琐）链表必须根据next指针找到下一个元素</li>
+</ol>
+<p>从内存存储来看</p>
+<ol>
+<li>(静态)数组从栈中分配空间, 对于程序员方便快速,但是自由度小</li>
+<li>链表从堆中分配空间, 自由度大但是申请管理比较麻烦<br>从上面的比较可以看出，如果需要快速访问数据，很少或不插入和删除元素，就应该用数组；相反， 如果需要经常插入和删除元素就需要用链表数据结构了。</li>
+</ol>
+<p>204.对数据结构了解吗？说说你常用的数据结构。<br>了解，数据结构是每个程序员都要会一点的。链表、列表、散列表最常用，队列和栈也经常使用。二叉树偶尔使用。</p>
+<p>205.什么是状态机，什么是行为树<br>有限状态机系统：是指在不同阶段会呈现出不同的运行状态的系统，这些状态是有限的、不重叠的。这样的系统在某一时刻一定会处于其所有状态中的一个状态，此时它接收一部分允许的输入，产生一部分可能的响应，并且迁移到一部分可能的状态。</p>
+<ol>
+<li>基本节点是状态：他包含了一系列运行在该状态的行为以及离开这个状态的条件。</li>
+<li>状态可以任意跳转,实现简单,但是对于大的状态机很难维护.状态逻辑的重用性低.</li>
+<li>每一个状态的逻辑会随着一些新状态的增加而越来越复杂。维持状态的数量和状态逻辑复杂性是一个很大的难点。需要合理的分割以及重用状态。</li>
+<li>状态机状态的复用性很差，一旦一些因素变化导致这个环境发生变化。你只能新增一个状态，并且给这个新状态添加连接他以及其他状态的跳转逻辑。</li>
+<li>状态机的跳转条件一旦不满足，就会一直卡在某一个状态。</li>
+</ol>
+<p>行为树：一个流行的AI技术，涵盖了层次状态机，事件调度，事件计划，行为等一系列技术。</p>
+<ol>
+<li>高度模块化状态，去掉状态中的跳转逻辑，使得状态变成一个“行为”。</li>
+<li>“行为”和”行为”之间的跳转是通过父节点的类型来决定的。比如并行处理两个行为，在状态机里面无法同时处理两个状态。</li>
+<li>通过增加控制节点的类型，可以达到复用行为的目的。</li>
+<li>可视化编辑。</li>
+</ol>
+<h3 id="7-了解过A-算法吗，简单说说"><a href="#7-了解过A-算法吗，简单说说" class="headerlink" title="7.了解过A*算法吗，简单说说"></a>7.了解过A*算法吗，简单说说</h3><p>f(n)=g(n)+h(n);<br>f(n)是节点n的综合优先级。当我们选择下一个要遍历的节点时，我们总会选取综合优先级最高（值最小）的节点。<br>g(n) 是节点n距离起点的代价。<br>h(n)是节点n距离终点的预计代价，这也就是A<em>算法的启发函数。关于启发函数我们在下面详细讲解。<br>A</em>算法在运算过程中，每次从优先队列中选取f(n)值最小（优先级最高）的节点作为下一个待遍历的节点。<br>另外，A<em>算法使用两个集合来表示待遍历的节点，与已经遍历过的节点，这通常称之为open_set和close_set。<br>完整的A</em>算法描述如下：</p>
+<ul>
+<li>初始化open_set和close_set；</li>
+<li>将起点加入open_set中，并设置优先级为0（优先级最高）；</li>
+<li>如果open_set不为空，则从open_set中选取优先级最高的节点n：<ul>
+<li>如果节点n为终点，则：<pre><code>*从终点开始逐步追踪parent节点，一直达到起点；
+* 返回找到的结果路径，算法结束；
+</code></pre>
+<ul>
+<li>如果节点n不是终点，则：<ul>
+<li>将节点n从open_set中删除，并加入close_set中；</li>
+<li>遍历节点n所有的邻近节点：<pre><code>*如果邻近节点m在close_set中，则：
+    * 跳过，选取下一个邻近节点
+*如果邻近节点m也不在open_set中，则：
+    * 设置节点m的parent为节点n
+    *计算节点m的优先级
+    * 将节点m加入open_set中
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-说一说状态机和行为树"><a href="#8-说一说状态机和行为树" class="headerlink" title="8.说一说状态机和行为树"></a>8.说一说状态机和行为树</h3><p>作用:当逻辑里面有大量判断需要转换状态时，有限状态机就有用处了，本质上其是用查表法来把处理逻辑独立到表中，从而可以用通用的代码去处理任意复杂的状态转换，<br>状态机可归纳为4个要素，即现态、条件（事件）、动作、次态。“现态”和“条件”是因，“动作”和“次态”是果。<br>编程简单，主要是理清楚状态转移图。<br>行为树：没用过，大致知道是难点在生成行为树，</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
+              <a href="/tags/Unity/" rel="tag"># Unity</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"># 面试题</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/05/12/Unity3DStudy/Unity%E7%9B%B8%E5%85%B3/" rel="prev" title="一些杂七杂八的Unity知识随笔">
+      <i class="fa fa-chevron-left"></i> 一些杂七杂八的Unity知识随笔
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/02/12/OtherStudy/%E7%BD%91%E7%BB%9C%E5%B1%82/" rel="next" title="一些杂七杂八的网络交互随笔">
+      一些杂七杂八的网络交互随笔 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">设计模式数据结构与算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">编程题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#17-%E6%95%B0%E5%88%97-1-1-2-3-5-8-13%E2%80%A6%E7%AC%AC-n-%E4%BD%8D%E6%95%B0%E6%98%AF%E5%A4%9A%E5%B0%91-%E7%94%A8-C-%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">17.数列 1,1,2,3,5,8,13…第 n 位数是多少?用 C#递归算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E4%BD%A0%E6%8B%A5%E6%9C%89A%E5%9D%97%E9%92%B1%EF%BC%8C%E4%B8%80%E7%93%B6%E6%B0%B4B%E5%9D%97%E9%92%B1%EF%BC%8C%E6%AF%8F%E7%93%B6%E6%B0%B4%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0%E4%B8%80%E4%B8%AA%E7%93%B6%E7%9B%96%EF%BC%8C%E6%AF%8FC%E4%B8%AA%E7%93%B6%E7%9B%96%E5%8F%AF%E4%BB%A5%E6%8D%A2%E4%B8%80%E7%93%B6%E6%B0%B4%E8%AF%B7%E5%86%99%E5%87%BA%E5%87%BD%E6%95%B0%E6%B1%82%E8%A7%A3%E4%B8%8A%E9%9D%A2%E9%A2%98%E7%9B%AE%EF%BC%8C%E4%B8%8A%E9%9D%A2%E9%A2%98%E7%9B%AEABC%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">32.你拥有A块钱，一瓶水B块钱，每瓶水可以得到一个瓶盖，每C个瓶盖可以换一瓶水请写出函数求解上面题目，上面题目ABC为参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E6%9C%89%E4%B8%80%E6%8E%92%E5%BC%80%E5%85%B3%EF%BC%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BA%BA%E6%8A%8A%E6%89%80%E6%9C%89%E7%9A%84%E5%BC%80%E5%85%B3%E6%89%93%E5%BC%80%EF%BC%8C%E7%AC%AC%E4%BA%8C%E4%B8%AA%E4%BA%BA%E6%8C%892%E7%9A%84%E5%80%8D%E6%95%B0%E7%9A%84%E5%BC%80%E5%85%B3%EF%BC%8C%E7%AC%AC%E4%B8%89%E4%B8%AA%E4%BA%BA%E6%8C%893%E7%9A%84%E5%80%8D%E6%95%B0%E7%9A%84%E5%BC%80%E5%85%B3%EF%BC%8C%E4%BB%A5%E6%AD%A4%E7%B1%BB%E6%8E%A8%EF%BC%8C%E7%8E%B0%E5%9C%A8%E5%8F%88n%E4%B8%AA%E5%BC%80%E5%85%B3%EF%BC%8Ck%E4%B8%AA%E4%BA%BA%EF%BC%8C%E5%86%99%E5%87%BD%E6%95%B0%E6%B1%82%E6%9C%80%E5%90%8E%E7%AD%89%E4%B8%A4%E8%80%85%E7%9A%84%E5%BC%80%E5%85%B3%EF%BC%8C%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0n%E5%92%8Ck"><span class="nav-number">1.1.3.</span> <span class="nav-text">33.有一排开关，第一个人把所有的开关打开，第二个人按2的倍数的开关，第三个人按3的倍数的开关，以此类推，现在又n个开关，k个人，写函数求最后等两者的开关，输入参数n和k</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E6%95%B0%E5%88%B6%E8%BD%AC%E6%8D%A2%EF%BC%8C%E5%B0%86%E4%BB%BB%E6%84%8F%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E6%88%908%E8%BF%9B%E5%88%B6%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.1.4.</span> <span class="nav-text">34.数制转换，将任意整数转换成8进制形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35-%E6%89%BE%E5%87%BA200%E4%BB%A5%E5%86%85%E7%9A%84%E7%B4%A0%E6%95%B0"><span class="nav-number">1.1.5.</span> <span class="nav-text">35.找出200以内的素数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-%E6%89%93%E5%8D%B0%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="nav-number">1.1.6.</span> <span class="nav-text">36.打印杨辉三角形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-%E4%B8%AD%E5%9B%BD%E6%9C%89%E5%8F%A5%E4%BF%97%E8%AF%9D%E2%80%9C%E4%B8%89%E5%A4%A9%E6%89%93%E9%B1%BC%E4%B8%A4%E5%A4%A9%E6%99%92%E7%BD%91%E2%80%9D%EF%BC%8C%E6%9F%90%E4%BA%BA%E4%BB%8E2000%E5%B9%B41%E6%9C%881%E6%97%A5%E8%B5%B7%E5%BC%80%E5%A7%8B%E2%80%9C%E4%B8%89%E5%A4%A9%E6%89%93%E9%B1%BC%E4%B8%A4%E5%A4%A9%E6%99%92%E7%BD%91%E2%80%9D%EF%BC%8C%E9%97%AE%E8%BF%99%E4%B8%AA%E4%BA%BA%E5%9C%A8%E4%BB%8A%E5%90%8E%E7%9A%84%E6%9F%90%E5%A4%A9%E4%B8%AD%E2%80%9C%E6%89%93%E9%B1%BC%E2%80%9D%E8%BF%98%E6%98%AF%E2%80%9D%E6%99%92%E7%BD%91%E2%80%9D"><span class="nav-number">1.1.7.</span> <span class="nav-text">37.中国有句俗话“三天打鱼两天晒网”，某人从2000年1月1日起开始“三天打鱼两天晒网”，问这个人在今后的某天中“打鱼”还是”晒网”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#38-%E5%81%87%E8%AE%BE%E5%BD%93%E5%89%8D%E5%B8%82%E5%9C%BA%E4%BB%B7%E4%B8%80%E5%8F%AA%E9%B8%A110%E5%85%83%EF%BC%8C%E4%B8%80%E5%8F%AA%E9%B8%AD12%E5%85%835%E8%A7%92%E3%80%82%E8%AF%B7%E5%86%99%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0ShowPrice%EF%BC%8C%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0%E5%88%86%E5%88%AB%E4%B8%BA%E9%B8%A1%E5%92%8C%E9%B8%AD%E7%9A%84%E4%B8%AA%E6%95%B0%EF%BC%88%E9%9D%9E%E8%B4%9F%E6%95%B4%E5%9E%8B%EF%BC%89%EF%BC%8C%E5%8A%9F%E8%83%BD%E4%B8%BA%E6%98%BE%E7%A4%BA%E5%87%BA%E6%80%BB%E4%BB%B7%E9%92%B1%EF%BC%8C%E7%B2%BE%E7%A1%AE%E5%88%B0%E5%88%86%E3%80%82%E4%BE%8B%E5%A6%82%E8%B0%83%E7%94%A8ShowPrice%EF%BC%885-10%EF%BC%89%E5%90%8E%E8%BE%93%E5%87%BA175-00%E3%80%82%E8%AF%B7%E6%B3%A8%E6%84%8F%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8F%AF%E8%AF%BB%E6%80%A7%E5%92%8C%E6%98%93%E4%BA%8E%E7%BB%B4%E6%8A%A4%E6%80%A7"><span class="nav-number">1.1.8.</span> <span class="nav-text">38.假设当前市场价一只鸡10元，一只鸭12元5角。请写一个函数ShowPrice，输入参数分别为鸡和鸭的个数（非负整型），功能为显示出总价钱，精确到分。例如调用ShowPrice（5,10）后输出175.00。请注意程序的可读性和易于维护性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#39-%E8%AF%B7%E5%86%99%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E7%94%A8%E4%BA%8E%E8%BF%94%E5%9B%9En-%EF%BC%88%E9%98%B6%E4%B9%98%EF%BC%89%E7%BB%93%E6%9E%9C%E6%9C%AB%E5%B0%BE%E8%BF%9E%E7%BB%AD0%E7%9A%84%E4%B8%AA%E6%95%B0%EF%BC%8C%E5%A6%82GetZeroCount%EF%BC%885%EF%BC%89%E8%BF%94%E5%9B%9E1-%E5%9B%A0%E4%B8%BA5%EF%BC%81-120%EF%BC%8C%E6%9C%AB%E5%B0%BE%E8%BF%9E%E7%BB%AD1%E4%B8%AA0"><span class="nav-number">1.1.9.</span> <span class="nav-text">39.请写一个函数，用于返回n!（阶乘）结果末尾连续0的个数，如GetZeroCount（5）返回1,因为5！ &#x3D; 120，末尾连续1个0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%97%B6%E5%99%A8%E5%B7%A5%E5%85%B7%EF%BC%8C%E4%BB%8E%E6%95%B4%E7%82%B9%E5%BC%80%E5%A7%8B%E8%AE%A1%E6%97%B6%EF%BC%8C%E6%A0%BC%E5%BC%8F%E4%B8%BA%EF%BC%9A00-00-00"><span class="nav-number">1.1.10.</span> <span class="nav-text">写一个计时器工具，从整点开始计时，格式为：00:00:00</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%B2%E7%9F%A53%E4%B8%AA%E4%BA%BA%E8%AF%B4%E7%9C%9F%E8%AF%9D%EF%BC%8C%E4%B8%80%E4%B8%AA%E4%BA%BA%E8%AF%B4%E5%81%87%E8%AF%9D%EF%BC%8C%E7%8E%B0%E5%9C%A8%E6%A0%B9%E6%8D%AE%E4%BB%A5%E4%B8%8A%E4%BF%A1%E6%81%AF%E6%89%BE%E5%87%BA%E5%81%9A%E4%BA%86%E5%A5%BD%E4%BA%8B%E7%9A%84%E4%BA%BA-%E5%B9%B6%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.11.</span> <span class="nav-text">已知3个人说真话，一个人说假话，现在根据以上信息找出做了好事的人(并编程实现)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E8%AF%A6%E7%BB%86%EF%BC%89"><span class="nav-number">1.1.12.</span> <span class="nav-text">排序算法（详细）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B7%E4%BD%BF%E7%94%A8%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%AF%B9%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E8%BF%9B%E8%A1%8C%E9%99%8D%E5%BA%8F%E6%8E%92%E5%88%97"><span class="nav-number">1.1.13.</span> <span class="nav-text">1、请使用冒泡排序，对一维数组进行降序排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E5%BE%88%E5%A4%A7%E7%9A%84Int32%E6%95%B0%E7%BB%84%EF%BC%8C%E5%9C%A8%E6%8F%90%E4%BE%9B%E4%B8%80%E6%AC%A1%E5%8A%A0%E8%BD%BD%E8%BF%9B%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%9D%A1%E4%BB%B6%E4%B8%8B%EF%BC%8C%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.14.</span> <span class="nav-text">有一个很大的Int32数组，在提供一次加载进进程的条件下，如何进行排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-number">1.1.15.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E5%87%BA%E4%BD%A0%E6%89%80%E4%BA%86%E8%A7%A3%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8C%E5%B9%B6%E8%AF%B4%E6%98%8E%E5%AE%83%E4%BB%AC%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.16.</span> <span class="nav-text">1、说出你所了解的数据结构，并说明它们的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B7%E6%8F%8F%E8%BF%B0%E4%BD%A0%E6%89%80%E4%BA%86%E8%A7%A3%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8C%E5%B9%B6%E8%AF%B4%E6%98%8E%E5%9C%A8%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%93%AA%E9%87%8C%E4%BD%BF%E7%94%A8%E8%BF%87%EF%BC%9F"><span class="nav-number">1.1.17.</span> <span class="nav-text">1、请描述你所了解的设计模式，并说明在你的项目中哪里使用过？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B7%E8%AF%B4%E5%87%BA4%E4%B8%AD%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%8C%E5%B9%B6%E5%88%86%E5%88%AB%E7%AE%80%E8%BF%B0%E5%AE%83%E4%BB%AC%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">1.1.18.</span> <span class="nav-text">1、请说出4中面向对象的设计原则，并分别简述它们的含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#214-%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9F%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E6%AF%94%E8%BE%83%E7%86%9F%E6%82%89%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.19.</span> <span class="nav-text">214.用过哪些设计模式？谈谈自己比较熟悉的设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.19.1.</span> <span class="nav-text">工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.19.2.</span> <span class="nav-text">代理模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.19.3.</span> <span class="nav-text">策略模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.19.4.</span> <span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.19.5.</span> <span class="nav-text">单例模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#216-%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%8A%B6%E6%80%81%E6%9C%BA%E7%B1%BB%E5%9E%8B%EF%BC%8C%E7%8A%B6%E6%80%81%E5%80%BC%E4%B8%BAint%E7%B1%BB%E5%9E%8B%EF%BC%8C%E8%A6%81%E6%B1%82"><span class="nav-number">1.1.20.</span> <span class="nav-text">216.设计一个状态机类型，状态值为int类型，要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E4%BA%86%E8%A7%A3%E8%BF%87A-%E7%AE%97%E6%B3%95%E5%90%97%EF%BC%8C%E7%AE%80%E5%8D%95%E8%AF%B4%E8%AF%B4"><span class="nav-number">1.1.21.</span> <span class="nav-text">7.了解过A*算法吗，简单说说</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%AF%B4%E4%B8%80%E8%AF%B4%E7%8A%B6%E6%80%81%E6%9C%BA%E5%92%8C%E8%A1%8C%E4%B8%BA%E6%A0%91"><span class="nav-number">1.1.22.</span> <span class="nav-text">8.说一说状态机和行为树</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">VisionXie</p>
+  <div class="site-description" itemprop="description">生活在树上，始终热爱大地，升入天空。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">VisionXie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyvS0HjaG';
+    var conf = '26c6eae6e21dfb5a6535a5e53425e9ec';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>

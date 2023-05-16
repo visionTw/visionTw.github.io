@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="UPROPERTY介绍Unreal中常见的宏 UPROPERTY,它允许开发者定义变量的不同用途，比如是否同步（replicated），是否序列化、蓝图访问权限等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UE4 UPROPERTY()">
+<meta property="og:url" content="http://example.com/2021/10/05/UnrealStudy/UE4-UPROPERTY()/index.html">
+<meta property="og:site_name" content="XiMo">
+<meta property="og:description" content="UPROPERTY介绍Unreal中常见的宏 UPROPERTY,它允许开发者定义变量的不同用途，比如是否同步（replicated），是否序列化、蓝图访问权限等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T16:00:00.000Z">
+<meta property="article:author" content="VisionXie">
+<meta property="article:tag" content="Unreal">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/10/05/UnrealStudy/UE4-UPROPERTY()/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>UE4 UPROPERTY() | XiMo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XiMo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">醉后不知天在水，满船清梦压星河。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>All<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/05/UnrealStudy/UE4-UPROPERTY()/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="VisionXie">
+      <meta itemprop="description" content="生活在树上，始终热爱大地，升入天空。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiMo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UE4 UPROPERTY()
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-06T00:00:00+08:00">2021-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-30 00:00:00" itemprop="dateModified" datetime="2022-01-30T00:00:00+08:00">2022-01-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UnrealEngine/" itemprop="url" rel="index"><span itemprop="name">UnrealEngine</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2021/10/05/UnrealStudy/UE4-UPROPERTY()/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/10/05/UnrealStudy/UE4-UPROPERTY()/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="UPROPERTY介绍"><a href="#UPROPERTY介绍" class="headerlink" title="UPROPERTY介绍"></a>UPROPERTY介绍</h2><p>Unreal中常见的宏 UPROPERTY,它允许开发者定义变量的不同用途，比如是否同步（replicated），是否序列化、蓝图访问权限等。</p>
+<span id="more"></span>
+
+<h2 id="详细属性"><a href="#详细属性" class="headerlink" title="详细属性"></a>详细属性</h2><h3 id="Blueprint相关"><a href="#Blueprint相关" class="headerlink" title="Blueprint相关"></a>Blueprint相关</h3><ul>
+<li><p>BlueprintAssignable<br>仅能用于Multicast代理。应显示该属性，以供在蓝图中分配</p>
+</li>
+<li><p>BlueprintCallable<br>仅能用于Multicast代理。应显示该属性，以在蓝图代码中调用</p>
+</li>
+<li><p>BluprintReadOnly<br>设置属性为蓝图只读。会在蓝图脚本中为被修饰的变量提供 Get 方法，没有 Set 方法</p>
+</li>
+<li><p>BlueprintReadWrite<br>设置属性为蓝图读写。会在蓝图脚本中为被修饰的变量提供 Get 和 Set 方法</p>
+</li>
+<li><p>BlueprintGetter / BlueprintSetter<br>BlueprintGetter属性指定一个自定义存取器函数。如果这个属性没有被标记为BlueprintSetter或者BlueprintReadWrite，那么它就是隐式的BlueprintReadOnly。用法：BlueprintGetter = GetterFunctionName()<br>BlueprintSetter属性有一个自定义的mutator函数，并用BlueprintReadWrite隐式标记。注意，必须指定mutator函数，用法BlueprintSetter = SetterFunctionName</p>
+</li>
+</ul>
+<h3 id="编辑器表现相关"><a href="#编辑器表现相关" class="headerlink" title="编辑器表现相关"></a>编辑器表现相关</h3><ul>
+<li><p>Category = TopCategory|SubCategory|…<br>指定在Blueprint编辑工具中显示的属性的类别。使用|定义嵌套层级</p>
+</li>
+<li><p>Config<br>这个变量将被配置。当前值可以保存到与类关联的.ini文件中，并在创建时加载。无法在默认属性中给出值。意味着ReadOnly</p>
+</li>
+<li><p>Const<br>这个变量是常量,应该导出为常量。在编辑器中const属性将是不可修改的</p>
+</li>
+<li><p>DuplicateTransient<br>表示变量值应在任意类型的重复过程中(复制/粘贴， 二进制文件复制等)被重置为类默认值</p>
+</li>
+<li><p>EditAnywhere / VisibleAnywhere<br>EditAnywhere 表示此属性可以通过属性窗口，原型和实例进行编辑（原型指的是类模板，实例指的是具体的对象实例）</p>
+</li>
+<li><p>EditDefaultsOnly / VisibleDefaultOnly<br>EditDefaultsOnly 表示该属性可以由属性窗口编辑，但只能在原型上编辑。该操作符与“Visible”标签不兼容<br>VisibleDefaultOnly 表示此属性仅在原型的属性窗口中可见，并且不能被编辑。这个标签与“Edit”标签不兼容</p>
+</li>
+</ul>
+<p>在场景中的实例对象属性面板不会显示 DefaultOnly 修饰的属性,在蓝图类编辑面板中可以显示被DefaultObly修饰的属性。</p>
+<ul>
+<li><p>EditInstanceOnly / VisibleInstanceOnly<br>EditInstanceOnly 表示这个属性可以被属性窗口编辑，但只能在实例上编辑，而不能在原型上编辑。该操作符与“Visible”标签不兼容</p>
+</li>
+<li><p>SimpleDisplay<br>“Visible”或“Edit”属性显示在“详细信息”面板中，不显示“高级”部分即可见</p>
+</li>
+</ul>
+<h3 id="资源相关"><a href="#资源相关" class="headerlink" title="资源相关"></a>资源相关</h3><ul>
+<li>AssetRegistrySearchable<br>关键字表明此属性及其值将会为任意将其作为成员变量而包含的资源类示例被自动添加到资源注册中。不可用于结构体属性或参数</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li><p>VisibleInstanceOnly 表示此属性仅在实例的属性窗口中可见，而不在原型中显示，且无法编辑。这个标签与“编辑”标签不兼容<br>文档是这么写的，本小白是真没试出来毛效果，暂时认为与 Anywhere 类型的修饰属性效果一样</p>
+</li>
+<li><p>EditFixedSize<br>只对动态数组有用。这将防止用户通过虚幻编辑器属性窗口更改数组的长度</p>
+</li>
+<li><p>EditInline<br>允许用户编辑虚幻编辑器属性检查器中由该变量引用的对象的属性（仅用于对象引用，包括Object引用数组）</p>
+</li>
+<li><p>Export<br>仅适用于对象属性 (或对象数组)。指示在复制对象 (用于复制/粘贴) 或导出到 T3D 时, 应将分配给此属性的对象整体导出为对象块, 而不是仅输出对象引用本身</p>
+</li>
+<li><p>GlobleConfig<br>像Config一样工作，只是你不能在子类中覆盖它。无法在默认属性中给出值。意味着ReadOnly</p>
+</li>
+<li><p>Instanced<br>对象 (UCLASS) 属性。创建此类的实例时, 将为默认情况下分配给该变量的对象提供一个唯一的副本。用于在类默认属性中定义的实例子。类似 EditInline 和 Export 修饰符</p>
+</li>
+<li><p>Interp<br>表示该值可由Matinee的浮点或向量属性轨迹来随时间驱动</p>
+</li>
+<li><p>Localized<br>此变量的值将定义本地值。最常用于字符串。ReadOnly</p>
+</li>
+<li><p>Native<br>C++代码负责对其序列化并显示给GC</p>
+</li>
+<li><p>NoClear<br>防止该对象引用在编辑器中被设置为None.隐藏编辑器的清除（以及浏览）按钮</p>
+</li>
+<li><p>NoExport<br>仅对native类有效。此变量不应被包含在自动生成的类声明中</p>
+</li>
+<li><p>NonPIEDuplicateTeansient<br>在复制过程中，该属性将被重置为默认值，除非复制PIE会话</p>
+</li>
+<li><p>NonTransactional<br>表示对此变量值所做的更改将不会包含在编辑器的撤销/重做历史记录中</p>
+</li>
+<li><p>NotReplicated<br>跳过复制。这只适用于服务请求函数中的结构成员和参数</p>
+</li>
+<li><p>Ref<br>该值在函数调用后被复制出来。仅在函数参数声明中有效</p>
+</li>
+<li><p>Replicated<br>变量应通过网络进行复制</p>
+</li>
+<li><p>ReplicatedUsing = FunctionName<br>ReplicatedUsing标签指定了一个回调函数，当通过网络更新变量时执行回调函数,属性同步详细的可在网络同步-属性同步中看到。</p>
+</li>
+<li><p>RepRetry<br>仅用于结构体属性。如无法被完全发送，请重试复制此属性（例如，对象引用尚无法通过节点网络来进行序列化）。对于简单引用来说，这是一个默认值，但对结构体来说，由于带宽消耗，很多情况下我们不需要。所以除非此标识被定义，否则其会被禁用</p>
+</li>
+<li><p>SaveGame<br>此说明符是一种简单的方法，可以在属性级别为检查点/保存系统显式包含字段。该标志应设置在所有意图成为已保存游戏一部分的字段上，然后可使用代理归档程序对其进行读取/写入</p>
+</li>
+</ul>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><ul>
+<li><p>SerializeText<br>应将Native属性序列化为文本（ImportText，ExportText）</p>
+</li>
+<li><p>SkipSerialization<br>该属性不会被序列化，但仍然可以导出为文本格式（例如复制/粘贴）</p>
+</li>
+<li><p>TextExportTransient<br>此属性不会被导出为文本格式（例如复制/粘贴）</p>
+</li>
+<li><p>Transient<br>属性是暂时的，这意味着它不会被保存或加载。以这种方式标记的属性在加载时将被填满</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Unreal/" rel="tag"># Unreal</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/05/UnrealStudy/UE4-%E5%A4%9A%E4%BA%BA%E7%BD%91%E7%BB%9C%E6%B8%B8%E6%88%8F%E6%A1%86%E6%9E%B6/" rel="prev" title="UE4 多人网络游戏框架">
+      <i class="fa fa-chevron-left"></i> UE4 多人网络游戏框架
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/05/UnrealStudy/UE4-UE4Network%E6%B5%81%E7%A8%8B/" rel="next" title="UE4 Network流程">
+      UE4 Network流程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UPROPERTY%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">UPROPERTY介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%B1%9E%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">详细属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Blueprint%E7%9B%B8%E5%85%B3"><span class="nav-number">2.1.</span> <span class="nav-text">Blueprint相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E5%99%A8%E8%A1%A8%E7%8E%B0%E7%9B%B8%E5%85%B3"><span class="nav-number">2.2.</span> <span class="nav-text">编辑器表现相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%9B%B8%E5%85%B3"><span class="nav-number">2.3.</span> <span class="nav-text">资源相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">2.5.</span> <span class="nav-text">序列化</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">VisionXie</p>
+  <div class="site-description" itemprop="description">生活在树上，始终热爱大地，升入天空。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">VisionXie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyvS0HjaG';
+    var conf = '26c6eae6e21dfb5a6535a5e53425e9ec';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一些图形学相关的随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些杂七杂八的渲染相关随笔">
+<meta property="og:url" content="http://example.com/2019/02/28/OtherStudy/%E6%B8%B2%E6%9F%93%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="XiMo">
+<meta property="og:description" content="一些图形学相关的随笔">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-01T16:00:00.000Z">
+<meta property="article:author" content="VisionXie">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="面试题">
+<meta property="article:tag" content="渲染">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2019/02/28/OtherStudy/%E6%B8%B2%E6%9F%93%E7%9B%B8%E5%85%B3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一些杂七杂八的渲染相关随笔 | XiMo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XiMo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">醉后不知天在水，满船清梦压星河。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>All<span class="badge">30</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/28/OtherStudy/%E6%B8%B2%E6%9F%93%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="VisionXie">
+      <meta itemprop="description" content="生活在树上，始终热爱大地，升入天空。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiMo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一些杂七杂八的渲染相关随笔
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-01T00:00:00+08:00">2019-03-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-02 00:00:00" itemprop="dateModified" datetime="2020-12-02T00:00:00+08:00">2020-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index"><span itemprop="name">Other</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2019/02/28/OtherStudy/%E6%B8%B2%E6%9F%93%E7%9B%B8%E5%85%B3/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2019/02/28/OtherStudy/渲染相关/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>一些图形学相关的随笔</p>
+<span id="more"></span>
+<h1 id="图形学相关"><a href="#图形学相关" class="headerlink" title="图形学相关"></a>图形学相关</h1><h2 id="图形学基础"><a href="#图形学基础" class="headerlink" title="图形学基础"></a>图形学基础</h2><h3 id="220-简述四元数的作用，四元数对欧拉角的优点？"><a href="#220-简述四元数的作用，四元数对欧拉角的优点？" class="headerlink" title="220.简述四元数的作用，四元数对欧拉角的优点？"></a>220.简述四元数的作用，四元数对欧拉角的优点？</h3><p>四元数用于表示旋转<br>A.四元数一般定义如下：q=w+xi+yj+zk 其中 w,x,y,z 是实数。同时，有: i<em>i=-1 j</em>j=-1 k*k=-1<br>B.四元数也可以表示为：q=[w,v] 有多种方式可表示旋转，如 axis/angle、欧拉角(Euler angles)、矩阵(matrix)、四元组等。 相对于其它方法，四元组有其本身的优点：<br>a.四元数不会有欧拉角存在的 gimbal lock 问题[万向节死锁]<br>b.四元数由 4 个数组成，旋转矩阵需要 9 个数<br>c.两个四元数之间更容易插值<br>d.四元数、矩阵在多次运算后会积攒误差，需要分别对其做规范化(normalize)和正交化 (orthogonalize)，对四元数规范化更容易<br>e.与旋转矩阵类似，两个四元组相乘可表示两次旋转</p>
+<h3 id="221-向量的点乘、叉乘以及归一化的意义？"><a href="#221-向量的点乘、叉乘以及归一化的意义？" class="headerlink" title="221.向量的点乘、叉乘以及归一化的意义？"></a>221.向量的点乘、叉乘以及归一化的意义？</h3><p>1）点乘描述了两个向量的相似程度，结果越大两向量越相似，还可表示投影<br>2）叉乘得到的向量垂直于原来的两个向量<br>3）标准化向量：用在只关系方向，不关心大小的时候</p>
+<h3 id="222-矩阵相乘的意义及注意点"><a href="#222-矩阵相乘的意义及注意点" class="headerlink" title="222.矩阵相乘的意义及注意点"></a>222.矩阵相乘的意义及注意点</h3><p>用于表示线性变换：旋转、缩放、投影、平移、仿射<br>注意矩阵的蠕变：误差的积累</p>
+<h3 id="223-alpha-blend-工作原理"><a href="#223-alpha-blend-工作原理" class="headerlink" title="223.alpha blend 工作原理"></a>223.alpha blend 工作原理</h3><p>实际显示颜色 = 前景颜色<em>Alpha/255 + 背景颜色</em>(255-Alpha)/255</p>
+<h3 id="224-写光照计算中的-diffuse-的计算公式"><a href="#224-写光照计算中的-diffuse-的计算公式" class="headerlink" title="224.写光照计算中的 diffuse 的计算公式"></a>224.写光照计算中的 diffuse 的计算公式</h3><p>实际光照强度 I= 环境光(Iambient) + 漫反射光(Idiffuse) + 镜面高光(Ispecular);<br>环境光：Iambient= Aintensity<em>Acolor;(Aintensity 表示环境光强度，Acolor 表示环境光颜色)<br>漫反射光：Idiffuse = Dintensity</em>Dcolor<em>N.L;(Dintensity 表示漫反射强度，Dcolor 表示漫反射光颜色，N 为该点的法向量，L 为光源向量)<br>镜面反射光：Ispecular = Sintensity</em>Scolor*(R.V)^n;(Sintensity 表示镜面光照强度，Scolor 表示镜面光颜色，R 为光的反射向量，V 为观察者向量，n 称为镜面光指数)</p>
+<h3 id="225-两种阴影判断的方法工作原理"><a href="#225-两种阴影判断的方法工作原理" class="headerlink" title="225.两种阴影判断的方法工作原理"></a>225.两种阴影判断的方法工作原理</h3><p>阴影由两部分组成：本影与半影<br>本影：景物表面上那些没有被光源直接照射的区域（全黑的轮廓分明的区域）<br>半影：景物表面上那些被某些特定光源直接照射但并非被所有特定光源直接照射的区域（半明半暗区域）<br>求阴影区域的方法：做两次消隐过程<br>一次对每个光源进行消隐，求出对于光源而言不可见的区域 L；<br>一次对视点的位置进行消隐，求出对于视点而言可见的面 S；<br>shadow area = L ∩ S<br>阴影分为两种：自身阴影和投射阴影<br>自身阴影：因物体自身的遮挡而使光线照射不到它上面的某些可见面<br>工作原理：利用背面剔除的方法求出，即假设视点在点光源的位置。<br>投射阴影：因不透明物体遮挡光线使得场景中位于该物体后面的物体或区域受不到光照照射而形成的阴影<br>工作原理：从光源处向物体的所有可见面投射光线，将这些面投影到场景中得到投影面，再将这些投影面与场景中的其他平面求交得出阴影多边形，保存这些阴影多边形信息，然后再按视点位置对场景进行相应处理得到所要求的视图（利用空间换时间，每次只需依据视点位置进行一次阴影计算即可，省去了一次消隐过程）若是动态光源此方法就无效了。</p>
+<h3 id="226-Vertex-Shader-是什么？怎么计算？"><a href="#226-Vertex-Shader-是什么？怎么计算？" class="headerlink" title="226.Vertex Shader 是什么？怎么计算？"></a>226.Vertex Shader 是什么？怎么计算？</h3><p>顶点着色器是一段执行在 GPU 上的程序，用来取代 fixed pipeline 中的 transformation和 lighting，Vertex Shader 主要操作顶点。<br>Vertex Shader 对输入顶点完成了从 local space 到 homogeneous space（齐次空间）的变换过程，homogeneous space 即 projection space 的下一个 space。在这其间共有 worldtransformation, view transformation 和 projection transformation 及 lighting 几个过程。</p>
+<h3 id="227-什么是渲染管道？"><a href="#227-什么是渲染管道？" class="headerlink" title="227.什么是渲染管道？"></a>227.什么是渲染管道？</h3><p>是指在显示器上为了显示出图像而经过的一系列必要操作。 渲染管道中的很多步骤，都要将几何物体从一个坐标系中变换到另一个坐标系中去。主要步骤有：<br>本地坐标-&gt;视图坐标-&gt;背面裁剪-&gt;光照-&gt;裁剪-&gt;投影-&gt;视图变换-&gt;光栅化。</p>
+<h3 id="228-怎么判断两个平面是否相交-不能用碰撞体-说出计算方法"><a href="#228-怎么判断两个平面是否相交-不能用碰撞体-说出计算方法" class="headerlink" title="228.怎么判断两个平面是否相交?不能用碰撞体,说出计算方法"></a>228.怎么判断两个平面是否相交?不能用碰撞体,说出计算方法</h3><p>对于两个平面Ax+By+Cz+D=0与ax+by+cz+d=0，只要(A,B,C)与(a,b,c)不成比例，这两个平面就是相交的。</p>
+<h3 id="229-法线贴图-、CG-动画"><a href="#229-法线贴图-、CG-动画" class="headerlink" title="229.法线贴图 、CG 动画"></a>229.法线贴图 、CG 动画</h3><p>A.法线贴图：是在原物体的凹凸表面的每个点上均作法线，通过 RGB 颜色通道来标记法线的方向， 你可以把它理解成与原凹凸表面平行的另一个不同的表面，但实际上它又只是一个光滑的平面。<br>B.CG 动画：原为 Computer Graphics 的英文缩写。随着以计算机为主要工具进行视觉设计和生产的一系列相关产业的形成,国际上习惯将利用计算机技术进行视觉设计和生产的领域通称为 CG。它既包括技术也包括艺术，几乎囊括了当今电脑时代中所有的视觉艺术创作活动，如平面印刷品的设计、网页设计、三维动画、影视特效、多媒体技术、以计算机辅助设计为主的建筑设计及工业造型设计等。</p>
+<h3 id="230-什么是局部坐标，什么是世界坐标？"><a href="#230-什么是局部坐标，什么是世界坐标？" class="headerlink" title="230.什么是局部坐标，什么是世界坐标？"></a>230.什么是局部坐标，什么是世界坐标？</h3><p>世界坐标是不会变的，一直以世界坐标轴的 XYZ 为标准。 局部坐标其实就是自身的坐标，会随着物体的旋转而变化的。</p>
+<h3 id="231-请描述-MeshRender-中-material-和-shader-的区别？"><a href="#231-请描述-MeshRender-中-material-和-shader-的区别？" class="headerlink" title="231.请描述 MeshRender 中 material 和 shader 的区别？"></a>231.请描述 MeshRender 中 material 和 shader 的区别？</h3><p>Shader（着色器）实际上就是一小段程序，它负责将输入的 Mesh（网格）以指定的方式和输入的贴图或者颜色等组合作用，然后输出。绘图单元可以依据这个输出来将图像绘制到屏幕上。输入的贴图或者颜色等，加上对应的 Shader，以及对 Shader 的特定的参数设置，将这些内容（Shader 及输入参数）打包存储在一起，得到的就是一个 Material（材质）Shader 大体上可以分为两类:表面着色器（Surface Shader） 、片段着色器（Fragment Shader）</p>
+<h3 id="232-什么是矢量图"><a href="#232-什么是矢量图" class="headerlink" title="232.什么是矢量图"></a>232.什么是矢量图</h3><p>矢量图：计算机中显示的图形一般可以分为两大类——矢量图和位图。矢量图使用直线和曲线来描述图形，这些图形的元素是一些点、线、矩形、多边形、圆和弧线等等，它们都是通过数学公式计算获得的。例如一幅花的矢量图形实际上是由线段形成外框轮廓， 由外框的颜色以及外框所封闭的颜色决定花显示出的颜色。由于矢量图形可通过公式计算获得，所以矢量图形文件体积一般较小。矢量图形最大的优点是无论放大、缩小或旋转等不会失真；最大的缺点是难以表现色彩层次丰富的逼真图像效果。</p>
+<h3 id="233-四元组是什么"><a href="#233-四元组是什么" class="headerlink" title="233.四元组是什么?"></a>233.四元组是什么?</h3><p>所谓四元数，就是把 4 个实数组合起来的东西。4 个元素中，一个是实部，其余 3 个是虚部。</p>
+<h3 id="234-你对你的数学知识感觉如何？比如空间向量，图形学"><a href="#234-你对你的数学知识感觉如何？比如空间向量，图形学" class="headerlink" title="234.你对你的数学知识感觉如何？比如空间向量，图形学"></a>234.你对你的数学知识感觉如何？比如空间向量，图形学</h3><p>个人感觉还是不错的，空间向量和图形学之前有自学过。只是在实际工作中直接使用的机会比较少，底层的一些操作有些生疏了。</p>
+<h3 id="235-会写shader么"><a href="#235-会写shader么" class="headerlink" title="235.会写shader么"></a>235.会写shader么</h3><p>了解一些，但是写的不多</p>
+<h3 id="236-3D基础相关"><a href="#236-3D基础相关" class="headerlink" title="236.3D基础相关"></a>236.3D基础相关</h3><p>2  1  0       1  0  1<br>1  0  1   ×   0  0  0<br>2  1  1       1  1  1<br>上述两个矩阵相乘的结果<br>2   0   2<br>2   1   2<br>3   1   3</p>
+<h3 id="237-什么是投影矩阵"><a href="#237-什么是投影矩阵" class="headerlink" title="237.什么是投影矩阵"></a>237.什么是投影矩阵</h3><p>投影矩阵是一个典型的缩放和透视矩阵。投影变换将视锥变换成一个直平行六面体的形状。因为视锥的近处比远处小，这样就会对靠近摄像机的对象起到放大的作用，也就将透视应用到了场景当中</p>
+<h3 id="238-什么是UV"><a href="#238-什么是UV" class="headerlink" title="238.什么是UV"></a>238.什么是UV</h3><p>UV坐标是指所有的图象文件都是二维的一个平面。水平方向是U，垂直方向是V，通过这个平面的，二维的UV坐标系。我们可以定位图象上的任意一个象素。</p>
+<h3 id="239-Cullback，cullfront，culloff区别"><a href="#239-Cullback，cullfront，culloff区别" class="headerlink" title="239.Cullback，cullfront，culloff区别"></a>239.Cullback，cullfront，culloff区别</h3><p>剔除背面、剔除前面、不剔除</p>
+<p>240.什么是顶点程序和片段程序<br>顶点着色器是一组指令代码，这组指令代码在顶点被渲染时执行。<br>片段着色器也是在 GPU 上运行的小程序。它们负责输出每个呈现的三角形像素的最终像素颜色。基本而言，它的工作原理如下：片段着色器以输入的形式收到顶点着色器通过管道传递的所有这些片段。</p>
+<p>241.如何实现以下人物在树丛中部分透明效果？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">&quot;Custom/PlayerDiffuse&quot;</span> &#123;</span><br><span class="line">    Properties &#123;</span><br><span class="line">        _NotVisibleColor (<span class="string">&quot;NotVisibleColor (RGB) &quot;</span>, Color) = (<span class="number">0.3</span>,<span class="number">0.3</span>,<span class="number">0.3</span>,<span class="number">1</span>)</span><br><span class="line">        _MainTex (<span class="string">&quot;Base (RGB) &quot;</span>, <span class="number">2</span>D) = <span class="string">&quot;white&quot;</span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    SubShader &#123;</span><br><span class="line">        Tags &#123; <span class="string">&quot;Queue&quot;</span>= <span class="string">&quot;Geometry+500&quot;</span><span class="string">&quot;RenderType&quot;</span>=<span class="string">&quot;Opaque&quot;</span>&#125;</span><br><span class="line">        LOD <span class="number">200</span> </span><br><span class="line">        Pass &#123;</span><br><span class="line">            ZTest Greater</span><br><span class="line">            Lighting Off</span><br><span class="line">            ZWrite Off</span><br><span class="line">          <span class="comment">//Color [_NotVisibleColor]</span></span><br><span class="line">            Blend SrcAlpha OneMinusSrcAlpha</span><br><span class="line">            SetTexture [_MainTex] &#123; ConstantColor [_NotVisibleColor] combine constant * texture &#125; </span><br><span class="line">        &#125; </span><br><span class="line">        Pass &#123;</span><br><span class="line">            ZTest LEqual</span><br><span class="line">            Material &#123;</span><br><span class="line">                <span class="built_in">Diffuse</span> (<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">                <span class="built_in">Ambient</span> (<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            Lighting Off</span><br><span class="line">            SetTexture [_MainTex] &#123; combine texture &#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    FallBack <span class="string">&quot;Diffuse&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>242.简述lightmap的使用<br>(此为帖子全文,请自己简述)<br>Unity 完全集成了光照贴图，可以通过编辑器创建完整的光照贴图，你完全不用担心，所有材质会自动获得光照贴图。光照贴图的意思是，所有灯光的特性将被直接映射到Beast lightmapper并烘培到纹理，以此获得更好的性能。UnityPro版扩展了全局光照功能，可以烘焙出真实而漂亮的光照，当然这就不能同时使用实时光照。此外，Unity专业版带给你天光和发光材质，为你增加更有趣的场景照明。<br>在此页中，你会发现更深入的描述，可以找到在Lightmapping窗口的所有属性。从菜单中Window – Lightmapping打开Lightmapping窗口。<br>物体<br>物体的烘培设置：灯光、网格渲染和地形 - 取决于当前的选择。<br>网格渲染器和地形：<br>·Static 静态<br>可渲染网格和地形必须标记为静态才能被烘培。<br>·Scale In Lightmap 光照图比率<br>（只作用于可渲染网格）特别大的数值将分配给可渲染网格更大的分辨率。最终分辨率比例（光照图缩放）<em>（物体世界坐标空间所占面积）</em>全局分辨率烘培设置）如果设置为0物体将不被烘培。（但是它依旧对其他的物体有影响）<br>·Lightmap Size 光照图大小<br>（只作用于地形）光照贴图尺寸是地形实例独有的属性，地形将不和其他物体共用图集。地形光照贴图将存贮在一个单独的文件中。<br>·Atlas 图集<br>图集信息-如果Lock Atlas（锁定图集）选项没有开启那么这些参数将自动更新。如果Lock Atlas（锁定图集）选项开启，这些参数将不会自动编辑。但是你可以手动设置他们。<br>·Lightmap Index 光照图索引<br>光照贴图序列中的索引。<br>·Tiling 平铺<br>（只作用于可渲染网格）物体光照贴图UVs平铺。<br>·Offset 偏移<br>（只作用于可渲染网格）物体UVs的偏移。<br>Lights 灯光：<br>·Lightmapping 光照贴图<br>光照图模式：仅实时模式，自动模式和仅烘培 模式。查看下面Dual Lightmaps的描述。<br>·Color 颜色<br>灯光颜色。一些属性只作用于实时光照。<br>·Intensity 光强度<br>灯光照明强度。一些属性只作用于实时光照。<br>·Bounce Intensity 反弹强度<br>特定光源间接光照强度的倍增值。<br>·Baked Shadows 烘焙阴影<br>控制当前灯光是否产生阴影。（当选择自动选项时同时影响实施阴影的产生）<br>·Shadow Radius 阴影半径<br>（只作用于点光源和聚光灯）增加这个值将得到一个较柔和的阴影。增加这个值的大小影响阴影覆盖面积范围的计算（不会影响到灯光照射范围）。<br>·Shadow Angle 阴影角度<br>（只影响平行光）增加这个值将会得到一个比较柔和的阴影-增加灯光阴影覆盖角度范围的计算。（不会影响到灯光照射范围）<br>·Shadow Samples 阴影采样<br>如果你将阴影半径或者角度设置为大于0的值，增加阴影采样值能得到一个比较好的结果。高采样值将消除半影中中的噪点。<br>Bake 烘焙<br>全局烘焙设置。<br>·Mode 模式<br>控制离线烘培和实时光照模式。在Dual Lightmaps 模式下近端和远端光照图都将被烘培；只有延迟光照渲染方式式才能更好的支持双重光照图。Single Lightmaps 模式仅烘培远端光照图。在延迟渲染方式下也可以强制使用单光照图模式。<br>·Use in forward rendering 使用正向渲染<br>(Dual lightmaps only) 在正向渲染中启用dual lightmaps。要注意的是这需要你创建自己的shader来达到目的。<br>·Quality 质量<br>高质量（比较好的效果）和低质量（计算速度快）的预设值。它们将影响最终聚集光线数量和对比度的数值以及其他有关最终聚集和抗锯齿的设置。<br>·Bounces 反弹<br>控制全局光照模拟中光线反弹的次数。如果想得到一个比较柔和的相对真实的光照至少需要将此数值设置为1.如果设置为0那么只会计算直接光照。<br>·Sky Light Color 天光颜色<br>天光是模拟从天球向所有方向发射光线照射场景-在烘培室外场景的时候开启天光将得到一个非常好的效果。<br>·Sky Light Intensity 天光强度<br>天光的强度 - 0代表禁用天光。<br>·Bounce Boost 反弹增强<br>增强间接光， 可用来增加场景中渲染太快没有烘焙出灯光的反弹量。<br>·Bounce Intensity 反弹强度<br>间接光照的强度倍增器。<br>·Final Gather Rays 最终聚集光线<br>控制从最终聚集点发射的光线数量-较高的数值能得到更好的效果 。<br>·Contrast Threshold<br>对比度阈值<br>颜色对比度根据采样运算规则控制哪些最终聚集点被创建。较高的数值可以使Beast处理物体表面灯光照明时有很大的改善，从而得到一张平滑的光照贴图但是会牺牲一些照明细节。较低的数值需要最终聚集光线数量要高于对比度阈值这样被过滤掉的最终聚集点才能被创建出来。<br>·Interpolation 插值<br>控制最终聚集点颜色的插值。设置0为线性插值，设置1为基于梯度的高级插值。多数情况下推荐使用后者。<br>·Interpolation Points 插值点<br>设置最终聚集点颜色的插值的参考点。高数值可以获得比较平滑的结果，但是会牺牲一些光照细节。<br>·Ambient Occlusion<br>环境光遮挡<br>烘培光照图时产生一定数量的环境阻光。环境阻光计算物体每一点被一定距离内的其他物体或者一定距离内自身物体的遮挡程度（用来模拟物体表面环境光及阴影覆盖的比例，达到全局光照的效果），所以和所有的灯光设置没有太大关系。<br>·Max Distance 最大距离<br>Beyond this distance a ray is considered to be unoccluded. 0 stands for infinitely long rays.<br>超出这个距离的光线将不被遮挡。0表示无限长的光线。<br>·Contrast 对比度<br>控制完全阻光和不阻光之间的过度。<br>·Lock Atlas 锁定图集<br>当锁定图集被打开。自动图集功能将不执行，物体光照图索引，平铺和偏移将不能编辑。<br>·Resolution 分辨率<br>每世界单位中光照图分辨率的大小。因此当设置分辨率为50的一个10单位乘以10单位的平面将产生一张500*500像素的光照贴图。<br>Maps 贴图所有光照贴图的可编辑数组。<br>·Compressed 压缩<br>控制是否压缩所有当前场景中的光照贴图。<br>·Array Size 数组大小<br>光照贴图数组的大小（0～254）。<br>·Lightmaps Array 光照贴图数组<br>当前场景被烘培的所有光照图的可编辑序列。没有被指定的通道将被处理为黑色光照图。索引相当于网格渲染和地形中所使用的光照图编号。除非锁定图集被开启否则序列将自动初始化并分配给你烘培的贴图。<br>Lightmap Display 光照贴图显示<br>在编辑器中控制光照图如何显示的工具。光照图显示是在场景视口中的一个子窗口。可见只要光照图窗口可见。<br>·Use Lightmaps 使用光照贴图<br>是否渲染光照图。<br>·Shadow Distance 阴影距离<br>根据过度到只使用远端光照图时哪些设置为自动模式的灯光被关闭的距离。这里的设置覆盖其他面板中相关设置。但是不能覆盖质量设置中的阴影距离设置。<br>·Show Resolution 显示分辨率<br>切换在场景中是否显示光照图分辨率。开启这项设置你可以在你的场景中直接预览静态物体光照图的分辨率大小。<br>Details 细节<br>Dual Lightmaps 双重光照贴图<br>双光照贴图是Unity中的光照贴图可以同高光贴图，法线贴图和适当混合的实时阴影一起渲染的工具。同时它也可以让你的光照贴图看起来效果更好，即使设置的光照分辨率较低。<br>双光照贴图默认情况下只能用于延迟光照渲染路径。但通过编写自定义着色器就可能让双光照贴图用于前向渲染路径中（使用dualforward表面着色指令）。<br>双光照贴图即意为使用两套光照贴图：<br>·远 ：包含全部照明<br>·近 ：包含标记为自动模式的灯光所产生的的间接照明，和标记为仅烘焙模式的灯光，发光材质和天光的所有照明。<br>设置为仅实时的灯光永远不会被烘培。近端光照图作用于质量设置中的相对摄像机最小阴影距离范围内。<br>在这个距离范围内，自动模式的灯光将实时渲染高光，凹凸和阴影，（它们的阴影与实时模式的等光的阴影融为一体），间接光则来自近端光照贴图。 若超出阴影距离自动模式灯光就不再进行实时渲染，而全部照明都由光照贴图产生（仅实时模式灯光仍然产生照明，但不产生阴影）。<br>下面的场景包含一个默认设置为为自动模式的平行光，一些烘培完光照贴图的静态物体（建筑物，障碍物，其他静态物体）和一些动态的移动或可移动物体（持枪的假人，桶）。 该场景在双重光照贴图模式中烘焙和渲染：阴影距离以外的建筑物完全由光照贴图产生照明，而两个假人由实时灯光产生动态光照，但是不投射阴影; 阴影距离范围内的建筑物和地面被即时光照亮并投下实时阴影，但柔和的间接光是来自于近端光照贴图产生。</p>
+<p>243.Shader的代码实现？大概写一下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">&quot;Custom/NewSurfaceShader&quot;</span>&#123;</span><br><span class="line">Properties &#123;</span><br><span class="line">        _Color (<span class="string">&quot;Color&quot;</span>, Color) = (<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">      _MainTex (<span class="string">&quot;Albedo (RGB) &quot;</span>, <span class="number">2</span>D) = <span class="string">&quot;white&quot;</span> &#123;&#125;</span><br><span class="line">      _Glossiness (<span class="string">&quot;Smoothness&quot;</span>, <span class="built_in">Range</span>(<span class="number">0</span>,<span class="number">1</span>)) = <span class="number">0.5</span></span><br><span class="line">      _Metallic (<span class="string">&quot;Metallic&quot;</span>, <span class="built_in">Range</span>(<span class="number">0</span>,<span class="number">1</span>)) = <span class="number">0.0</span></span><br><span class="line">    &#125;</span><br><span class="line">    SubShader &#123;</span><br><span class="line">        Tags &#123; <span class="string">&quot;RenderType&quot;</span>=<span class="string">&quot;Opaque&quot;</span> &#125;</span><br><span class="line">        LOD <span class="number">200</span> </span><br><span class="line">        CGPROGRAM</span><br><span class="line">        <span class="comment">// Physically based Standard lighting model, and enable shadows on all light types</span></span><br><span class="line">        <span class="meta">#<span class="meta-keyword">pragma</span> surface surf Standard fullforwardshadows</span></span><br><span class="line">        <span class="comment">// Use shader model 3.0 target, to get nicer looking lighting</span></span><br><span class="line">        <span class="meta">#<span class="meta-keyword">pragma</span> target 3.0</span></span><br><span class="line">        sampler2D _MainTex;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">Input</span> &#123;</span></span><br><span class="line">            float2 uv_MainTex;</span><br><span class="line">        &#125;;</span><br><span class="line">        half _Glossiness;</span><br><span class="line">        half _Metallic;</span><br><span class="line">        fixed4 _Color;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">surf</span> <span class="params">(Input IN, inout SurfaceOutputStandard o)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// Albedo comes from a texture tinted by color</span></span><br><span class="line">            fixed4 c = <span class="built_in">tex2D</span> (_MainTex, IN.uv_MainTex) * _Color;</span><br><span class="line">            o.Albedo = c.rgb;</span><br><span class="line">            <span class="comment">// Metallic and smoothness come from slider variables</span></span><br><span class="line">            o.Metallic = _Metallic;</span><br><span class="line">            o.Smoothness = _Glossiness;</span><br><span class="line">            o.Alpha = c.a;</span><br><span class="line">         &#125;</span><br><span class="line">         ENDCG</span><br><span class="line">    &#125; </span><br><span class="line">    FallBack <span class="string">&quot;Diffuse&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>244.游戏中要怎么实现矩阵相乘？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//矩阵相乘</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span>[][] <span class="built_in">Mul</span>(<span class="keyword">float</span>[][] a, <span class="keyword">float</span>[][] b) &#123;</span><br><span class="line">        <span class="comment">//确保矩阵a的列数和b的行数相等</span></span><br><span class="line">        <span class="keyword">if</span>(a[<span class="number">0</span>].length != b.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> null;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="comment">//用来存放结果的矩阵，axb的结果为a的行数和b的列数</span></span><br><span class="line">        <span class="keyword">float</span>[][] result = <span class="keyword">new</span> <span class="keyword">float</span>[a.length][b[<span class="number">0</span>].length]; </span><br><span class="line">        <span class="comment">//对a的每行进行遍历</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;a.length; i++) &#123;</span><br><span class="line">            <span class="comment">//对b的每列进行遍历</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;b[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">                <span class="comment">//c为每一个点的值</span></span><br><span class="line">                <span class="keyword">float</span> c = <span class="number">0</span>;</span><br><span class="line">                <span class="comment">//第i行j列的值为a的第i行上的n个数和b的第j列上的n个数对应相乘之和，其中n为a的列数，也是b的行数，a的列数和b的行数相等</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;a[<span class="number">0</span>].length; k++) &#123;</span><br><span class="line">                    c += (a[i][k]*b[k][j]);</span><br><span class="line">                &#125;</span><br><span class="line">                result[i][j] = c;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="28-了解OpenGL和DX3D吗？了解shader吗？"><a href="#28-了解OpenGL和DX3D吗？了解shader吗？" class="headerlink" title="28.了解OpenGL和DX3D吗？了解shader吗？"></a>28.了解OpenGL和DX3D吗？了解shader吗？</h3><p>有了解过<br>OpenGL是用于渲染2D、3D矢量图形的跨语言、跨平台的应用程序编程接口（API）<br>DX3D是Windows和XBOX平台下的一套底层的3D图形API<br>Shader，着色器，是运行在GUP上的一组指令，这些能在屏幕上着色或绘制某些东西的程序我们称之为Shader<br>Shaders以不同功能进行分类。第一种是顶点着色器Vertex shader，第二种是像素着色器Pixel shader，第三种是几何着色器Geometry shader，第四种是计算着色器Compute shader，第五种为细分曲面着色器Tessellation or hull shader。</p>
+<h3 id="29-什么是顶点着色器？什么是片元着色器？"><a href="#29-什么是顶点着色器？什么是片元着色器？" class="headerlink" title="29.什么是顶点着色器？什么是片元着色器？"></a>29.什么是顶点着色器？什么是片元着色器？</h3><p>渲染管线过程中，使用顶点着色器对顶点数据进行处理，得到顶点的颜色值透明度法线信息<br>片元着色器是根据传入的顶点，逐像素绘制片元数据</p>
+<h3 id="30-Unity渲染管线？请简单描述一下这个过程？"><a href="#30-Unity渲染管线？请简单描述一下这个过程？" class="headerlink" title="30.Unity渲染管线？请简单描述一下这个过程？"></a>30.Unity渲染管线？请简单描述一下这个过程？</h3><p>纹理信息和顶点数据经过渲染管线得到2D的图片<br>渲染管线分成以下部分。<br>应用阶段，几何阶段，光栅化阶段，逐片元阶段，后处理</p>
+<ul>
+<li><p>应用阶段：输出渲染图元到几何阶段<br>设置场景基本数据：收集模型的大小,位置和旋转信息、光源类型和光照信息、摄像机参数<br>设置渲染状态，准备渲染参数：渲染类型是从后往前还是从前往后等<br>调用Draw Call：CPU通知GPU可以开始渲染</p>
+</li>
+<li><p>几何阶段：输出屏幕空间的顶点信息到光栅化阶段<br>顶点着色器（可编程）：<br>顶点变换：模型坐标系 ——&gt; 世界坐标系 ——&gt; 观察坐标系 ——&gt; 投影坐标系 俗称：MVP矩阵<br>顶点着色：计算顶点光照等数据 并设置顶点颜色<br>可选顶点处理（可编程）：曲面细分和几何着色器</p>
+</li>
+<li><p>光栅化阶段<br>三角形设置：将几何阶段处理好的顶点按照三角形设置<br>三角形遍历：遍历三角形内部的片元并输出到下一阶段 注：片元并不是真正意义上的像素,而是包含了很多状态的集合，包括屏幕坐标，深度信息以及从几何阶段输出的顶点信息</p>
+</li>
+<li><p>逐片源阶段<br>片元着色器（可编程）：实现逐个片元的着色操作<br>颜色混合 (高度可配置)：会剔除掉部分片元<br>透明度测试<br>模板测试和深度测试<br>将通过测试的片元与颜色缓冲区的颜色混合<br>输出到目标缓冲区：可能是帧缓冲区( FrameBuffer) 或者渲染贴图 (RenderTexture)</p>
+</li>
+<li><p>后处理<br>各种屏幕上的效果：景深，bloom，高斯模糊等</p>
+</li>
+</ul>
+<h3 id="31-可编程渲染管线和固定管线的区别和优势？"><a href="#31-可编程渲染管线和固定管线的区别和优势？" class="headerlink" title="31.可编程渲染管线和固定管线的区别和优势？"></a>31.可编程渲染管线和固定管线的区别和优势？</h3><p>固定渲染管线的OpenGLES不需要也不允许你自己去定义顶点渲染和像素渲染的具体逻辑，它内部已经固化了一套完整的渲染流程，只需要开发者在CPU代码端输入渲染所需要的参数并指定特定的开关，就能完成不同的渲染。</p>
+<p>可编程渲染管线的OpenGLES版本必须由开发者自行实现渲染流程，否则无法绘制出最终的画面。开发者可以根据自己的具体需要来编写顶点渲染和像素渲染中的具体逻辑，可最大程度的简化渲染管线的逻辑以提高渲染效率，也可自己实现特定的算法和逻辑来渲染出固定管线无法渲染的效果。具有很高的可定制性，但同时也对开发者提出了更高的要求。</p>
+<h3 id="32-什么是Z缓冲？什么是G缓冲？作用？"><a href="#32-什么是Z缓冲？什么是G缓冲？作用？" class="headerlink" title="32.什么是Z缓冲？什么是G缓冲？作用？"></a>32.什么是Z缓冲？什么是G缓冲？作用？</h3><p>Z缓冲指在3D环境中每个像素中会利用一组数据资料来定义像素在显示时的纵深度（Z轴座标值）。Z缓冲所用的位数越高，则代表该显示卡所提供的物件纵深感也越精确。这样，当画面中的视角发生变化时，可以即时地将这些变化反映出来，从而避免了由于运算速度缓慢所造成的图形失真。</p>
+<h3 id="33-Unity如何将一个顶点变换到屏幕上？请写出矩阵变换的过程？"><a href="#33-Unity如何将一个顶点变换到屏幕上？请写出矩阵变换的过程？" class="headerlink" title="33.Unity如何将一个顶点变换到屏幕上？请写出矩阵变换的过程？"></a>33.Unity如何将一个顶点变换到屏幕上？请写出矩阵变换的过程？</h3><p>一个顶点从模型空间（对象空间）经过模型变换到世界空间，当模型被放到世界坐标系中时，表达某个模型的位置使用的是世界空间下的坐标，所以模型上对应的某一个点，必须相应的转化为世界空间下的坐标<br>再通过视图转换，转换到以摄像机为视角的观察空间，以摄像机位置为原点，摄像机局部坐标轴为坐标轴的坐标系。<br>通过裁剪矩阵变换到裁剪空间，最后到达屏幕空间，裁剪空间到屏幕空间由unity自动完成 顶点着色器只需要将顶点转换到裁剪空间即可<br>使用xyz分别处以w分量，得到NDC（归一化设备坐标），经过这一步，能够看到的坐标点变成了一个xy边长为1，z为-1到1的立方体。<br>使用NDC坐标和屏幕长宽像素直接映射，得到屏幕空间下的xy坐标。注意，虽然屏幕空间没有深度，但屏幕空间下的坐标仍然保留了z的深度值，可以进行深度检测或其他处理。</p>
+<p>从裁剪空间到屏幕空间由unity直接进行。这里还要记住，从裁剪空间到屏幕空间，插值是硬件直接进行的。</p>
+<h3 id="34-如何实现顶点动画？举一个你自己的例子"><a href="#34-如何实现顶点动画？举一个你自己的例子" class="headerlink" title="34.如何实现顶点动画？举一个你自己的例子"></a>34.如何实现顶点动画？举一个你自己的例子</h3><p>//在顶点着色器中更改顶点位置并且进行矩阵变换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">v2f vert(appdata v)</span><br><span class="line"> &#123;</span><br><span class="line"> v2f o;</span><br><span class="line"> float timer = _Time.y *_Speed;</span><br><span class="line"> //变化之前做一个波动</span><br><span class="line"> y= Asin（ωx+φ）</span><br><span class="line"> float waver = _Arange*sin(timer + v.vertex.x *_Frequency);//波动参数</span><br><span class="line"> v.vertex.y = v.vertex.y + waver;//顶点位置变换</span><br><span class="line"> o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);//矩阵变换</span><br><span class="line"> o.uv = v.uv;;</span><br><span class="line"> return o;</span><br><span class="line"> &#125;</span><br><span class="line"> sampler2D _MainTex;</span><br><span class="line"> fixed4 frag(v2f i) :SV_Target</span><br><span class="line"> &#123;</span><br><span class="line"> fixed4 col = tex2D(_MainTex, i.uv);//纹理寻址</span><br><span class="line"> return col;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="35-法线变换和顶点变换有什么区别的关系？"><a href="#35-法线变换和顶点变换有什么区别的关系？" class="headerlink" title="35.法线变换和顶点变换有什么区别的关系？"></a>35.法线变换和顶点变换有什么区别的关系？</h3><h3 id="36-深度测试和模板测试？"><a href="#36-深度测试和模板测试？" class="headerlink" title="36.深度测试和模板测试？"></a>36.深度测试和模板测试？</h3><p>如果开启了深度测试，GPU会把该片元的深度值和已经存在于深度缓冲中的深度值进行比较；这个比较函数也是可由开发者设置的，例如小于时舍弃该片元，或者大于等于时舍弃该片元；通常这个比较函数是小于等于的关系，即如果这个片元的深度值大于等于当前深度缓冲中的值，那么就会舍弃它；这是因为，我们总想只显示出离摄像机最近的物体，而那些被其它物体遮挡的就不需要出现在屏幕上；如果这个片元没有通过这个测试，那么就会被舍弃；和模板测试有些不同的是，如果一个片元没有通过深度测试，它就没有权利更改深度缓冲中的值；而如果它通过了测试，开发者还可以指定是否要用这个片元的深度值覆盖掉原有的深度值，这是通过开启和关闭深度写入来做到的（所以透明效果和深度测试以及深度写入的关系非常密切）；</p>
+<p>如果开启了模板测试，GPU会首先读取（使用读取掩码）模板缓冲中该片元位置的模板值，然后将该值和读取到的参考值（reference value）进行比较，这个比较函数可以是由开发者指定的，例如小于时舍弃该片元，或者大于等于时舍弃该片元；如果这个片元没有通过这个测试，就会被舍弃；不管一个片元有没有通过模板测试，我们都可以根据模板测试和下面的深度测试结果来修改模板缓冲，这个修改操作也是由开发者指定的；</p>
+<h3 id="37-说说shader怎么做性能优化？DrawCall优化？"><a href="#37-说说shader怎么做性能优化？DrawCall优化？" class="headerlink" title="37.说说shader怎么做性能优化？DrawCall优化？"></a>37.说说shader怎么做性能优化？DrawCall优化？</h3><p>1.像素&gt;&gt;顶点数&gt;&gt;物体个数：shader中的计算应首先考虑放在script，其次vert，最后frag中</p>
+<p>2.尽量用精度小的类型替换精度大的类型(特别是在frag中，要尽可能的保持低精度计算，类型转换代价昂贵,手机上支持低精度计算)：省电，快<br>float&gt;half&gt;fixed</p>
+<p>3.forwardAdd这个tag能不用就不用，因为除了平行光，其他的灯光都有执行次有这个tag的通道，进行光照计算</p>
+<p>4.alpha test和ColorMask不建议使用，因为在不同的平台上，执行的效率可能不一样</p>
+<p>5.内建函数代替分支语句</p>
+<p>6、直接代码计算，而不是先声明函数再调用。能大大减少 GPU 函数调用与返回的消耗</p>
+<h3 id="38-最后简要描述一下你自己实现过的一个shader例子？"><a href="#38-最后简要描述一下你自己实现过的一个shader例子？" class="headerlink" title="38.最后简要描述一下你自己实现过的一个shader例子？"></a>38.最后简要描述一下你自己实现过的一个shader例子？</h3><p>高度雾效果<br>在顶点着色器中 根据顶点数据uv的范围，安排uv4个角对应四个角向量</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/Unity/" rel="tag"># Unity</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"># 面试题</a>
+              <a href="/tags/%E6%B8%B2%E6%9F%93/" rel="tag"># 渲染</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/02/12/OtherStudy/%E7%BD%91%E7%BB%9C%E5%B1%82/" rel="prev" title="一些杂七杂八的网络交互随笔">
+      <i class="fa fa-chevron-left"></i> 一些杂七杂八的网络交互随笔
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/20/RealTimeRender4/1/" rel="next" title="RealTimeRendering 1">
+      RealTimeRendering 1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="SOHUCS"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">图形学相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="nav-number">1.1.</span> <span class="nav-text">图形学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#220-%E7%AE%80%E8%BF%B0%E5%9B%9B%E5%85%83%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%8C%E5%9B%9B%E5%85%83%E6%95%B0%E5%AF%B9%E6%AC%A7%E6%8B%89%E8%A7%92%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">220.简述四元数的作用，四元数对欧拉角的优点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#221-%E5%90%91%E9%87%8F%E7%9A%84%E7%82%B9%E4%B9%98%E3%80%81%E5%8F%89%E4%B9%98%E4%BB%A5%E5%8F%8A%E5%BD%92%E4%B8%80%E5%8C%96%E7%9A%84%E6%84%8F%E4%B9%89%EF%BC%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">221.向量的点乘、叉乘以及归一化的意义？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#222-%E7%9F%A9%E9%98%B5%E7%9B%B8%E4%B9%98%E7%9A%84%E6%84%8F%E4%B9%89%E5%8F%8A%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="nav-number">1.1.3.</span> <span class="nav-text">222.矩阵相乘的意义及注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#223-alpha-blend-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.4.</span> <span class="nav-text">223.alpha blend 工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#224-%E5%86%99%E5%85%89%E7%85%A7%E8%AE%A1%E7%AE%97%E4%B8%AD%E7%9A%84-diffuse-%E7%9A%84%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="nav-number">1.1.5.</span> <span class="nav-text">224.写光照计算中的 diffuse 的计算公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#225-%E4%B8%A4%E7%A7%8D%E9%98%B4%E5%BD%B1%E5%88%A4%E6%96%AD%E7%9A%84%E6%96%B9%E6%B3%95%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.6.</span> <span class="nav-text">225.两种阴影判断的方法工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#226-Vertex-Shader-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%80%8E%E4%B9%88%E8%AE%A1%E7%AE%97%EF%BC%9F"><span class="nav-number">1.1.7.</span> <span class="nav-text">226.Vertex Shader 是什么？怎么计算？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#227-%E4%BB%80%E4%B9%88%E6%98%AF%E6%B8%B2%E6%9F%93%E7%AE%A1%E9%81%93%EF%BC%9F"><span class="nav-number">1.1.8.</span> <span class="nav-text">227.什么是渲染管道？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#228-%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA%E5%B9%B3%E9%9D%A2%E6%98%AF%E5%90%A6%E7%9B%B8%E4%BA%A4-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%A2%B0%E6%92%9E%E4%BD%93-%E8%AF%B4%E5%87%BA%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.9.</span> <span class="nav-text">228.怎么判断两个平面是否相交?不能用碰撞体,说出计算方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#229-%E6%B3%95%E7%BA%BF%E8%B4%B4%E5%9B%BE-%E3%80%81CG-%E5%8A%A8%E7%94%BB"><span class="nav-number">1.1.10.</span> <span class="nav-text">229.法线贴图 、CG 动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#230-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B1%80%E9%83%A8%E5%9D%90%E6%A0%87%EF%BC%8C%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%96%E7%95%8C%E5%9D%90%E6%A0%87%EF%BC%9F"><span class="nav-number">1.1.11.</span> <span class="nav-text">230.什么是局部坐标，什么是世界坐标？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#231-%E8%AF%B7%E6%8F%8F%E8%BF%B0-MeshRender-%E4%B8%AD-material-%E5%92%8C-shader-%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">1.1.12.</span> <span class="nav-text">231.请描述 MeshRender 中 material 和 shader 的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#232-%E4%BB%80%E4%B9%88%E6%98%AF%E7%9F%A2%E9%87%8F%E5%9B%BE"><span class="nav-number">1.1.13.</span> <span class="nav-text">232.什么是矢量图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#233-%E5%9B%9B%E5%85%83%E7%BB%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.14.</span> <span class="nav-text">233.四元组是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#234-%E4%BD%A0%E5%AF%B9%E4%BD%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%E6%84%9F%E8%A7%89%E5%A6%82%E4%BD%95%EF%BC%9F%E6%AF%94%E5%A6%82%E7%A9%BA%E9%97%B4%E5%90%91%E9%87%8F%EF%BC%8C%E5%9B%BE%E5%BD%A2%E5%AD%A6"><span class="nav-number">1.1.15.</span> <span class="nav-text">234.你对你的数学知识感觉如何？比如空间向量，图形学</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#235-%E4%BC%9A%E5%86%99shader%E4%B9%88"><span class="nav-number">1.1.16.</span> <span class="nav-text">235.会写shader么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#236-3D%E5%9F%BA%E7%A1%80%E7%9B%B8%E5%85%B3"><span class="nav-number">1.1.17.</span> <span class="nav-text">236.3D基础相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#237-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8A%95%E5%BD%B1%E7%9F%A9%E9%98%B5"><span class="nav-number">1.1.18.</span> <span class="nav-text">237.什么是投影矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#238-%E4%BB%80%E4%B9%88%E6%98%AFUV"><span class="nav-number">1.1.19.</span> <span class="nav-text">238.什么是UV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#239-Cullback%EF%BC%8Ccullfront%EF%BC%8Cculloff%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.20.</span> <span class="nav-text">239.Cullback，cullfront，culloff区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#28-%E4%BA%86%E8%A7%A3OpenGL%E5%92%8CDX3D%E5%90%97%EF%BC%9F%E4%BA%86%E8%A7%A3shader%E5%90%97%EF%BC%9F"><span class="nav-number">1.1.21.</span> <span class="nav-text">28.了解OpenGL和DX3D吗？了解shader吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#29-%E4%BB%80%E4%B9%88%E6%98%AF%E9%A1%B6%E7%82%B9%E7%9D%80%E8%89%B2%E5%99%A8%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E7%89%87%E5%85%83%E7%9D%80%E8%89%B2%E5%99%A8%EF%BC%9F"><span class="nav-number">1.1.22.</span> <span class="nav-text">29.什么是顶点着色器？什么是片元着色器？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#30-Unity%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%EF%BC%9F%E8%AF%B7%E7%AE%80%E5%8D%95%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E8%BF%99%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="nav-number">1.1.23.</span> <span class="nav-text">30.Unity渲染管线？请简单描述一下这个过程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%E5%92%8C%E5%9B%BA%E5%AE%9A%E7%AE%A1%E7%BA%BF%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E4%BC%98%E5%8A%BF%EF%BC%9F"><span class="nav-number">1.1.24.</span> <span class="nav-text">31.可编程渲染管线和固定管线的区别和优势？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E4%BB%80%E4%B9%88%E6%98%AFZ%E7%BC%93%E5%86%B2%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AFG%E7%BC%93%E5%86%B2%EF%BC%9F%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">1.1.25.</span> <span class="nav-text">32.什么是Z缓冲？什么是G缓冲？作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-Unity%E5%A6%82%E4%BD%95%E5%B0%86%E4%B8%80%E4%B8%AA%E9%A1%B6%E7%82%B9%E5%8F%98%E6%8D%A2%E5%88%B0%E5%B1%8F%E5%B9%95%E4%B8%8A%EF%BC%9F%E8%AF%B7%E5%86%99%E5%87%BA%E7%9F%A9%E9%98%B5%E5%8F%98%E6%8D%A2%E7%9A%84%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="nav-number">1.1.26.</span> <span class="nav-text">33.Unity如何将一个顶点变换到屏幕上？请写出矩阵变换的过程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%A1%B6%E7%82%B9%E5%8A%A8%E7%94%BB%EF%BC%9F%E4%B8%BE%E4%B8%80%E4%B8%AA%E4%BD%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.27.</span> <span class="nav-text">34.如何实现顶点动画？举一个你自己的例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35-%E6%B3%95%E7%BA%BF%E5%8F%98%E6%8D%A2%E5%92%8C%E9%A1%B6%E7%82%B9%E5%8F%98%E6%8D%A2%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-number">1.1.28.</span> <span class="nav-text">35.法线变换和顶点变换有什么区别的关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-%E6%B7%B1%E5%BA%A6%E6%B5%8B%E8%AF%95%E5%92%8C%E6%A8%A1%E6%9D%BF%E6%B5%8B%E8%AF%95%EF%BC%9F"><span class="nav-number">1.1.29.</span> <span class="nav-text">36.深度测试和模板测试？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-%E8%AF%B4%E8%AF%B4shader%E6%80%8E%E4%B9%88%E5%81%9A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9FDrawCall%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="nav-number">1.1.30.</span> <span class="nav-text">37.说说shader怎么做性能优化？DrawCall优化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#38-%E6%9C%80%E5%90%8E%E7%AE%80%E8%A6%81%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E4%BD%A0%E8%87%AA%E5%B7%B1%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%9A%84%E4%B8%80%E4%B8%AAshader%E4%BE%8B%E5%AD%90%EF%BC%9F"><span class="nav-number">1.1.31.</span> <span class="nav-text">38.最后简要描述一下你自己实现过的一个shader例子？</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">VisionXie</p>
+  <div class="site-description" itemprop="description">生活在树上，始终热爱大地，升入天空。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">VisionXie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script>
+  NexT.utils.loadComments(document.querySelector('#SOHUCS'), () => {
+    var appid = 'cyvS0HjaG';
+    var conf = '26c6eae6e21dfb5a6535a5e53425e9ec';
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+    } else {
+      var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});
+    }
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+</body>
+</html>
